@@ -1,0 +1,37 @@
+---
+const APP_URL = "https://app.ldr-design.com";
+---
+
+<section class="flex flex-col items-center justify-center text-center py-20 md:py-32 px-4">
+  <h1 class="text-4xl md:text-6xl font-bold tracking-tight max-w-4xl">
+    Transform Daylight Photos into Professional Nightscape Renderings
+  </h1>
+
+  <p class="mt-6 text-lg text-[hsl(var(--muted-foreground))] max-w-2xl">
+    AI-powered lighting design visualization. Upload a daytime photo, get a professional
+    nightscape rendering in seconds.
+  </p>
+
+  <div class="mt-10 flex flex-col sm:flex-row items-center gap-4">
+    <a
+      href={APP_URL}
+      class="inline-flex items-center justify-center px-6 py-3 rounded-xl text-base font-semibold bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:opacity-90 transition-opacity"
+    >
+      Start Rendering Free
+    </a>
+    <a
+      href="#showcase"
+      class="inline-flex items-center justify-center px-6 py-3 rounded-xl text-base font-semibold border border-[hsl(var(--border))] text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))] transition-colors"
+    >
+      See Examples
+    </a>
+  </div>
+
+  <div
+    class="mt-16 w-full max-w-5xl aspect-video bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-2xl flex items-center justify-center"
+  >
+    <span class="text-[hsl(var(--muted-foreground))] text-lg font-medium tracking-wide">
+      Before / After showcase
+    </span>
+  </div>
+</section>

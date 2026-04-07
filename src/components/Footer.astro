@@ -1,0 +1,61 @@
+---
+const appUrl = "https://app.ldr-design.com";
+
+const navLinks = [
+  { label: "Use Cases", href: "/use-cases/architectural-lighting" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Blog", href: "/blog" },
+  { label: "App", href: appUrl, external: true },
+];
+
+const legalLinks = [
+  { label: "Privacy Policy", href: "#" },
+  { label: "Terms of Service", href: "#" },
+];
+---
+
+<footer class="border-t border-border py-12 text-muted-foreground">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
+      <!-- Brand -->
+      <div class="flex flex-col gap-2">
+        <a href="/" class="text-xl font-bold text-foreground hover:text-primary transition-colors">
+          LDR
+        </a>
+        <p class="text-sm">AI-powered Lighting Design Rendering</p>
+      </div>
+
+      <!-- Nav links -->
+      <nav aria-label="Footer navigation">
+        <ul class="flex flex-wrap gap-x-8 gap-y-3">
+          {navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
+                class="text-sm hover:text-foreground transition-colors"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-10 pt-6 border-t border-border/50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs">
+      <p>© 2026 LDR. All rights reserved.</p>
+      <ul class="flex gap-6">
+        {legalLinks.map((link) => (
+          <li>
+            <a href={link.href} class="hover:text-foreground transition-colors">
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</footer>

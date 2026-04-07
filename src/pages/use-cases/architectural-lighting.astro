@@ -1,0 +1,99 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import ShowcaseGrid from "@/components/ShowcaseGrid.astro";
+import CTABanner from "@/components/CTABanner.astro";
+import { getShowcases } from "@/lib/supabase";
+
+const allShowcases = await getShowcases();
+const showcases =
+  allShowcases.filter((s) => s.category === "architectural").length > 0
+    ? allShowcases.filter((s) => s.category === "architectural")
+    : allShowcases;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Architectural Lighting Design Rendering — AI Visualization",
+  description:
+    "Visualize architectural lighting designs before installation. Transform daytime building photos into professional nightscape renderings with AI.",
+  url: "https://www.ldr-design.com/use-cases/architectural-lighting",
+};
+---
+
+<PageLayout
+  title="Architectural Lighting Design Rendering — AI Visualization"
+  description="Visualize architectural lighting designs before installation. Transform daytime building photos into professional nightscape renderings with AI."
+  jsonLd={jsonLd}
+>
+  <section class="max-w-4xl mx-auto px-4 pt-20 pb-12">
+    <h1 class="text-4xl font-bold text-[hsl(var(--foreground))] leading-tight">
+      Architectural Lighting Design Rendering
+    </h1>
+    <p class="mt-6 text-lg text-[hsl(var(--muted-foreground))] leading-relaxed">
+      Architects and lighting designers face a persistent challenge: clients need to see the
+      finished lighting scheme before a single fixture is installed. Traditional rendering
+      workflows require days of 3D modeling, expensive software licenses, and skilled
+      visualization artists — all before a single construction decision is made.
+    </p>
+    <p class="mt-4 text-lg text-[hsl(var(--muted-foreground))] leading-relaxed">
+      LDR changes that equation. Upload a daytime photo of the building or site, describe your
+      lighting intent — warm uplighting on the facade, cool-white accent strips along the roofline,
+      a lantern-lit entry canopy — and the AI produces a photorealistic nightscape rendering in
+      seconds. The result is a client-ready visual that communicates the design intent clearly,
+      accelerating approval and reducing costly mid-project revisions.
+    </p>
+    <p class="mt-4 text-[hsl(var(--muted-foreground))] leading-relaxed">
+      LDR is used by architectural lighting consultants, facade engineers, and design-build
+      contractors to validate fixture placement, evaluate color temperature choices, and present
+      multiple lighting scenarios side by side — all without a 3D model.
+    </p>
+  </section>
+
+  <ShowcaseGrid showcases={showcases} />
+
+  <section class="max-w-4xl mx-auto px-4 py-16">
+    <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-6">
+      Common Architectural Lighting Applications
+    </h2>
+    <ul class="space-y-3 text-[hsl(var(--muted-foreground))]">
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">Facade illumination:</strong> Preview wash lighting, grazing effects, and dynamic color scenarios on building exteriors before specifying fixtures.</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">Entry and lobby approaches:</strong> Evaluate how pathway lighting, bollards, and canopy downlights interact at the building threshold.</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">Historic preservation projects:</strong> Test sensitive uplighting approaches on listed buildings without committing to intrusive installations.</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">Competition submissions:</strong> Generate compelling nightscape boards quickly for design competition entries and planning applications.</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 pb-16">
+    <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-4">
+      Explore Other Use Cases
+    </h2>
+    <div class="flex flex-wrap gap-4">
+      <a
+        href="/use-cases/landscape-lighting"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        Landscape Lighting
+      </a>
+      <a
+        href="/use-cases/urban-night-planning"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        Urban Night Planning
+      </a>
+    </div>
+  </section>
+
+  <CTABanner />
+</PageLayout>

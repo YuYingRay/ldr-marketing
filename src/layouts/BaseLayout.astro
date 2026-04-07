@@ -1,0 +1,33 @@
+---
+import Head from "../components/Head.astro";
+import "../styles/globals.css";
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  canonicalUrl?: string;
+  jsonLd?: object;
+}
+
+const { title, description, ogImage, canonicalUrl, jsonLd } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <Head
+      title={title}
+      description={description}
+      ogImage={ogImage}
+      canonicalUrl={canonicalUrl}
+      jsonLd={jsonLd}
+    />
+  </head>
+  <body class="min-h-screen bg-background text-foreground antialiased">
+    <slot />
+  </body>
+</html>

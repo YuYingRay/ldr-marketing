@@ -1,0 +1,41 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import Hero from "@/components/Hero.astro";
+import Features from "@/components/Features.astro";
+import HowItWorks from "@/components/HowItWorks.astro";
+import ShowcaseGrid from "@/components/ShowcaseGrid.astro";
+import PricingTable from "@/components/PricingTable.astro";
+import CTABanner from "@/components/CTABanner.astro";
+import { getShowcases } from "@/lib/supabase";
+
+const showcases = await getShowcases();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "LDR - Lighting Design Rendering",
+  description:
+    "AI-powered lighting design rendering platform that transforms daytime photos into professional nightscape visualizations.",
+  url: "https://www.ldr-design.com",
+  applicationCategory: "DesignApplication",
+  operatingSystem: "Web",
+  offers: [
+    { "@type": "Offer", price: "0", priceCurrency: "USD", name: "Free" },
+    { "@type": "Offer", price: "29", priceCurrency: "USD", name: "Pro" },
+    { "@type": "Offer", price: "79", priceCurrency: "USD", name: "Max" },
+  ],
+};
+---
+
+<PageLayout
+  title="AI Lighting Design Rendering — Day to Night in Seconds"
+  description="Transform daytime photos into professional nightscape visualizations with AI. Upload a photo, describe your lighting vision, get publication-ready renders instantly."
+  jsonLd={jsonLd}
+>
+  <Hero />
+  <Features />
+  <HowItWorks />
+  <ShowcaseGrid showcases={showcases} />
+  <PricingTable />
+  <CTABanner />
+</PageLayout>

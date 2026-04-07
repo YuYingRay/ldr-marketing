@@ -1,0 +1,152 @@
+---
+const APP_URL = "https://app.ldr-design.com";
+
+interface Plan {
+  name: string;
+  price: string;
+  period: string;
+  tagline: string;
+  features: string[];
+  cta: string;
+  ctaHref: string;
+  popular?: boolean;
+  ctaVariant: "primary" | "outline";
+}
+
+const plans: Plan[] = [
+  {
+    name: "Free",
+    price: "$0",
+    period: "forever",
+    tagline: "Get started with basic features",
+    features: [
+      "1 generation per day",
+      "1K resolution",
+      "Watermarked output",
+      "7 days history",
+    ],
+    cta: "Get Started",
+    ctaHref: APP_URL,
+    ctaVariant: "outline",
+  },
+  {
+    name: "Pro",
+    price: "$29",
+    period: "month",
+    tagline: "For professionals and studios",
+    features: [
+      "150 generations per month",
+      "4K resolution",
+      "No watermark",
+      "30 semantic segmentations",
+      "30 days history",
+      "Priority support",
+    ],
+    cta: "Upgrade to Pro",
+    ctaHref: `${APP_URL}/pricing`,
+    popular: true,
+    ctaVariant: "primary",
+  },
+  {
+    name: "Max",
+    price: "$79",
+    period: "month",
+    tagline: "For teams and enterprises",
+    features: [
+      "500 generations per month",
+      "4K resolution",
+      "No watermark",
+      "Unlimited segmentations",
+      "365 days history",
+      "API access",
+      "Priority processing",
+    ],
+    cta: "Upgrade to Max",
+    ctaHref: `${APP_URL}/pricing`,
+    ctaVariant: "primary",
+  },
+];
+---
+
+<section class="py-20 px-4">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold text-center text-[hsl(var(--foreground))]">
+      Simple, Transparent Pricing
+    </h2>
+
+    <div class="mt-12 grid md:grid-cols-3 gap-8 items-start">
+      {
+        plans.map((plan) => (
+          <div
+            class={[
+              "relative bg-[hsl(var(--card))] border rounded-2xl p-6 flex flex-col gap-6",
+              plan.popular
+                ? "border-[hsl(var(--primary))] shadow-lg md:scale-105"
+                : "border-[hsl(var(--border))]",
+            ].join(" ")}
+          >
+            {plan.popular && (
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                <span class="bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap">
+                  Most Popular
+                </span>
+              </div>
+            )}
+
+            <div>
+              <h3 class="text-lg font-semibold text-[hsl(var(--foreground))]">
+                {plan.name}
+              </h3>
+              <div class="mt-2 flex items-baseline gap-1">
+                <span class="text-4xl font-bold text-[hsl(var(--foreground))]">
+                  {plan.price}
+                </span>
+                <span class="text-sm text-[hsl(var(--muted-foreground))]">
+                  /{plan.period}
+                </span>
+              </div>
+              <p class="mt-2 text-sm text-[hsl(var(--muted-foreground))]">
+                {plan.tagline}
+              </p>
+            </div>
+
+            <ul class="flex flex-col gap-3 flex-1">
+              {plan.features.map((feature) => (
+                <li class="flex items-start gap-2 text-sm text-[hsl(var(--foreground))]">
+                  <svg
+                    class="w-4 h-4 mt-0.5 shrink-0 text-emerald-500"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M13.5 4.5L6.5 11.5L3 8"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={plan.ctaHref}
+              class={[
+                "inline-flex items-center justify-center px-5 py-2.5 rounded-xl text-sm font-semibold transition-opacity",
+                plan.ctaVariant === "primary"
+                  ? "bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:opacity-90"
+                  : "border border-[hsl(var(--border))] text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]",
+              ].join(" ")}
+            >
+              {plan.cta}
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

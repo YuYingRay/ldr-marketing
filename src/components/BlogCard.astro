@@ -1,0 +1,62 @@
+---
+interface ImageProp {
+  url: string;
+  alt: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  slug: string;
+  image?: ImageProp;
+}
+
+const { title, description, pubDate, slug, image } = Astro.props;
+
+const formattedDate = pubDate.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+---
+
+<article
+  class="surface-card bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-2xl overflow-hidden hover:-translate-y-1 transition-transform duration-200"
+>
+  {
+    image && (
+      <div class="aspect-video overflow-hidden">
+        <img
+          src={image.url}
+          alt={image.alt}
+          class="w-full h-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    )
+  }
+
+  <div class="p-4">
+    <time
+      datetime={pubDate.toISOString()}
+      class="text-xs text-[hsl(var(--muted-foreground))]"
+    >
+      {formattedDate}
+    </time>
+
+    <h3 class="mt-1 text-lg font-semibold text-[hsl(var(--foreground))]">
+      <a
+        href={`/blog/${slug}`}
+        class="hover:text-[hsl(var(--primary))] transition-colors"
+      >
+        {title}
+      </a>
+    </h3>
+
+    <p class="mt-2 text-sm text-[hsl(var(--muted-foreground))] line-clamp-2">
+      {description}
+    </p>
+  </div>
+</article>

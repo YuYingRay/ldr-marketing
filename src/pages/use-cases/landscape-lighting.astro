@@ -1,0 +1,100 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import ShowcaseGrid from "@/components/ShowcaseGrid.astro";
+import CTABanner from "@/components/CTABanner.astro";
+import { getShowcases } from "@/lib/supabase";
+
+const allShowcases = await getShowcases();
+const showcases =
+  allShowcases.filter((s) => s.category === "landscape").length > 0
+    ? allShowcases.filter((s) => s.category === "landscape")
+    : allShowcases;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Landscape Lighting Design Rendering — AI Night Visualization",
+  description:
+    "Preview landscape lighting designs with AI-powered day-to-night rendering. See how gardens, parks, and outdoor spaces look illuminated at night.",
+  url: "https://www.ldr-design.com/use-cases/landscape-lighting",
+};
+---
+
+<PageLayout
+  title="Landscape Lighting Design Rendering — AI Night Visualization"
+  description="Preview landscape lighting designs with AI-powered day-to-night rendering. See how gardens, parks, and outdoor spaces look illuminated at night."
+  jsonLd={jsonLd}
+>
+  <section class="max-w-4xl mx-auto px-4 pt-20 pb-12">
+    <h1 class="text-4xl font-bold text-[hsl(var(--foreground))] leading-tight">
+      Landscape Lighting Design Rendering
+    </h1>
+    <p class="mt-6 text-lg text-[hsl(var(--muted-foreground))] leading-relaxed">
+      Landscape lighting transforms outdoor spaces after dark — but communicating that
+      transformation to clients and planning committees has always been difficult. Daytime site
+      photos show the existing conditions; nothing shows what happens when the sun goes down and
+      the designed lighting takes over.
+    </p>
+    <p class="mt-4 text-lg text-[hsl(var(--muted-foreground))] leading-relaxed">
+      LDR bridges that gap. Upload a daytime photo of a garden, park, courtyard, or residential
+      exterior and describe the lighting scheme: pathway bollards at 2700K, accent uplighting on
+      specimen trees, a softly lit water feature. The AI renders a realistic nightscape that
+      captures the mood and atmosphere of the finished design, giving clients a clear picture of
+      what they are commissioning.
+    </p>
+    <p class="mt-4 text-[hsl(var(--muted-foreground))] leading-relaxed">
+      Landscape architects, horticultural lighting specialists, and garden designers use LDR to
+      iterate quickly through lighting scenarios, compare warm and cool color temperatures, and
+      build compelling client presentations — without waiting for on-site mock-up sessions or
+      hiring visualization studios.
+    </p>
+  </section>
+
+  <ShowcaseGrid showcases={showcases} />
+
+  <section class="max-w-4xl mx-auto px-4 py-16">
+    <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-6">
+      Common Landscape Lighting Applications
+    </h2>
+    <ul class="space-y-3 text-[hsl(var(--muted-foreground))]">
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">Residential gardens:</strong> Show homeowners how accent lighting, pathway illumination, and feature lighting will look together at night.</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">Public parks and plazas:</strong> Visualize how pedestrian lighting, tree uplighting, and feature illumination interact across large open spaces.</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">Water features and pools:</strong> Preview underwater and perimeter lighting to evaluate color rendering and spill control before construction.</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">Hospitality exteriors:</strong> Create nightscape visuals for hotel courtyards, resort gardens, and restaurant terraces to support F&amp;B marketing.</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 pb-16">
+    <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-4">
+      Explore Other Use Cases
+    </h2>
+    <div class="flex flex-wrap gap-4">
+      <a
+        href="/use-cases/architectural-lighting"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        Architectural Lighting
+      </a>
+      <a
+        href="/use-cases/urban-night-planning"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        Urban Night Planning
+      </a>
+    </div>
+  </section>
+
+  <CTABanner />
+</PageLayout>
