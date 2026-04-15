@@ -1,0 +1,92 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import CTABanner from "@/components/CTABanner.astro";
+
+const useCases = [
+  {
+    title: "Architectural Lighting",
+    slug: "architectural-lighting",
+    description:
+      "Visualize facade illumination, entry canopies, and historic preservation lighting before installation. For architects, lighting consultants, and design-build contractors.",
+    keywords: "Facades · Entrances · Historic preservation",
+  },
+  {
+    title: "Landscape Lighting",
+    slug: "landscape-lighting",
+    description:
+      "Preview garden uplighting, pathway lighting, and water feature illumination. For landscape architects and residential estate designers.",
+    keywords: "Gardens · Pathways · Water features",
+  },
+  {
+    title: "Urban Night Planning",
+    slug: "urban-night-planning",
+    description:
+      "Model city-scale night environments, bridge lighting, and public realm illumination. For urban planners, civic designers, and municipal consultants.",
+    keywords: "Bridges · Public realm · Civic design",
+  },
+  {
+    title: "Hospitality Lighting",
+    slug: "hospitality-lighting",
+    description:
+      "Render hotel facades, pool decks, rooftop bars, and boutique restaurant ambiance. For hospitality lighting consultants and brand teams.",
+    keywords: "Hotels · Resorts · Restaurants · Bars",
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "LDR Use Cases — AI Lighting Design Rendering",
+  description:
+    "Explore how lighting designers, architects, and urban planners use LDR to visualize nightscape renderings before installation.",
+  url: "https://www.ldr-design.com/use-cases",
+  hasPart: useCases.map((uc) => ({
+    "@type": "WebPage",
+    name: uc.title,
+    url: `https://www.ldr-design.com/use-cases/${uc.slug}`,
+  })),
+};
+---
+
+<PageLayout
+  title="Use Cases — AI Lighting Design Rendering"
+  description="Explore how architects, lighting designers, and urban planners use LDR to visualize nightscape renderings across architectural, landscape, urban, and hospitality projects."
+  jsonLd={jsonLd}
+>
+  <section class="max-w-4xl mx-auto px-4 pt-20 pb-12 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold text-[hsl(var(--foreground))] leading-tight">
+      How designers use LDR
+    </h1>
+    <p class="mt-6 text-lg text-[hsl(var(--muted-foreground))] leading-relaxed">
+      Four disciplines. One shared problem: clients need to see nightscape
+      lighting before any fixture is installed. LDR closes that gap for each
+      of them.
+    </p>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-4 pb-20">
+    <div class="grid md:grid-cols-2 gap-6">
+      {useCases.map((uc) => (
+        <a
+          href={`/use-cases/${uc.slug}`}
+          class="group block rounded-2xl border border-[hsl(var(--border))] p-8 hover:border-[hsl(var(--primary))] transition-colors"
+        >
+          <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-3">
+            {uc.title}
+          </h2>
+          <p class="text-sm text-[hsl(var(--muted-foreground))] leading-relaxed mb-4">
+            {uc.description}
+          </p>
+          <p class="text-xs text-[hsl(var(--muted-foreground))] mb-6">
+            {uc.keywords}
+          </p>
+          <span class="text-sm text-[hsl(var(--primary))] group-hover:underline">
+            Learn more →
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <CTABanner />
+</PageLayout>
