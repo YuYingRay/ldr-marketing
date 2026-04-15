@@ -1,0 +1,140 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+
+const lastUpdated = "Last updated: April 14, 2026";
+
+const intro = `This Privacy Policy describes how LDR ("we", "us") collects, uses, shares, and protects personal information when you use the Service. We are committed to protecting your privacy and handling your data in a transparent and lawful manner.`;
+
+const sections = [
+  {
+    heading: "1. Information We Collect",
+    body: `We collect the following categories of information:
+
+(a) Account Information: email address, password hash, display name, and authentication provider data (e.g., Google OAuth identifiers) when you register.
+
+(b) User Content: images you upload, textual prompts, rendering preferences, and any project metadata you create while using the Service.
+
+(c) Generated Content: outputs produced by the AI rendering pipeline, which may be associated with your account for history and re-download functionality.
+
+(d) Usage Data: device type, browser type, operating system, IP address, pages visited, features used, timestamps, and referring URLs. Collected via cookies and server logs.
+
+(e) Payment Information: handled by Creem Inc. as Merchant of Record. LDR does not collect or store card numbers, CVV codes, or bank account details. We receive only the subscription status, tier, and transaction identifiers necessary to provide the Service.`,
+  },
+  {
+    heading: "2. How We Use Your Information",
+    body: `We use your information to: (a) provide, maintain, and improve the Service; (b) process payments and manage subscriptions via Creem; (c) authenticate users and prevent unauthorized access; (d) send service-related notifications (account changes, billing receipts, security alerts); (e) respond to support requests; (f) analyze usage trends to improve features and performance; (g) comply with legal obligations and enforce our Terms of Service; and (h) prevent fraud, abuse, and security incidents.`,
+  },
+  {
+    heading: "3. Legal Bases for Processing (GDPR / UK GDPR)",
+    body: `If you are located in the European Economic Area, the United Kingdom, or Switzerland, we process your personal data on the following legal bases:
+
+(a) Performance of a contract: to provide the Service you have subscribed to.
+(b) Legitimate interest: to analyze usage, improve features, and prevent fraud, provided such interests are not overridden by your rights.
+(c) Consent: for non-essential cookies and marketing communications, where applicable.
+(d) Legal obligation: to comply with applicable tax, accounting, and law enforcement requirements.`,
+  },
+  {
+    heading: "4. Third-Party Service Providers",
+    body: `We share your information with the following service providers, each of whom is contractually obligated to protect your data:
+
+(a) Supabase (database and authentication hosting) — may be located in the United States or European Union.
+(b) Google Gemini (AI inference for generation and chat features) — processing in the United States.
+(c) Replicate (AI model hosting for image segmentation and rendering) — processing in the United States.
+(d) Vercel (web hosting and edge computing) — global edge network.
+(e) Creem Inc. (Merchant of Record for payments) — processing in jurisdictions specified by Creem's privacy policy.
+
+We do not sell personal information to third parties. We do not share your information for targeted advertising.
+
+AI Model Training: We do not use your uploaded images, prompts, or generated outputs to train our own AI models. Third-party AI providers (Google Gemini, Replicate-hosted models) may process your content according to their respective terms; we rely on their commercial APIs which, as of the effective date of this policy, offer do-not-train guarantees or opt-out mechanisms for API traffic. We do not knowingly submit your content for model training purposes.`,
+  },
+  {
+    heading: "5. International Data Transfers",
+    body: `Because our service providers operate globally, your information may be transferred to and processed in countries outside your country of residence, including the United States. Where such transfers involve personal data of EEA, UK, or Swiss data subjects, we rely on Standard Contractual Clauses approved by the European Commission or equivalent safeguards.
+
+By using the Service, you consent to the transfer of your information to countries that may have different data protection laws than your home country.`,
+  },
+  {
+    heading: "6. Data Retention",
+    body: `We retain your information for the following periods:
+
+(a) Account data: for as long as your account is active. Upon account deletion, we delete associated personal data within 30 days, except where retention is required by law.
+
+(b) Generated Content: retained according to your subscription tier — Free (7 days), Starter (30 days), Pro (30 days), Max (365 days). Content beyond the retention window is automatically purged.
+
+(c) Payment records: retained for the period required by applicable tax and accounting laws (typically 7 years), handled primarily by Creem.
+
+(d) Security and audit logs: retained for up to 12 months for fraud prevention and incident investigation.`,
+  },
+  {
+    heading: "7. Your Rights",
+    body: `Subject to applicable law (including GDPR, UK GDPR, CCPA / CPRA, and China's PIPL), you have the following rights regarding your personal information:
+
+(a) Access — request a copy of the personal data we hold about you.
+(b) Rectification — correct inaccurate or incomplete data.
+(c) Erasure — request deletion of your data ("right to be forgotten").
+(d) Restriction — limit how we process your data.
+(e) Portability — receive your data in a structured, machine-readable format.
+(f) Objection — object to processing based on legitimate interests.
+(g) Withdrawal of consent — where processing is based on consent.
+(h) Lodge a complaint with a supervisory authority.
+
+To exercise these rights, contact support@ldr-design.com. We will respond within 30 days.`,
+  },
+  {
+    heading: "8. Cookies and Tracking",
+    body: `We use the following categories of cookies and similar technologies:
+
+(a) Essential cookies: required for authentication, session management, and security. Cannot be disabled.
+(b) Preference cookies: store language preference, theme, and UI state.
+(c) Analytics cookies: help us understand how users interact with the Service. We use privacy-respecting analytics and do not track users across unrelated sites.
+
+You can control cookies through your browser settings. Disabling essential cookies may impair the functionality of the Service.`,
+  },
+  {
+    heading: "9. Security Measures",
+    body: `We implement reasonable administrative, technical, and organizational measures designed to protect your information, including: encryption in transit (HTTPS/TLS), encryption at rest for stored credentials, access control for administrative operations, regular security review of dependencies, and monitoring for unauthorized access.
+
+However, no method of transmission over the Internet or electronic storage is 100% secure. We cannot guarantee absolute security. In the event of a data breach affecting your personal information, we will notify affected users and relevant authorities as required by law.`,
+  },
+  {
+    heading: "10. Children's Privacy",
+    body: `The Service is not directed to children under 13 years of age. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact support@ldr-design.com and we will take steps to delete such information.
+
+Users between 13 and the age of majority in their jurisdiction require parental consent to use the Service.`,
+  },
+  {
+    heading: "11. Changes to This Privacy Policy",
+    body: `We may update this Privacy Policy from time to time. Material changes will be communicated via email or an in-app notice at least 14 days before they take effect. The "Last updated" date at the top of this page indicates when the policy was most recently revised.`,
+  },
+];
+---
+
+<PageLayout
+  title="Privacy Policy — LDR"
+  description="Privacy Policy for LDR (Lighting Design Rendering). Learn how we collect, use, and protect your data, including GDPR, CCPA, and PIPL compliance."
+  canonicalUrl="https://www.ldr-design.com/privacy"
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 py-20">
+    <h1 class="text-4xl font-bold text-foreground mb-2">Privacy Policy</h1>
+    <p class="text-sm text-muted-foreground mb-8">{lastUpdated}</p>
+    <p class="text-base text-foreground leading-relaxed mb-10">{intro}</p>
+
+    <div class="space-y-8">
+      {sections.map((section) => (
+        <section>
+          <h2 class="text-xl font-semibold text-foreground mb-3">{section.heading}</h2>
+          {section.body.split("\n\n").map((para) => (
+            <p class="text-sm text-muted-foreground leading-relaxed mb-3 whitespace-pre-line">{para}</p>
+          ))}
+        </section>
+      ))}
+    </div>
+
+    <section class="mt-12 pt-8 border-t border-border">
+      <h2 class="text-xl font-semibold text-foreground mb-3">Contact Us</h2>
+      <p class="text-sm text-muted-foreground leading-relaxed">
+        If you have questions about this Privacy Policy or our data practices, please contact us at <a href="mailto:support@ldr-design.com" class="underline hover:text-foreground">support@ldr-design.com</a>. We aim to respond within 5 business days.
+      </p>
+    </section>
+  </article>
+</PageLayout>

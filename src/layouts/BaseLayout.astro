@@ -27,7 +27,7 @@ const { title, description, ogImage, canonicalUrl, jsonLd } = Astro.props;
       jsonLd={jsonLd}
     />
   </head>
-  <body class="min-h-screen bg-background text-foreground antialiased">
+  <body class="min-h-screen flex flex-col bg-background text-foreground antialiased">
     <slot />
   </body>
 </html>
