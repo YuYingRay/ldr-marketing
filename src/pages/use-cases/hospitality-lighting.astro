@@ -1,0 +1,115 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import ShowcaseGrid from "@/components/ShowcaseGrid.astro";
+import CTABanner from "@/components/CTABanner.astro";
+import { getShowcases } from "@/lib/supabase";
+
+const allShowcases = await getShowcases();
+const showcases =
+  allShowcases.filter((s) => s.category === "hospitality").length > 0
+    ? allShowcases.filter((s) => s.category === "hospitality")
+    : allShowcases;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Hospitality Lighting Design Rendering — Hotels, Resorts, Restaurants",
+  description:
+    "Visualize hospitality lighting designs before installation. Transform daytime photos of hotels, resorts, and restaurants into evening nightscape renderings with AI.",
+  url: "https://www.ldr-design.com/use-cases/hospitality-lighting",
+};
+---
+
+<PageLayout
+  title="Hospitality Lighting Design Rendering — Hotels, Resorts, Restaurants"
+  description="Visualize hospitality lighting designs before installation. Transform daytime photos of hotels, resorts, and restaurants into evening nightscape renderings with AI."
+  jsonLd={jsonLd}
+>
+  <section class="max-w-4xl mx-auto px-4 pt-20 pb-12">
+    <h1 class="text-4xl font-bold text-[hsl(var(--foreground))] leading-tight">
+      Hospitality Lighting Design Rendering
+    </h1>
+    <p class="mt-6 text-lg text-[hsl(var(--muted-foreground))] leading-relaxed">
+      In hospitality, lighting is brand. A hotel's porte-cochère after sunset,
+      the warm glow of a rooftop bar, the layered ambiance of a poolside
+      terrace — these moments decide whether a guest feels arrived, or just
+      checked-in. Yet lighting designers for hotels, resorts, and restaurants
+      face the same problem as every other discipline: clients approve a
+      vision they cannot yet see.
+    </p>
+    <p class="mt-4 text-lg text-[hsl(var(--muted-foreground))] leading-relaxed">
+      LDR closes that gap. Upload a daytime photo of a hotel facade, a
+      restaurant courtyard, or a resort pool deck, describe the evening mood —
+      candle-warm 2700K accent lighting along the bar, soft uplights grazing
+      palm trunks, a signature entrance glow — and the AI returns a
+      photorealistic nightscape in seconds. Designers use the output to
+      validate fixture placement, compare color temperatures side by side,
+      and secure client buy-in before a single luminaire is installed.
+    </p>
+    <p class="mt-4 text-[hsl(var(--muted-foreground))] leading-relaxed">
+      LDR is used by hospitality lighting consultants, boutique hotel
+      operators, and restaurant brand teams to preview atmosphere, test
+      multiple evening scenarios against a single daytime reference photo,
+      and present coherent night-scene storyboards to ownership and
+      management.
+    </p>
+  </section>
+
+  <ShowcaseGrid showcases={showcases} />
+
+  <section class="max-w-4xl mx-auto px-4 py-16">
+    <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-6">
+      Common Hospitality Lighting Applications
+    </h2>
+    <ul class="space-y-3 text-[hsl(var(--muted-foreground))]">
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">Hotel facade and porte-cochère:</strong> Preview the arrival sequence — signage glow, entry canopy downlights, valet-drive uplighting — to create the guest's first evening impression.</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">Pool decks and outdoor terraces:</strong> Evaluate underwater pool lighting, cabana accent strips, and pathway bollards together, balancing function and atmosphere.</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">Rooftop bars and al fresco dining:</strong> Test string lights, bar-back illumination, and warm low-level table lighting to dial in the signature evening mood.</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">Resort landscaping and paths:</strong> Visualize tree uplighting, garden moon-glow, and signage lighting across sprawling resort grounds before specifying miles of fixture runs.</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">Boutique restaurants and wine bars:</strong> Render multiple mood options — intimate warm, theatrical accent, airy minimal — for the same space, then present the final three to the operator.</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 pb-16">
+    <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-4">
+      Explore Other Use Cases
+    </h2>
+    <div class="flex flex-wrap gap-4">
+      <a
+        href="/use-cases/architectural-lighting"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        Architectural Lighting
+      </a>
+      <a
+        href="/use-cases/landscape-lighting"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        Landscape Lighting
+      </a>
+      <a
+        href="/use-cases/urban-night-planning"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        Urban Night Planning
+      </a>
+    </div>
+  </section>
+
+  <CTABanner />
+</PageLayout>
