@@ -6,7 +6,7 @@ import CTABanner from "@/components/CTABanner.astro";
 
 <PageLayout
   title="Pricing — LDR Lighting Design Rendering"
-  description="Simple pricing for AI-powered nightscape rendering. Start free with 1 render per day, or go paid from $9/month for 4K output with no watermark."
+  description="Simple pricing for AI-powered nightscape rendering. Start free with 1 render per day, buy a one-time pack from $9, or subscribe from $99/month for 4K output with no watermark."
 >
   <section class="max-w-7xl mx-auto px-4 py-20">
     <PricingTable />
@@ -17,15 +17,31 @@ import CTABanner from "@/components/CTABanner.astro";
     <div class="space-y-6">
       <div>
         <h3 class="font-semibold mb-2">Can I try LDR for free?</h3>
-        <p class="text-muted-foreground text-sm">Yes. Every account gets 1 free render per day at 1K resolution. No credit card required.</p>
+        <p class="text-muted-foreground text-sm">Yes. Every account gets 5 credits on signup plus 1 free render per day at 1K resolution. No credit card required.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-2">What's the difference between a Pack and a Subscription?</h3>
+        <p class="text-muted-foreground text-sm">Packs (Mini, Small, Standard, Large) are one-time purchases with a fixed bundle of credits and a validity period (15-180 days). Use them when you have a specific project in mind. Subscriptions (Pro, Max) renew monthly with fresh credits each cycle — best if you have steady ongoing work. You can mix and match: subscribe and still buy a pack when a big project arrives.</p>
       </div>
       <div>
         <h3 class="font-semibold mb-2">What resolution are the renders?</h3>
-        <p class="text-muted-foreground text-sm">Free plan renders at 1K resolution with a watermark. Starter, Pro, and Max plans all render at up to 4K (4096px) resolution with no watermark, suitable for professional presentations and publications.</p>
+        <p class="text-muted-foreground text-sm">Free plan renders at 1K resolution with a watermark. All paid tiers (Mini, Small, Standard, Large, Pro, Max) render at up to 4K (4096px) with no watermark, suitable for professional presentations and publications.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-2">Do unused pack credits expire?</h3>
+        <p class="text-muted-foreground text-sm">Yes. Each pack has its own validity window: Mini 15 days, Small 30, Standard 90, Large 180. Credits not consumed within the window expire. Subscription credits refresh each billing cycle and do not roll over.</p>
       </div>
       <div>
         <h3 class="font-semibold mb-2">Can I cancel my subscription?</h3>
-        <p class="text-muted-foreground text-sm">Yes, you can cancel anytime. Your subscription remains active until the end of the current billing period.</p>
+        <p class="text-muted-foreground text-sm">Yes, you can cancel anytime from the customer portal. Your subscription remains active until the end of the current billing period and there is no refund for the unused portion of that period.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-2">Are packs refundable?</h3>
+        <p class="text-muted-foreground text-sm">Packs are non-refundable once purchased. Credits remain available for use throughout the validity period. New subscribers may be eligible for a 7-day money-back guarantee on their first subscription — see our <a href="/refund" class="underline">Refund Policy</a> for details.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-2">What payment methods are supported?</h3>
+        <p class="text-muted-foreground text-sm">LDR uses Creem Inc. as the Merchant of Record. Supported methods include major credit cards, Alipay, and WeChat Pay. All prices are in USD; local currency is converted automatically at checkout.</p>
       </div>
       <div>
         <h3 class="font-semibold mb-2">What image formats are supported?</h3>

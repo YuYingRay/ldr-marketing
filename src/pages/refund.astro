@@ -1,55 +1,66 @@
 ---
 import PageLayout from "@/layouts/PageLayout.astro";
 
-const lastUpdated = "Last updated: April 14, 2026";
+const lastUpdated = "Last updated: April 20, 2026";
 
-const intro = `This Refund Policy explains when and how you can request a refund for paid subscriptions to LDR. Refunds are processed by Creem Inc., our Merchant of Record. Please read this policy carefully before subscribing.`;
+const intro = `This Refund Policy explains when and how you can request a refund for paid purchases on LDR. The Service is offered on two models: (a) one-time project packs (Mini, Small, Standard, Large) and (b) recurring monthly subscriptions (Pro, Max). Different rules apply to each. Refunds are processed by Creem Inc., our Merchant of Record. Please read this policy carefully before purchasing.`;
 
 const sections = [
   {
     heading: "1. 7-Day Money-Back Guarantee for New Subscribers",
-    body: `If you are a first-time subscriber to any paid tier (Starter, Pro, or Max) and you are not satisfied with the Service, you may request a full refund within seven (7) days of your initial subscription purchase.
+    body: `If you are a first-time subscriber to a recurring monthly subscription (Pro or Max) and you are not satisfied with the Service, you may request a full refund within seven (7) days of your initial subscription purchase.
 
 To qualify for the 7-day money-back guarantee: (a) the refund must be requested within 7 calendar days of the first successful charge; (b) the request must come from the account holder's registered email; and (c) the account must not have been flagged for abuse or violation of the Terms of Service.
 
-The 7-day guarantee applies only to your first-ever paid subscription. Subsequent purchases (upgrades, downgrades, renewals) are not eligible for this guarantee.`,
+The 7-day guarantee applies only to your first-ever paid subscription. Subsequent purchases (upgrades, downgrades, renewals) are not eligible for this guarantee. The 7-day guarantee does not apply to one-time project packs (see Section 2).`,
   },
   {
-    heading: "2. Subscription Renewals",
+    heading: "2. One-Time Project Packs — Non-Refundable",
+    body: `Project packs (Mini $9 / 5 credits / 15 days, Small $59 / 30 credits / 30 days, Standard $129 / 80 credits / 90 days, Large $299 / 250 credits / 180 days) are one-time purchases and are non-refundable once the transaction is completed. Credits are delivered immediately and remain available for use throughout the pack's validity period.
+
+Because packs are sold as prepaid digital credit bundles rather than ongoing services, they are treated as fully delivered upon purchase. You receive your full credit allotment at checkout regardless of subsequent usage. Unused credits that expire at the end of the validity period are not refundable.
+
+Exceptional refund circumstances (Section 5) may still apply — for example, if a documented service outage prevents you from using the credits during the validity window.`,
+  },
+  {
+    heading: "3. Subscription Renewals",
     body: `Subscription renewals are strictly non-refundable once the new billing period has commenced. You may cancel auto-renewal at any time through the customer portal; cancellation takes effect at the end of the current paid period, and you retain access until then.
 
 We do not provide pro-rata refunds for unused portions of a renewed billing period. Missed cancellation deadlines, forgotten renewals, or general disagreement with the renewal charge are not grounds for refund. If you believe a renewal charge was made in error (for example, duplicate billing or a charge after successful cancellation), please contact us within 72 hours and we will investigate and correct confirmed errors.`,
   },
   {
-    heading: "3. Credits and Usage",
-    body: `Monthly credits included with your subscription (e.g., 30 for Starter, 150 for Pro, 500 for Max) are provisioned at the start of each billing period and expire at the end of that period. Unused credits do not roll over.
+    heading: "4. Credits and Usage",
+    body: `Monthly credits included with your subscription (120 for Pro, 400 for Max) are provisioned at the start of each billing period and expire at the end of that period. Unused subscription credits do not roll over.
+
+Pack credits (5 for Mini, 30 for Small, 80 for Standard, 250 for Large) are delivered at the time of purchase and remain available throughout the pack's validity window. Unused pack credits expire at the end of the validity period.
 
 If you cancel your subscription mid-cycle, your paid tier remains active until the end of the current billing period. Any unused credits from that period remain available until the period ends, then expire. No pro-rata refund is issued for the unused portion of the cancelled period.
 
 Credits that have been consumed (used to generate content) are non-refundable. If you request a refund under the 7-day money-back guarantee, the refund applies to the subscription fee only; the Service does not claw back or delete already-generated content from your account.`,
   },
   {
-    heading: "4. Exceptional Refund Circumstances",
-    body: `Outside the 7-day money-back window, we may issue refunds at our discretion in exceptional cases, including:
+    heading: "5. Exceptional Refund Circumstances",
+    body: `Outside the 7-day money-back window, and notwithstanding the general non-refundability of packs, we may issue refunds at our discretion in exceptional cases, including:
 
 (a) Prolonged service unavailability exceeding 48 consecutive hours not attributable to scheduled maintenance or force majeure.
 (b) Billing errors, duplicate charges, or charges made without authorization.
-(c) Significant failure of the core rendering pipeline affecting a majority of your generation attempts during the billing period.
+(c) Significant failure of the core rendering pipeline affecting a majority of your generation attempts during the billing period or pack validity window.
 
 Refunds in these cases may be partial (pro-rated) or full, depending on the severity and duration of the issue.`,
   },
   {
-    heading: "5. Non-Refundable Situations",
+    heading: "6. Non-Refundable Situations",
     body: `Refunds will not be issued in the following situations:
 
-(a) After 7 days from the initial subscription purchase (except under Section 4).
-(b) When credits have been consumed and the user is dissatisfied with the quality of generated outputs (AI model outputs are inherently variable and non-deterministic).
-(c) When the account has been suspended or terminated for violation of the Terms of Service.
-(d) When the user has already received a refund for the same or a similar complaint.
-(e) When the user changes their mind after using the Service for more than 7 days.`,
+(a) For project packs, once the purchase is completed (except under Section 5).
+(b) For subscriptions, after 7 days from the initial subscription purchase (except under Section 5).
+(c) When credits have been consumed and the user is dissatisfied with the quality of generated outputs (AI model outputs are inherently variable and non-deterministic).
+(d) When the account has been suspended or terminated for violation of the Terms of Service.
+(e) When the user has already received a refund for the same or a similar complaint.
+(f) When the user changes their mind after using the Service for more than 7 days.`,
   },
   {
-    heading: "6. How to Request a Refund",
+    heading: "7. How to Request a Refund",
     body: `To request a refund, send an email to support@ldr-design.com with the following information:
 
 (a) The email address associated with your LDR account.
@@ -60,7 +71,7 @@ Refunds in these cases may be partial (pro-rated) or full, depending on the seve
 We will acknowledge your request within 2 business days and issue a decision within 5 business days. If approved, Creem will process the refund and funds typically arrive in your original payment method within 5 to 10 business days, depending on your bank or card issuer.`,
   },
   {
-    heading: "7. Chargebacks and Disputes",
+    heading: "8. Chargebacks and Disputes",
     body: `We encourage you to contact us directly before initiating a chargeback with your bank or card issuer. Chargebacks create significant administrative overhead and may result in immediate termination of your account. If you initiate a chargeback without first contacting us, we reserve the right to dispute the chargeback with Creem and your payment provider.
 
 If you are unsatisfied with our refund decision, you may contact Creem Inc. directly via their customer support channels, as they are the Merchant of Record for your transaction.`,
