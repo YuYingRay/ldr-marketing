@@ -1,0 +1,104 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import ShowcaseGrid from "@/components/ShowcaseGrid.astro";
+import CTABanner from "@/components/CTABanner.astro";
+import { getShowcases } from "@/lib/supabase";
+import type { Lang } from "@/i18n/ui";
+import { useTranslations } from "@/i18n/utils";
+
+const lang: Lang = "zh";
+const t = useTranslations(lang);
+
+const allShowcases = await getShowcases();
+const showcases =
+  allShowcases.filter((s) => s.category === "architectural").length > 0
+    ? allShowcases.filter((s) => s.category === "architectural")
+    : allShowcases;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "建筑照明设计渲染 — AI 可视化",
+  description:
+    "在安装前可视化建筑照明设计。用 AI 将建筑白天照片转化为专业夜景渲染图。",
+  url: "https://www.ldr-design.com/zh/use-cases/architectural-lighting",
+};
+---
+
+<PageLayout
+  title="建筑照明设计渲染 — AI 可视化"
+  description="在安装前可视化建筑照明设计。用 AI 将建筑白天照片转化为专业夜景渲染图。"
+  jsonLd={jsonLd}
+  lang={lang}
+>
+  <section class="max-w-4xl mx-auto px-4 pt-20 pb-12">
+    <h1 class="text-4xl font-bold text-[hsl(var(--foreground))] leading-tight">
+      建筑照明设计渲染
+    </h1>
+    <p class="mt-6 text-lg text-[hsl(var(--muted-foreground))] leading-relaxed">
+      建筑师和灯光设计师面临一个长期挑战：客户需要在任何灯具安装之前看到完整的照明方案效果。
+      传统渲染工作流需要数天的三维建模、昂贵的软件授权费用和专业可视化人员——而这一切都发生在任何施工决策之前。
+    </p>
+    <p class="mt-4 text-lg text-[hsl(var(--muted-foreground))] leading-relaxed">
+      LDR 改变了这一方程式。上传建筑或场地的白天照片，描述您的照明意图——幕墙暖色上照、屋顶线冷白装饰条、灯笼式入口雨篷——AI 即可在几秒内生成照片级夜景渲染图。
+      结果是一张可直接交付客户的视觉图，清晰传达设计意图，加速审批并减少项目中途的高成本返工。
+    </p>
+    <p class="mt-4 text-[hsl(var(--muted-foreground))] leading-relaxed">
+      建筑照明顾问、幕墙工程师和设计施工一体化承包商使用 LDR 来验证灯具位置、评估色温选择，以及并排展示多种照明方案——无需任何三维模型。
+    </p>
+  </section>
+
+  <ShowcaseGrid showcases={showcases} lang={lang} />
+
+  <section class="max-w-4xl mx-auto px-4 py-16">
+    <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-6">
+      常见建筑照明应用场景
+    </h2>
+    <ul class="space-y-3 text-[hsl(var(--muted-foreground))]">
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">幕墙照明：</strong>在确定灯具规格前，预览建筑外立面的洗墙效果、掠射效果和动态色彩方案。</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">入口与大堂通道：</strong>评估路径照明、矮柱灯和雨篷筒灯在建筑入口处的综合交互效果。</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">历史建筑保护项目：</strong>在不采用侵入性安装的前提下，对登录建筑测试敏感的上照灯方案。</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">竞赛投标：</strong>快速生成引人注目的夜景图版，用于设计竞赛参赛作品和规划申请材料。</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 pb-16">
+    <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-4">
+      {t("useCases.exploreOther")}
+    </h2>
+    <div class="flex flex-wrap gap-4">
+      <a
+        href="/zh/use-cases/landscape-lighting"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        景观照明
+      </a>
+      <a
+        href="/zh/use-cases/urban-night-planning"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        城市夜景规划
+      </a>
+      <a
+        href="/zh/use-cases/hospitality-lighting"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        酒店照明
+      </a>
+    </div>
+  </section>
+
+  <CTABanner lang={lang} />
+</PageLayout>

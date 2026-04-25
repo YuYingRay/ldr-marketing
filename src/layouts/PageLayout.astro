@@ -2,6 +2,7 @@
 import BaseLayout from "./BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import type { Lang } from "../i18n/ui";
 
 interface Props {
   title: string;
@@ -9,9 +10,10 @@ interface Props {
   ogImage?: string;
   canonicalUrl?: string;
   jsonLd?: object;
+  lang?: Lang;
 }
 
-const { title, description, ogImage, canonicalUrl, jsonLd } = Astro.props;
+const { title, description, ogImage, canonicalUrl, jsonLd, lang = "en" } = Astro.props;
 ---
 
 <BaseLayout
@@ -20,10 +22,11 @@ const { title, description, ogImage, canonicalUrl, jsonLd } = Astro.props;
   ogImage={ogImage}
   canonicalUrl={canonicalUrl}
   jsonLd={jsonLd}
+  lang={lang}
 >
-  <Nav />
+  <Nav lang={lang} />
   <main class="flex-1">
     <slot />
   </main>
-  <Footer />
+  <Footer lang={lang} />
 </BaseLayout>

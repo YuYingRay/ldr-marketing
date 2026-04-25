@@ -1,17 +1,26 @@
 ---
+import type { Lang } from "../i18n/ui";
+import { useTranslations, getLocalizedPath } from "../i18n/utils";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
 const appUrl = "https://app.ldr-design.com";
 
 const navLinks = [
-  { label: "Use Cases", href: "/use-cases" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "Blog", href: "/blog" },
-  { label: "App", href: appUrl, external: true },
+  { label: t("footer.useCases"), href: getLocalizedPath("/use-cases", lang) },
+  { label: t("footer.pricing"), href: getLocalizedPath("/pricing", lang) },
+  { label: t("footer.blog"), href: getLocalizedPath("/blog", lang) },
+  { label: t("footer.app"), href: appUrl, external: true },
 ];
 
 const legalLinks = [
-  { label: "Terms of Service", href: "/terms" },
-  { label: "Privacy Policy", href: "/privacy" },
-  { label: "Refund Policy", href: "/refund" },
+  { label: t("footer.terms"), href: "/terms" },
+  { label: t("footer.privacy"), href: "/privacy" },
+  { label: t("footer.refund"), href: "/refund" },
 ];
 ---
 
@@ -21,13 +30,13 @@ const legalLinks = [
       <!-- Left: brand + copyright -->
       <p class="flex items-center gap-2">
         <a
-          href="/"
+          href={getLocalizedPath("/", lang)}
           class="font-bold text-foreground hover:text-primary transition-colors"
         >
           LDR
         </a>
-        <span aria-hidden="true" class="text-border">·</span>
-        <span>© 2026 All rights reserved.</span>
+        <span aria-hidden="true" class="text-border">&middot;</span>
+        <span>{t("footer.copyright")}</span>
       </p>
 
       <!-- Right: nav links + legal links, single row -->
@@ -45,7 +54,7 @@ const legalLinks = [
               </a>
             </li>
           ))}
-          <li aria-hidden="true" class="text-border">·</li>
+          <li aria-hidden="true" class="text-border">&middot;</li>
           {legalLinks.map((link) => (
             <li>
               <a

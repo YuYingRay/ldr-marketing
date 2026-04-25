@@ -1,0 +1,105 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import ShowcaseGrid from "@/components/ShowcaseGrid.astro";
+import CTABanner from "@/components/CTABanner.astro";
+import { getShowcases } from "@/lib/supabase";
+import type { Lang } from "@/i18n/ui";
+import { useTranslations } from "@/i18n/utils";
+
+const lang: Lang = "zh";
+const t = useTranslations(lang);
+
+const allShowcases = await getShowcases();
+const showcases =
+  allShowcases.filter((s) => s.category === "urban").length > 0
+    ? allShowcases.filter((s) => s.category === "urban")
+    : allShowcases;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "城市夜景规划渲染 — AI 可视化",
+  description:
+    "用 AI 可视化工具规划城市夜景照明。将城市景观从白天转化为夜景，在实施前评估照明策略。",
+  url: "https://www.ldr-design.com/zh/use-cases/urban-night-planning",
+};
+---
+
+<PageLayout
+  title="城市夜景规划渲染 — AI 可视化"
+  description="用 AI 可视化工具规划城市夜景照明。将城市景观从白天转化为夜景，在实施前评估照明策略。"
+  jsonLd={jsonLd}
+  lang={lang}
+>
+  <section class="max-w-4xl mx-auto px-4 pt-20 pb-12">
+    <h1 class="text-4xl font-bold text-[hsl(var(--foreground))] leading-tight">
+      城市夜景规划与可视化
+    </h1>
+    <p class="mt-6 text-lg text-[hsl(var(--muted-foreground))] leading-relaxed">
+      城市照明总体规划塑造了数百万人在夜间体验一座城市的方式。街道安全、视觉形象、光污染管理和能源效率都依赖于正确的照明策略——
+      然而传统规划工具难以将夜景愿景传达给非技术专业的利益相关方。
+    </p>
+    <p class="mt-4 text-lg text-[hsl(var(--muted-foreground))] leading-relaxed">
+      LDR 为城市规划师、城市灯光设计师和市政当局提供了一种快捷方式，可从现有的街景和航拍照片生成照片级夜景效果图。
+      上传白天城市景观，描述预期的照明方案——步行尺度暖白 LED、较冷色调功能性道路照明、市政地标的重点照明——即可获得准确传达方案氛围和层次的夜景渲染图。
+    </p>
+    <p class="mt-4 text-[hsl(var(--muted-foreground))] leading-relaxed">
+      这些效果图被用于支持公众咨询、规划委员会演示、开发商简报和国际设计竞赛。能够快速展示可信的夜景效果——
+      而非委托专业可视化工作室——压缩了反馈周期，使规划流程保持顺畅推进。
+    </p>
+  </section>
+
+  <ShowcaseGrid showcases={showcases} lang={lang} />
+
+  <section class="max-w-4xl mx-auto px-4 py-16">
+    <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-6">
+      常见城市夜景规划应用场景
+    </h2>
+    <ul class="space-y-3 text-[hsl(var(--muted-foreground))]">
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">街道照明升级方案：</strong>对比 LED 改造方案与现有钠灯条件，向委员会和董事会论证资本支出的合理性。</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">市政地标与桥梁照明：</strong>作为城市形象战略的一部分，可视化纪念碑、桥梁和公共建筑的特色照明方案。</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">混合功能区活化：</strong>展示零售、住宅和公共空间之间协调统一的照明如何创造充满活力的夜间经济。</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">暗天空与光污染评估：</strong>生成低强度夜景方案，为敏感环境展示负责任的照明做法。</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 pb-16">
+    <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-4">
+      {t("useCases.exploreOther")}
+    </h2>
+    <div class="flex flex-wrap gap-4">
+      <a
+        href="/zh/use-cases/architectural-lighting"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        建筑照明
+      </a>
+      <a
+        href="/zh/use-cases/landscape-lighting"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        景观照明
+      </a>
+      <a
+        href="/zh/use-cases/hospitality-lighting"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        酒店照明
+      </a>
+    </div>
+  </section>
+
+  <CTABanner lang={lang} />
+</PageLayout>

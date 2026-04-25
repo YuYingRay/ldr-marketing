@@ -1,0 +1,104 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import ShowcaseGrid from "@/components/ShowcaseGrid.astro";
+import CTABanner from "@/components/CTABanner.astro";
+import { getShowcases } from "@/lib/supabase";
+import type { Lang } from "@/i18n/ui";
+import { useTranslations } from "@/i18n/utils";
+
+const lang: Lang = "zh";
+const t = useTranslations(lang);
+
+const allShowcases = await getShowcases();
+const showcases =
+  allShowcases.filter((s) => s.category === "landscape").length > 0
+    ? allShowcases.filter((s) => s.category === "landscape")
+    : allShowcases;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "景观照明设计渲染 — AI 可视化",
+  description:
+    "用 AI 驱动的白天转夜景渲染预览景观照明设计效果。查看花园、公园和户外空间在夜晚灯光下的真实面貌。",
+  url: "https://www.ldr-design.com/zh/use-cases/landscape-lighting",
+};
+---
+
+<PageLayout
+  title="景观照明设计渲染 — AI 可视化"
+  description="用 AI 驱动的白天转夜景渲染预览景观照明设计效果。查看花园、公园和户外空间在夜晚灯光下的真实面貌。"
+  jsonLd={jsonLd}
+  lang={lang}
+>
+  <section class="max-w-4xl mx-auto px-4 pt-20 pb-12">
+    <h1 class="text-4xl font-bold text-[hsl(var(--foreground))] leading-tight">
+      景观照明设计渲染
+    </h1>
+    <p class="mt-6 text-lg text-[hsl(var(--muted-foreground))] leading-relaxed">
+      景观照明在夜幕降临后彻底改变户外空间——但将这种转变传达给客户和规划委员会一直是个难题。
+      白天的现场照片只能呈现现有条件；没有什么能展示太阳落山后设计照明方案接管空间的样子。
+    </p>
+    <p class="mt-4 text-lg text-[hsl(var(--muted-foreground))] leading-relaxed">
+      LDR 弥合了这一差距。上传花园、公园、庭院或住宅外部的白天照片，描述照明方案：2700K 路径矮柱灯、标本树木的重点上照灯、柔和的水景灯光。
+      AI 渲染出捕捉成品设计情感与氛围的真实夜景图，让客户清晰看到他们所委托的成果。
+    </p>
+    <p class="mt-4 text-[hsl(var(--muted-foreground))] leading-relaxed">
+      景观建筑师、园艺照明专家和花园设计师使用 LDR 快速迭代照明方案、比较暖冷色温，并构建引人入胜的客户演示材料——无需等待现场样品测试或委托可视化工作室。
+    </p>
+  </section>
+
+  <ShowcaseGrid showcases={showcases} lang={lang} />
+
+  <section class="max-w-4xl mx-auto px-4 py-16">
+    <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-6">
+      常见景观照明应用场景
+    </h2>
+    <ul class="space-y-3 text-[hsl(var(--muted-foreground))]">
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">私人花园：</strong>向业主展示重点照明、路径照明和特色照明在夜晚的整体效果。</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">公共公园与广场：</strong>可视化步行照明、树木上照灯和特色照明在大型开放空间中的交互效果。</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">水景与泳池：</strong>在施工前预览水下及周边照明，评估显色性和溢光控制效果。</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">酒店外部空间：</strong>为酒店庭院、度假村花园和餐厅露台创建夜景效果图，支持餐饮营销材料制作。</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 pb-16">
+    <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-4">
+      {t("useCases.exploreOther")}
+    </h2>
+    <div class="flex flex-wrap gap-4">
+      <a
+        href="/zh/use-cases/architectural-lighting"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        建筑照明
+      </a>
+      <a
+        href="/zh/use-cases/urban-night-planning"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        城市夜景规划
+      </a>
+      <a
+        href="/zh/use-cases/hospitality-lighting"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        酒店照明
+      </a>
+    </div>
+  </section>
+
+  <CTABanner lang={lang} />
+</PageLayout>

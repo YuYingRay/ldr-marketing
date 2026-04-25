@@ -1,0 +1,92 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import CTABanner from "@/components/CTABanner.astro";
+import type { Lang } from "@/i18n/ui";
+import { useTranslations } from "@/i18n/utils";
+
+const lang: Lang = "zh";
+const t = useTranslations(lang);
+
+const useCases = [
+  {
+    title: t("useCases.arch.title"),
+    slug: "architectural-lighting",
+    description: t("useCases.arch.desc"),
+    keywords: t("useCases.arch.keywords"),
+  },
+  {
+    title: t("useCases.landscape.title"),
+    slug: "landscape-lighting",
+    description: t("useCases.landscape.desc"),
+    keywords: t("useCases.landscape.keywords"),
+  },
+  {
+    title: t("useCases.urban.title"),
+    slug: "urban-night-planning",
+    description: t("useCases.urban.desc"),
+    keywords: t("useCases.urban.keywords"),
+  },
+  {
+    title: t("useCases.hospitality.title"),
+    slug: "hospitality-lighting",
+    description: t("useCases.hospitality.desc"),
+    keywords: t("useCases.hospitality.keywords"),
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "LDR 应用场景 — AI 灯光设计渲染",
+  description:
+    "了解灯光设计师、建筑师和城市规划师如何使用 LDR 在安装前可视化夜景渲染效果。",
+  url: "https://www.ldr-design.com/zh/use-cases",
+  hasPart: useCases.map((uc) => ({
+    "@type": "WebPage",
+    name: uc.title,
+    url: `https://www.ldr-design.com/zh/use-cases/${uc.slug}`,
+  })),
+};
+---
+
+<PageLayout
+  title={t("meta.useCases.title")}
+  description={t("meta.useCases.desc")}
+  jsonLd={jsonLd}
+  lang={lang}
+>
+  <section class="max-w-4xl mx-auto px-4 pt-20 pb-12 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold text-[hsl(var(--foreground))] leading-tight">
+      {t("useCases.heading")}
+    </h1>
+    <p class="mt-6 text-lg text-[hsl(var(--muted-foreground))] leading-relaxed">
+      {t("useCases.subtitle")}
+    </p>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-4 pb-20">
+    <div class="grid md:grid-cols-2 gap-6">
+      {useCases.map((uc) => (
+        <a
+          href={`/zh/use-cases/${uc.slug}`}
+          class="group block rounded-2xl border border-[hsl(var(--border))] p-8 hover:border-[hsl(var(--primary))] transition-colors"
+        >
+          <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-3">
+            {uc.title}
+          </h2>
+          <p class="text-sm text-[hsl(var(--muted-foreground))] leading-relaxed mb-4">
+            {uc.description}
+          </p>
+          <p class="text-xs text-[hsl(var(--muted-foreground))] mb-6">
+            {uc.keywords}
+          </p>
+          <span class="text-sm text-[hsl(var(--primary))] group-hover:underline">
+            {t("useCases.learnMore")}
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <CTABanner lang={lang} />
+</PageLayout>

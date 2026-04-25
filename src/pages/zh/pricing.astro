@@ -1,0 +1,63 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import PricingTable from "@/components/PricingTable.astro";
+import CTABanner from "@/components/CTABanner.astro";
+import type { Lang } from "@/i18n/ui";
+import { useTranslations } from "@/i18n/utils";
+
+const lang: Lang = "zh";
+const t = useTranslations(lang);
+---
+
+<PageLayout
+  title={t("meta.pricing.title")}
+  description={t("meta.pricing.desc")}
+  lang={lang}
+>
+  <section class="max-w-7xl mx-auto px-4 py-20">
+    <PricingTable lang={lang} />
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 pb-20">
+    <h2 class="text-2xl font-bold text-center mb-8">{t("faq.heading")}</h2>
+    <div class="space-y-6">
+      <div>
+        <h3 class="font-semibold mb-2">{t("faq.q1")}</h3>
+        <p class="text-muted-foreground text-sm">{t("faq.a1")}</p>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-2">{t("faq.q2")}</h3>
+        <p class="text-muted-foreground text-sm">{t("faq.a2")}</p>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-2">{t("faq.q3")}</h3>
+        <p class="text-muted-foreground text-sm">{t("faq.a3")}</p>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-2">{t("faq.q4")}</h3>
+        <p class="text-muted-foreground text-sm">{t("faq.a4")}</p>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-2">{t("faq.q5")}</h3>
+        <p class="text-muted-foreground text-sm">{t("faq.a5")}</p>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-2">{t("faq.q6")}</h3>
+        <p class="text-muted-foreground text-sm">
+          {t("faq.a6")}
+          <a href="/refund" class="underline">退款政策</a>。
+        </p>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-2">{t("faq.q7")}</h3>
+        <p class="text-muted-foreground text-sm">{t("faq.a7")}</p>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-2">{t("faq.q8")}</h3>
+        <p class="text-muted-foreground text-sm">{t("faq.a8")}</p>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner lang={lang} />
+</PageLayout>

@@ -1,0 +1,50 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import Hero from "@/components/Hero.astro";
+import Features from "@/components/Features.astro";
+import HowItWorks from "@/components/HowItWorks.astro";
+import ShowcaseGrid from "@/components/ShowcaseGrid.astro";
+import PricingTable from "@/components/PricingTable.astro";
+import CTABanner from "@/components/CTABanner.astro";
+import { getShowcases } from "@/lib/supabase";
+import type { Lang } from "@/i18n/ui";
+import { useTranslations } from "@/i18n/utils";
+
+const lang: Lang = "zh";
+const t = useTranslations(lang);
+
+const showcases = await getShowcases();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "LDR - 灯光设计渲染",
+  description: "AI 驱动的灯光设计渲染平台，将白天照片转化为专业夜景效果图。",
+  url: "https://www.ldr-design.com/zh",
+  applicationCategory: "DesignApplication",
+  operatingSystem: "Web",
+  offers: [
+    { "@type": "Offer", price: "0", priceCurrency: "USD", name: "Free" },
+    { "@type": "Offer", price: "9", priceCurrency: "USD", name: "Mini" },
+    { "@type": "Offer", price: "59", priceCurrency: "USD", name: "Small" },
+    { "@type": "Offer", price: "129", priceCurrency: "USD", name: "Standard" },
+    { "@type": "Offer", price: "299", priceCurrency: "USD", name: "Large" },
+    { "@type": "Offer", price: "99", priceCurrency: "USD", name: "Pro" },
+    { "@type": "Offer", price: "249", priceCurrency: "USD", name: "Max" },
+  ],
+};
+---
+
+<PageLayout
+  title={t("meta.home.title")}
+  description={t("meta.home.desc")}
+  jsonLd={jsonLd}
+  lang={lang}
+>
+  <Hero showcase={showcases[0]} lang={lang} />
+  <Features lang={lang} />
+  <HowItWorks lang={lang} />
+  <ShowcaseGrid showcases={showcases} lang={lang} />
+  <PricingTable lang={lang} />
+  <CTABanner lang={lang} />
+</PageLayout>

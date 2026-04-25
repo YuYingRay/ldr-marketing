@@ -1,13 +1,22 @@
 ---
+import type { Lang } from "../i18n/ui";
+import { useTranslations } from "../i18n/utils";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
+
 const APP_URL = "https://app.ldr-design.com";
 
 interface Plan {
   name: string;
+  planKey: "free" | "mini" | "pro" | "max" | "small" | "standard" | "large";
   price: string;
   period: string;
-  tagline: string;
-  features: string[];
-  cta: string;
+  featureCount: number;
   ctaHref: string;
   popular?: boolean;
   ctaVariant: "primary" | "outline";
@@ -17,64 +26,38 @@ interface Plan {
 const plansSection: Plan[] = [
   {
     name: "Free",
+    planKey: "free",
     price: "$0",
     period: "forever",
-    tagline: "Try before you buy",
-    features: [
-      "5 credits on signup",
-      "1 free generation per day",
-      "1K resolution with watermark",
-      "All features available (Canvas + Chat)",
-    ],
-    cta: "Get Started",
+    featureCount: 4,
     ctaHref: APP_URL,
     ctaVariant: "outline",
   },
   {
     name: "Mini",
+    planKey: "mini",
     price: "$9",
     period: "one-time",
-    tagline: "First paid tier — try commercial quality",
-    features: [
-      "5 credits (~2-3 4K commercial images)",
-      "4K resolution, no watermark",
-      "All features unlocked",
-      "Valid for 15 days",
-    ],
-    cta: "Buy Mini",
+    featureCount: 4,
     ctaHref: `${APP_URL}/pricing`,
     ctaVariant: "primary",
   },
   {
     name: "Pro",
+    planKey: "pro",
     price: "$99",
     period: "month",
-    tagline: "Steady flow — 2-3 projects per month",
-    features: [
-      "120 credits / month (~60 4K images)",
-      "Batch generation (5 parallel)",
-      "Priority generation queue",
-      "4K no watermark · full feature set",
-      "Cancel anytime, no next-cycle charge",
-    ],
-    cta: "Subscribe to Pro",
+    featureCount: 5,
     ctaHref: `${APP_URL}/pricing`,
     popular: true,
     ctaVariant: "primary",
   },
   {
     name: "Max",
+    planKey: "max",
     price: "$249",
     period: "month",
-    tagline: "Teams — 10+ projects per month",
-    features: [
-      "400 credits / month (~200 4K images)",
-      "Batch + priority queue",
-      "API access",
-      "Priority email support",
-      "Cancel anytime, no next-cycle charge",
-    ],
-    cta: "Subscribe to Max",
+    featureCount: 5,
     ctaHref: `${APP_URL}/pricing`,
     ctaVariant: "primary",
   },
@@ -84,47 +67,29 @@ const plansSection: Plan[] = [
 const packsSection: Plan[] = [
   {
     name: "Small",
+    planKey: "small",
     price: "$59",
     period: "one-time",
-    tagline: "One small project, 5-10 images",
-    features: [
-      "30 credits (~15 4K images)",
-      "4K no watermark",
-      "Canvas editor + Chat Agent",
-      "Valid for 30 days",
-    ],
-    cta: "Buy Small",
+    featureCount: 4,
     ctaHref: `${APP_URL}/pricing`,
     ctaVariant: "outline",
   },
   {
     name: "Standard",
+    planKey: "standard",
     price: "$129",
     period: "one-time",
-    tagline: "Fits a 14-image commercial project",
-    features: [
-      "80 credits (~40 4K images)",
-      "Canvas iterative refinement",
-      "All features + Channel diagram",
-      "Valid for 90 days",
-    ],
-    cta: "Buy Standard",
+    featureCount: 4,
     ctaHref: `${APP_URL}/pricing`,
     popular: true,
     ctaVariant: "primary",
   },
   {
     name: "Large",
+    planKey: "large",
     price: "$299",
     period: "one-time",
-    tagline: "Multi-round iteration or 50+ images",
-    features: [
-      "250 credits (~125 4K images)",
-      "Canvas + Chat + Channel diagram",
-      "Priority support response",
-      "Valid for 180 days",
-    ],
-    cta: "Buy Large",
+    featureCount: 4,
     ctaHref: `${APP_URL}/pricing`,
     ctaVariant: "outline",
   },
@@ -134,18 +99,18 @@ const packsSection: Plan[] = [
 <section class="py-20 px-4">
   <div class="max-w-7xl mx-auto">
     <h2 class="text-3xl font-bold text-center text-[hsl(var(--foreground))]">
-      Simple, Transparent Pricing
+      {t("pricing.heading")}
     </h2>
     <p class="mt-3 text-center text-[hsl(var(--muted-foreground))]">
-      Pay per project or subscribe for steady flow · Global USD pricing · Alipay / WeChat Pay / Cards supported
+      {t("pricing.subtitle")}
     </p>
 
     {/* Section 1: Trial & Subscriptions */}
     <div class="mt-16">
       <div class="text-center mb-8">
-        <h3 class="text-xl font-semibold text-[hsl(var(--foreground))]">Trial & Subscriptions</h3>
+        <h3 class="text-xl font-semibold text-[hsl(var(--foreground))]">{t("pricing.subSection")}</h3>
         <p class="mt-2 text-sm text-[hsl(var(--muted-foreground))]">
-          From free trial to monthly subscriptions · upgrade anytime
+          {t("pricing.subSectionDesc")}
         </p>
       </div>
 
@@ -163,7 +128,7 @@ const packsSection: Plan[] = [
               {plan.popular && (
                 <div class="absolute -top-3 left-1/2 -translate-x-1/2">
                   <span class="bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap">
-                    Most Popular
+                    {t("pricing.popular")}
                   </span>
                 </div>
               )}
@@ -181,12 +146,12 @@ const packsSection: Plan[] = [
                   </span>
                 </div>
                 <p class="mt-2 text-sm text-[hsl(var(--muted-foreground))]">
-                  {plan.tagline}
+                  {t(`pricing.${plan.planKey}.tagline`)}
                 </p>
               </div>
 
               <ul class="flex flex-col gap-3 flex-1">
-                {plan.features.map((feature) => (
+                {Array.from({ length: plan.featureCount }, (_, i) => i + 1).map((n) => (
                   <li class="flex items-start gap-2 text-sm text-[hsl(var(--foreground))]">
                     <svg
                       class="w-4 h-4 mt-0.5 shrink-0 text-emerald-500"
@@ -203,7 +168,7 @@ const packsSection: Plan[] = [
                         stroke-linejoin="round"
                       />
                     </svg>
-                    {feature}
+                    {t(`pricing.${plan.planKey}.f${n}`)}
                   </li>
                 ))}
               </ul>
@@ -217,7 +182,7 @@ const packsSection: Plan[] = [
                     : "border border-[hsl(var(--border))] text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]",
                 ].join(" ")}
               >
-                {plan.cta}
+                {t(`pricing.${plan.planKey}.cta`)}
               </a>
             </div>
           ))
@@ -228,9 +193,9 @@ const packsSection: Plan[] = [
     {/* Section 2: Project Packs */}
     <div class="mt-20">
       <div class="text-center mb-8">
-        <h3 class="text-xl font-semibold text-[hsl(var(--foreground))]">Project Packs</h3>
+        <h3 class="text-xl font-semibold text-[hsl(var(--foreground))]">{t("pricing.packSection")}</h3>
         <p class="mt-2 text-sm text-[hsl(var(--muted-foreground))]">
-          Buy by project · no subscription · use credits flexibly within validity
+          {t("pricing.packSectionDesc")}
         </p>
       </div>
 
@@ -248,7 +213,7 @@ const packsSection: Plan[] = [
               {plan.popular && (
                 <div class="absolute -top-3 left-1/2 -translate-x-1/2">
                   <span class="bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap">
-                    Most Popular
+                    {t("pricing.popular")}
                   </span>
                 </div>
               )}
@@ -266,12 +231,12 @@ const packsSection: Plan[] = [
                   </span>
                 </div>
                 <p class="mt-2 text-sm text-[hsl(var(--muted-foreground))]">
-                  {plan.tagline}
+                  {t(`pricing.${plan.planKey}.tagline`)}
                 </p>
               </div>
 
               <ul class="flex flex-col gap-3 flex-1">
-                {plan.features.map((feature) => (
+                {Array.from({ length: plan.featureCount }, (_, i) => i + 1).map((n) => (
                   <li class="flex items-start gap-2 text-sm text-[hsl(var(--foreground))]">
                     <svg
                       class="w-4 h-4 mt-0.5 shrink-0 text-emerald-500"
@@ -288,7 +253,7 @@ const packsSection: Plan[] = [
                         stroke-linejoin="round"
                       />
                     </svg>
-                    {feature}
+                    {t(`pricing.${plan.planKey}.f${n}`)}
                   </li>
                 ))}
               </ul>
@@ -302,7 +267,7 @@ const packsSection: Plan[] = [
                     : "border border-[hsl(var(--border))] text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]",
                 ].join(" ")}
               >
-                {plan.cta}
+                {t(`pricing.${plan.planKey}.cta`)}
               </a>
             </div>
           ))
@@ -311,7 +276,7 @@ const packsSection: Plan[] = [
     </div>
 
     <p class="mt-12 text-center text-xs text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">
-      Packs are non-refundable (credits available within validity). Subscriptions can be canceled anytime with no current-period refund.
+      {t("pricing.disclaimer")}
     </p>
   </div>
 </section>

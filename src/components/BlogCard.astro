@@ -1,4 +1,7 @@
 ---
+import type { Lang } from "../i18n/ui";
+import { getLocalizedPath } from "../i18n/utils";
+
 interface ImageProp {
   url: string;
   alt: string;
@@ -10,15 +13,18 @@ interface Props {
   pubDate: Date;
   slug: string;
   image?: ImageProp;
+  lang?: Lang;
 }
 
-const { title, description, pubDate, slug, image } = Astro.props;
+const { title, description, pubDate, slug, image, lang = "en" } = Astro.props;
 
-const formattedDate = pubDate.toLocaleDateString("en-US", {
+const formattedDate = pubDate.toLocaleDateString(lang === "zh" ? "zh-CN" : "en-US", {
   year: "numeric",
   month: "short",
   day: "numeric",
 });
+
+const blogHref = getLocalizedPath(`/blog/${slug}`, lang);
 ---
 
 <article
@@ -48,7 +54,7 @@ const formattedDate = pubDate.toLocaleDateString("en-US", {
 
     <h3 class="mt-1 text-lg font-semibold text-[hsl(var(--foreground))]">
       <a
-        href={`/blog/${slug}`}
+        href={blogHref}
         class="hover:text-[hsl(var(--primary))] transition-colors"
       >
         {title}

@@ -1,6 +1,7 @@
 ---
 import Head from "../components/Head.astro";
 import "../styles/globals.css";
+import type { Lang } from "../i18n/ui";
 
 interface Props {
   title: string;
@@ -8,13 +9,14 @@ interface Props {
   ogImage?: string;
   canonicalUrl?: string;
   jsonLd?: object;
+  lang?: Lang;
 }
 
-const { title, description, ogImage, canonicalUrl, jsonLd } = Astro.props;
+const { title, description, ogImage, canonicalUrl, jsonLd, lang = "en" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang={lang === "zh" ? "zh-CN" : "en"} class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,6 +27,7 @@ const { title, description, ogImage, canonicalUrl, jsonLd } = Astro.props;
       ogImage={ogImage}
       canonicalUrl={canonicalUrl}
       jsonLd={jsonLd}
+      lang={lang}
     />
   </head>
   <body class="min-h-screen flex flex-col bg-background text-foreground antialiased">

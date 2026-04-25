@@ -1,17 +1,32 @@
 ---
+import type { Lang } from "../i18n/ui";
+import { useTranslations, getLocalizedPath, getAlternateLang } from "../i18n/utils";
+import { languages } from "../i18n/ui";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
+const altLang = getAlternateLang(lang);
+
 const navLinks = [
-  { label: "Use Cases", href: "/use-cases" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "Blog", href: "/blog" },
+  { label: t("nav.useCases"), href: getLocalizedPath("/use-cases", lang) },
+  { label: t("nav.pricing"), href: getLocalizedPath("/pricing", lang) },
+  { label: t("nav.blog"), href: getLocalizedPath("/blog", lang) },
 ];
 
 const appUrl = "https://app.ldr-design.com";
+
+const currentPath = Astro.url.pathname.replace(/^\/zh/, "") || "/";
+const switchUrl = getLocalizedPath(currentPath, altLang);
 ---
 
 <header class="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border/50">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
     <!-- Logo -->
-    <a href="/" class="text-xl font-bold text-foreground hover:text-primary transition-colors">
+    <a href={getLocalizedPath("/", lang)} class="text-xl font-bold text-foreground hover:text-primary transition-colors">
       LDR
     </a>
 
@@ -29,15 +44,24 @@ const appUrl = "https://app.ldr-design.com";
       ))}
     </ul>
 
-    <!-- CTA + mobile toggle -->
-    <div class="flex items-center gap-4">
+    <!-- CTA + lang switch + mobile toggle -->
+    <div class="flex items-center gap-3">
+      <!-- Language switcher -->
+      <a
+        href={switchUrl}
+        class="text-xs text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded border border-border/50 hover:border-border"
+        aria-label={`Switch to ${languages[altLang]}`}
+      >
+        {languages[altLang]}
+      </a>
+
       <a
         href={appUrl}
         target="_blank"
         rel="noopener noreferrer"
         class="bg-primary text-primary-foreground rounded-lg px-4 py-2 text-sm font-medium hover:opacity-90 transition-opacity"
       >
-        Try Free
+        {t("nav.tryFree")}
       </a>
 
       <!-- Mobile hamburger -->

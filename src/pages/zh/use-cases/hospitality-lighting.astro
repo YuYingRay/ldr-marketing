@@ -1,0 +1,111 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import ShowcaseGrid from "@/components/ShowcaseGrid.astro";
+import CTABanner from "@/components/CTABanner.astro";
+import { getShowcases } from "@/lib/supabase";
+import type { Lang } from "@/i18n/ui";
+import { useTranslations } from "@/i18n/utils";
+
+const lang: Lang = "zh";
+const t = useTranslations(lang);
+
+const allShowcases = await getShowcases();
+const showcases =
+  allShowcases.filter((s) => s.category === "hospitality").length > 0
+    ? allShowcases.filter((s) => s.category === "hospitality")
+    : allShowcases;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "酒店照明设计渲染 — AI 可视化",
+  description:
+    "在安装前可视化酒店照明设计。用 AI 将酒店、度假村和餐厅的白天照片转化为夜景渲染图。",
+  url: "https://www.ldr-design.com/zh/use-cases/hospitality-lighting",
+};
+---
+
+<PageLayout
+  title="酒店照明设计渲染 — AI 可视化"
+  description="在安装前可视化酒店照明设计。用 AI 将酒店、度假村和餐厅的白天照片转化为夜景渲染图。"
+  jsonLd={jsonLd}
+  lang={lang}
+>
+  <section class="max-w-4xl mx-auto px-4 pt-20 pb-12">
+    <h1 class="text-4xl font-bold text-[hsl(var(--foreground))] leading-tight">
+      酒店照明设计渲染
+    </h1>
+    <p class="mt-6 text-lg text-[hsl(var(--muted-foreground))] leading-relaxed">
+      在酒店业，照明即品牌。酒店车道在日落后的光晕、屋顶酒吧的暖意、泳池露台的层叠氛围——
+      这些瞬间决定了宾客是感受到"宾至如归"，还是只是"办理入住"。然而为酒店、度假村和餐厅服务的照明设计师面临与其他领域相同的难题：
+      客户需要批准一个他们尚无法看见的愿景。
+    </p>
+    <p class="mt-4 text-lg text-[hsl(var(--muted-foreground))] leading-relaxed">
+      LDR 弥合这一差距。上传酒店外立面、餐厅庭院或度假村泳池甲板的白天照片，描述傍晚氛围——
+      吧台沿线的烛光暖色 2700K 重点照明、柔和的棕榈树干洗墙灯、标志性的入口光晕——AI 在几秒内返回照片级夜景渲染图。
+      设计师使用成果验证灯具位置、并排比较色温，并在安装任何一盏灯具之前获得客户认可。
+    </p>
+    <p class="mt-4 text-[hsl(var(--muted-foreground))] leading-relaxed">
+      酒店照明顾问、精品酒店运营商和餐厅品牌团队使用 LDR 预览氛围、针对同一张白天参考照片测试多种傍晚方案，
+      并向业主和管理层呈现连贯的夜景故事板。
+    </p>
+  </section>
+
+  <ShowcaseGrid showcases={showcases} lang={lang} />
+
+  <section class="max-w-4xl mx-auto px-4 py-16">
+    <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-6">
+      常见酒店照明应用场景
+    </h2>
+    <ul class="space-y-3 text-[hsl(var(--muted-foreground))]">
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">酒店外立面与车道：</strong>预览迎宾序列——标识光晕、入口雨篷筒灯、泊车道上照灯——打造宾客的第一个夜间印象。</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">泳池甲板与户外露台：</strong>综合评估泳池水下照明、沙发椅重点装饰条和路径矮柱灯，在功能与氛围之间取得平衡。</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">屋顶酒吧与露天餐饮：</strong>测试串灯、吧台背部照明和低位暖色桌面照明，精准调出标志性的夜间氛围。</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">度假村景观与路径：</strong>在确定大面积灯具安装方案前，可视化树木上照、花园月光效果和指示牌照明在整个度假村场地的综合效果。</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+        <span><strong class="text-[hsl(var(--foreground))]">精品餐厅与酒窖吧：</strong>为同一空间渲染多种氛围方案——私密暖调、戏剧性重点、通透简约——再将最终三个方案呈交运营者决策。</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 pb-16">
+    <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-4">
+      {t("useCases.exploreOther")}
+    </h2>
+    <div class="flex flex-wrap gap-4">
+      <a
+        href="/zh/use-cases/architectural-lighting"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        建筑照明
+      </a>
+      <a
+        href="/zh/use-cases/landscape-lighting"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        景观照明
+      </a>
+      <a
+        href="/zh/use-cases/urban-night-planning"
+        class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+      >
+        城市夜景规划
+      </a>
+    </div>
+  </section>
+
+  <CTABanner lang={lang} />
+</PageLayout>

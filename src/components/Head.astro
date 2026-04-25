@@ -1,10 +1,14 @@
 ---
+import type { Lang } from "../i18n/ui";
+import { getLocalizedPath } from "../i18n/utils";
+
 interface Props {
   title: string;
   description: string;
   ogImage?: string;
   canonicalUrl?: string;
   jsonLd?: object;
+  lang?: Lang;
 }
 
 const {
@@ -13,15 +17,25 @@ const {
   ogImage = "/og-image.png",
   canonicalUrl,
   jsonLd,
+  lang = "en",
 } = Astro.props;
 
 const canonical = canonicalUrl ?? Astro.url.href;
 const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url.origin).href;
+
+const pathWithoutLang = Astro.url.pathname.replace(/^\/zh/, "") || "/";
+const enUrl = new URL(pathWithoutLang, Astro.site ?? Astro.url.origin).href;
+const zhUrl = new URL(getLocalizedPath(pathWithoutLang, "zh"), Astro.site ?? Astro.url.origin).href;
 ---
 
 <title>{title} | LDR</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
+
+<!-- hreflang -->
+<link rel="alternate" hreflang="en" href={enUrl} />
+<link rel="alternate" hreflang="zh" href={zhUrl} />
+<link rel="alternate" hreflang="x-default" href={enUrl} />
 
 <!-- Open Graph -->
 <meta property="og:title" content={`${title} | LDR`} />
@@ -30,6 +44,7 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url.origin).href;
 <meta property="og:image" content={ogImageUrl} />
 <meta property="og:site_name" content="LDR - Lighting Design Rendering" />
 <meta property="og:type" content="website" />
+<meta property="og:locale" content={lang === "zh" ? "zh_CN" : "en_US"} />
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />

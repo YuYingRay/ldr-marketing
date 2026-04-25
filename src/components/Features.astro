@@ -1,36 +1,26 @@
 ---
+import type { Lang } from "../i18n/ui";
+import { useTranslations } from "../i18n/utils";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
+
 const features = [
-  {
-    icon: "⚡",
-    title: "Day to Night in Seconds",
-    description:
-      "Upload any daytime architectural or landscape photo and get a professional nightscape rendering instantly.",
-  },
-  {
-    icon: "🤖",
-    title: "AI-Powered Precision",
-    description:
-      "Our AI understands architectural context, material properties, and light physics for realistic results.",
-  },
-  {
-    icon: "🔍",
-    title: "Semantic Segmentation",
-    description:
-      "Intelligent scene understanding with HQ-SAM technology separates buildings, sky, vegetation automatically.",
-  },
-  {
-    icon: "🖼",
-    title: "4K Professional Output",
-    description:
-      "Publication-ready renders at up to 4096px resolution. No watermark on Pro plans.",
-  },
+  { icon: "⚡", title: t("features.speed.title"), description: t("features.speed.desc") },
+  { icon: "🤖", title: t("features.ai.title"), description: t("features.ai.desc") },
+  { icon: "🔍", title: t("features.seg.title"), description: t("features.seg.desc") },
+  { icon: "🖼", title: t("features.quality.title"), description: t("features.quality.desc") },
 ];
 ---
 
 <section class="py-20 px-4">
   <div class="max-w-5xl mx-auto">
     <h2 class="text-3xl font-bold text-center text-[hsl(var(--foreground))]">
-      Why LDR?
+      {t("features.heading")}
     </h2>
 
     <div class="mt-12 grid md:grid-cols-2 gap-6">

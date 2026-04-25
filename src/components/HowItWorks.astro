@@ -1,30 +1,25 @@
 ---
+import type { Lang } from "../i18n/ui";
+import { useTranslations } from "../i18n/utils";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
+
 const steps = [
-  {
-    number: "01",
-    title: "Upload",
-    description:
-      "Upload a daytime photo of any building, landscape, or urban scene",
-  },
-  {
-    number: "02",
-    title: "Describe",
-    description:
-      "Tell the AI your lighting vision, or let it suggest the perfect design",
-  },
-  {
-    number: "03",
-    title: "Render",
-    description:
-      "Get your professional nightscape rendering in under 60 seconds",
-  },
+  { number: "01", title: t("how.step1.title"), description: t("how.step1.desc") },
+  { number: "02", title: t("how.step2.title"), description: t("how.step2.desc") },
+  { number: "03", title: t("how.step3.title"), description: t("how.step3.desc") },
 ];
 ---
 
 <section class="py-20 px-4 bg-[hsl(var(--muted)/0.3)]">
   <div class="max-w-5xl mx-auto">
     <h2 class="text-3xl font-bold text-center text-[hsl(var(--foreground))]">
-      How It Works
+      {t("how.heading")}
     </h2>
 
     <div class="mt-12 grid md:grid-cols-3 gap-8">
