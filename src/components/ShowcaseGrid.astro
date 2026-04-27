@@ -36,6 +36,35 @@ const categoryZh: Record<string, string> = {
   Road: "道路",
   Plaza: "广场",
   Waterfront: "滨水",
+  Transportation: "交通",
+  Art: "艺术",
+  Municipal: "市政",
+  Education: "教育",
+  Healthcare: "医疗",
+  Religious: "宗教",
+  Heritage: "文保",
+  Garden: "园林",
+  Retail: "零售",
+  Office: "办公",
+};
+
+const promptZh: Record<string, string> = {
+  "Building facade night lighting": "建筑立面夜景照明",
+  "Commercial plaza lighting design": "商业广场灯光设计",
+  "Airport & transit hub lighting": "机场与交通枢纽照明",
+  "Light art installation": "灯光艺术装置",
+  "Landscape garden lighting": "景观园林照明",
+  "Urban night scene planning": "城市夜景规划",
+  "Hotel exterior lighting": "酒店外立面照明",
+  "Residential community lighting": "住宅社区照明",
+  "Bridge night lighting": "桥梁夜景照明",
+  "Park pathway lighting": "公园步道照明",
+  "Waterfront promenade lighting": "滨水步道照明",
+  "Sports venue lighting": "体育场馆照明",
+  "Cultural building lighting": "文化建筑照明",
+  "Road & street lighting": "道路街道照明",
+  "Plaza public lighting": "广场公共照明",
+  "Industrial facility lighting": "工业设施照明",
 };
 
 function localCategory(cat: string) {
@@ -43,7 +72,8 @@ function localCategory(cat: string) {
 }
 
 function localPrompt(item: Showcase) {
-  return lang === "zh" && item.prompt_zh ? item.prompt_zh : item.prompt;
+  if (lang !== "zh") return item.prompt;
+  return item.prompt_zh || promptZh[item.prompt] || item.prompt;
 }
 ---
 
