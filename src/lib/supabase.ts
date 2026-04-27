@@ -12,20 +12,34 @@ export interface Showcase {
   id: string;
   sort_order: number;
   prompt: string;
+  prompt_zh?: string;
   category: string;
   day_image_url: string;
   night_image_url: string;
 }
 
-export async function getShowcases(): Promise<Showcase[]> {
+const BASE_COLUMNS =
+  "id, sort_order, prompt, category, day_image_url, night_image_url";
+
+export async function getShowcases(lang?: string): Promise<Showcase[]> {
   if (!supabase) {
     console.warn("[LDR] Supabase not configured, returning empty showcases");
     return [];
   }
 
+  if (lang === "zh") {
+    const { data, error } = await supabase
+      .from("showcases")
+      .select(`${BASE_COLUMNS}, prompt_zh`)
+      .eq("is_active", true)
+      .order("sort_order", { ascending: true });
+
+    if (!error && data) return data;
+  }
+
   const { data, error } = await supabase
     .from("showcases")
-    .select("id, sort_order, prompt, category, day_image_url, night_image_url")
+    .select(BASE_COLUMNS)
     .eq("is_active", true)
     .order("sort_order", { ascending: true });
 

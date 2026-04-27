@@ -5,6 +5,7 @@ import { useTranslations } from "../i18n/utils";
 interface Showcase {
   id: string;
   prompt: string;
+  prompt_zh?: string;
   category: string;
   day_image_url: string;
   night_image_url: string;
@@ -18,6 +19,32 @@ interface Props {
 const { showcases = [], lang = "en" } = Astro.props;
 const t = useTranslations(lang);
 const hasItems = showcases.length > 0;
+
+const categoryZh: Record<string, string> = {
+  Architecture: "建筑",
+  Commercial: "商业",
+  Landscape: "景观",
+  Urban: "城市",
+  Hospitality: "酒店",
+  Residential: "住宅",
+  Cultural: "文化",
+  Industrial: "工业",
+  Sports: "体育",
+  Public: "公共",
+  Park: "公园",
+  Bridge: "桥梁",
+  Road: "道路",
+  Plaza: "广场",
+  Waterfront: "滨水",
+};
+
+function localCategory(cat: string) {
+  return lang === "zh" ? categoryZh[cat] ?? cat : cat;
+}
+
+function localPrompt(item: Showcase) {
+  return lang === "zh" && item.prompt_zh ? item.prompt_zh : item.prompt;
+}
 ---
 
 <section id="showcase" class="py-20 px-4">
@@ -34,18 +61,18 @@ const hasItems = showcases.length > 0;
               <div class="aspect-[4/3] relative">
                 <img
                   src={item.night_image_url}
-                  alt={`${item.category} — ${item.prompt}`}
+                  alt={`${localCategory(item.category)} — ${localPrompt(item)}`}
                   class="w-full h-full object-cover"
                   loading="lazy"
                   decoding="async"
                 />
                 <span class="absolute top-3 left-3 text-xs bg-[hsl(var(--background)/0.9)] text-[hsl(var(--foreground))] px-2 py-1 rounded-full">
-                  {item.category}
+                  {localCategory(item.category)}
                 </span>
               </div>
               <div class="p-4">
                 <p class="text-sm text-[hsl(var(--muted-foreground))] line-clamp-2">
-                  {item.prompt}
+                  {localPrompt(item)}
                 </p>
               </div>
             </div>
