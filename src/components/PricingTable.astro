@@ -11,11 +11,13 @@ const t = useTranslations(lang);
 
 const APP_URL = "https://app.ldr-design.com";
 
+type PlanKey = "free" | "mini" | "pro" | "max" | "small" | "standard" | "large";
+type PeriodKey = "forever" | "oneTime" | "month";
+
 interface Plan {
-  name: string;
-  planKey: "free" | "mini" | "pro" | "max" | "small" | "standard" | "large";
+  planKey: PlanKey;
   price: string;
-  period: string;
+  periodKey: PeriodKey;
   featureCount: number;
   ctaHref: string;
   popular?: boolean;
@@ -25,38 +27,34 @@ interface Plan {
 // Section 1 — Trial & Subscriptions (Free + Mini + Pro + Max)
 const plansSection: Plan[] = [
   {
-    name: "Free",
     planKey: "free",
     price: "$0",
-    period: "forever",
+    periodKey: "forever",
     featureCount: 4,
     ctaHref: APP_URL,
     ctaVariant: "outline",
   },
   {
-    name: "Mini",
     planKey: "mini",
     price: "$9",
-    period: "one-time",
+    periodKey: "oneTime",
     featureCount: 4,
     ctaHref: `${APP_URL}/pricing`,
     ctaVariant: "primary",
   },
   {
-    name: "Pro",
     planKey: "pro",
     price: "$99",
-    period: "month",
+    periodKey: "month",
     featureCount: 5,
     ctaHref: `${APP_URL}/pricing`,
     popular: true,
     ctaVariant: "primary",
   },
   {
-    name: "Max",
     planKey: "max",
     price: "$249",
-    period: "month",
+    periodKey: "month",
     featureCount: 5,
     ctaHref: `${APP_URL}/pricing`,
     ctaVariant: "primary",
@@ -66,29 +64,26 @@ const plansSection: Plan[] = [
 // Section 2 — Project Packs (Small + Standard + Large, all one-time)
 const packsSection: Plan[] = [
   {
-    name: "Small",
     planKey: "small",
     price: "$59",
-    period: "one-time",
+    periodKey: "oneTime",
     featureCount: 4,
     ctaHref: `${APP_URL}/pricing`,
     ctaVariant: "outline",
   },
   {
-    name: "Standard",
     planKey: "standard",
     price: "$129",
-    period: "one-time",
+    periodKey: "oneTime",
     featureCount: 4,
     ctaHref: `${APP_URL}/pricing`,
     popular: true,
     ctaVariant: "primary",
   },
   {
-    name: "Large",
     planKey: "large",
     price: "$299",
-    period: "one-time",
+    periodKey: "oneTime",
     featureCount: 4,
     ctaHref: `${APP_URL}/pricing`,
     ctaVariant: "outline",
@@ -116,7 +111,9 @@ const packsSection: Plan[] = [
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {
-          plansSection.map((plan) => (
+          plansSection.map((plan) => {
+            const rmb = lang === "zh" ? t(`pricing.${plan.planKey}.rmb`) : "";
+            return (
             <div
               class={[
                 "relative bg-[hsl(var(--card))] border rounded-2xl p-6 flex flex-col gap-6 h-full",
@@ -135,16 +132,19 @@ const packsSection: Plan[] = [
 
               <div>
                 <h4 class="text-lg font-semibold text-[hsl(var(--foreground))]">
-                  {plan.name}
+                  {t(`pricing.${plan.planKey}.name`)}
                 </h4>
                 <div class="mt-2 flex items-baseline gap-1">
                   <span class="text-4xl font-bold text-[hsl(var(--foreground))]">
                     {plan.price}
                   </span>
                   <span class="text-sm text-[hsl(var(--muted-foreground))]">
-                    /{plan.period}
+                    /{t(`pricing.period.${plan.periodKey}`)}
                   </span>
                 </div>
+                {rmb && (
+                  <p class="mt-1 text-xs text-[hsl(var(--muted-foreground))]">{rmb}</p>
+                )}
                 <p class="mt-2 text-sm text-[hsl(var(--muted-foreground))]">
                   {t(`pricing.${plan.planKey}.tagline`)}
                 </p>
@@ -185,7 +185,7 @@ const packsSection: Plan[] = [
                 {t(`pricing.${plan.planKey}.cta`)}
               </a>
             </div>
-          ))
+          )})
         }
       </div>
     </div>
@@ -201,7 +201,9 @@ const packsSection: Plan[] = [
 
       <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {
-          packsSection.map((plan) => (
+          packsSection.map((plan) => {
+            const rmb = lang === "zh" ? t(`pricing.${plan.planKey}.rmb`) : "";
+            return (
             <div
               class={[
                 "relative bg-[hsl(var(--card))] border rounded-2xl p-6 flex flex-col gap-6 h-full",
@@ -220,16 +222,19 @@ const packsSection: Plan[] = [
 
               <div>
                 <h4 class="text-lg font-semibold text-[hsl(var(--foreground))]">
-                  {plan.name}
+                  {t(`pricing.${plan.planKey}.name`)}
                 </h4>
                 <div class="mt-2 flex items-baseline gap-1">
                   <span class="text-4xl font-bold text-[hsl(var(--foreground))]">
                     {plan.price}
                   </span>
                   <span class="text-sm text-[hsl(var(--muted-foreground))]">
-                    /{plan.period}
+                    /{t(`pricing.period.${plan.periodKey}`)}
                   </span>
                 </div>
+                {rmb && (
+                  <p class="mt-1 text-xs text-[hsl(var(--muted-foreground))]">{rmb}</p>
+                )}
                 <p class="mt-2 text-sm text-[hsl(var(--muted-foreground))]">
                   {t(`pricing.${plan.planKey}.tagline`)}
                 </p>
@@ -270,7 +275,7 @@ const packsSection: Plan[] = [
                 {t(`pricing.${plan.planKey}.cta`)}
               </a>
             </div>
-          ))
+          )})
         }
       </div>
     </div>

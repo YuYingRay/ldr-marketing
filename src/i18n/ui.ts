@@ -70,6 +70,18 @@ export const ui = {
     "pricing.packSectionDesc": "Buy by project · no subscription · use credits flexibly within validity",
     "pricing.popular": "Most Popular",
     "pricing.disclaimer": "Packs are non-refundable (credits available within validity). Subscriptions can be canceled anytime with no current-period refund.",
+    // Plan names
+    "pricing.free.name": "Free",
+    "pricing.mini.name": "Mini",
+    "pricing.pro.name": "Pro",
+    "pricing.max.name": "Max",
+    "pricing.small.name": "Small",
+    "pricing.standard.name": "Standard",
+    "pricing.large.name": "Large",
+    // Periods
+    "pricing.period.forever": "forever",
+    "pricing.period.oneTime": "one-time",
+    "pricing.period.month": "month",
     // Plans
     "pricing.free.tagline": "Try before you buy",
     "pricing.free.f1": "5 credits on signup",
@@ -237,6 +249,27 @@ export const ui = {
     "pricing.packSectionDesc": "按项目购买 · 无需订阅 · 有效期内灵活使用积分",
     "pricing.popular": "最受欢迎",
     "pricing.disclaimer": "项目包不可退款（积分在有效期内可用）。订阅可随时取消，当前计费周期不退款。",
+    // Plan names
+    "pricing.free.name": "免费版",
+    "pricing.mini.name": "迷你包",
+    "pricing.pro.name": "专业版",
+    "pricing.max.name": "旗舰版",
+    "pricing.small.name": "小型包",
+    "pricing.standard.name": "标准包",
+    "pricing.large.name": "大型包",
+    // Periods
+    "pricing.period.forever": "永久",
+    "pricing.period.oneTime": "一次性",
+    "pricing.period.month": "月",
+    // RMB reference
+    "pricing.free.rmb": "",
+    "pricing.mini.rmb": "≈ ¥65",
+    "pricing.pro.rmb": "≈ ¥720/月",
+    "pricing.max.rmb": "≈ ¥1,800/月",
+    "pricing.small.rmb": "≈ ¥430",
+    "pricing.standard.rmb": "≈ ¥940",
+    "pricing.large.rmb": "≈ ¥2,170",
+    // Plans
     "pricing.free.tagline": "先试后买",
     "pricing.free.f1": "注册送 5 积分",
     "pricing.free.f2": "每天 1 次免费生成",
