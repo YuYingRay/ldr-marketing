@@ -1,6 +1,6 @@
 ---
 import type { Lang } from "../i18n/ui";
-import { getLocalizedPath } from "../i18n/utils";
+import { getLocalizedPath, useTranslations } from "../i18n/utils";
 
 interface Props {
   title: string;
@@ -20,6 +20,7 @@ const {
   lang = "en",
 } = Astro.props;
 
+const t = useTranslations(lang);
 const canonical = canonicalUrl ?? Astro.url.href;
 const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url.origin).href;
 
@@ -42,7 +43,7 @@ const zhUrl = new URL(getLocalizedPath(pathWithoutLang, "zh"), Astro.site ?? Ast
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={ogImageUrl} />
-<meta property="og:site_name" content="LDR - Lighting Design Rendering" />
+<meta property="og:site_name" content={t("og.siteName")} />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content={lang === "zh" ? "zh_CN" : "en_US"} />
 

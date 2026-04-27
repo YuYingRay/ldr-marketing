@@ -9,6 +9,7 @@ export const ui = {
     "nav.pricing": "Pricing",
     "nav.blog": "Blog",
     "nav.tryFree": "Try Free",
+    "nav.toggleMenu": "Toggle menu",
 
     // -- Footer --
     "footer.useCases": "Use Cases",
@@ -19,6 +20,10 @@ export const ui = {
     "footer.privacy": "Privacy Policy",
     "footer.refund": "Refund Policy",
     "footer.copyright": "© 2026 All rights reserved.",
+    "footer.navLabel": "Footer navigation",
+
+    // -- OG --
+    "og.siteName": "LDR - Lighting Design Rendering",
 
     // -- Hero --
     "hero.title": "Transform Daylight Photos into Professional Nightscape Renderings",
@@ -29,6 +34,8 @@ export const ui = {
     "hero.night": "Night",
     "hero.fallback": "See before/after examples below",
     "hero.scrollGallery": "Scroll to gallery",
+    "hero.altDay": "Daytime photo of",
+    "hero.altNight": "AI nightscape rendering of",
 
     // -- Features --
     "features.heading": "Why LDR?",
@@ -188,6 +195,7 @@ export const ui = {
     "nav.pricing": "价格",
     "nav.blog": "博客",
     "nav.tryFree": "免费试用",
+    "nav.toggleMenu": "切换菜单",
 
     // -- Footer --
     "footer.useCases": "应用场景",
@@ -198,6 +206,10 @@ export const ui = {
     "footer.privacy": "隐私政策",
     "footer.refund": "退款政策",
     "footer.copyright": "© 2026 版权所有",
+    "footer.navLabel": "页脚导航",
+
+    // -- OG --
+    "og.siteName": "LDR - 灯光设计渲染",
 
     // -- Hero --
     "hero.title": "将白天照片转化为专业夜景效果图",
@@ -208,6 +220,8 @@ export const ui = {
     "hero.night": "夜晚",
     "hero.fallback": "在下方查看前后对比案例",
     "hero.scrollGallery": "滚动到案例库",
+    "hero.altDay": "白天照片：",
+    "hero.altNight": "AI 夜景渲染：",
 
     // -- Features --
     "features.heading": "为什么选择 LDR？",

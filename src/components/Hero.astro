@@ -7,6 +7,7 @@ interface Props {
     day_image_url: string;
     night_image_url: string;
     prompt: string;
+    prompt_zh?: string;
     category: string;
   };
   lang?: Lang;
@@ -46,14 +47,14 @@ const t = useTranslations(lang);
       <div class="relative aspect-video">
         <img
           src={showcase.day_image_url}
-          alt={`Daytime photo of ${showcase.category} — ${showcase.prompt}`}
+          alt={`${t("hero.altDay")} ${showcase.category} — ${lang === "zh" && showcase.prompt_zh ? showcase.prompt_zh : showcase.prompt}`}
           class="absolute inset-0 w-full h-full object-cover"
           loading="eager"
         />
         <div class="absolute inset-0 overflow-hidden" id="compare-overlay" style="clip-path: inset(0 0 0 50%);">
           <img
             src={showcase.night_image_url}
-            alt={`AI nightscape rendering of ${showcase.category} — ${showcase.prompt}`}
+            alt={`${t("hero.altNight")} ${showcase.category} — ${lang === "zh" && showcase.prompt_zh ? showcase.prompt_zh : showcase.prompt}`}
             class="absolute inset-0 w-full h-full object-cover"
             loading="eager"
           />
