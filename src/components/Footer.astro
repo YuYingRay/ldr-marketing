@@ -31,9 +31,11 @@ const legalLinks = [
       <p class="flex items-center gap-2">
         <a
           href={getLocalizedPath("/", lang)}
-          class="font-bold text-foreground hover:text-primary transition-colors"
+          class="inline-flex items-center gap-2 font-bold text-foreground hover:text-primary transition-colors"
+          aria-label="LDR"
         >
-          LDR
+          <img src="/logo-mark.svg?v=20260715" alt="" width="20" height="20" class="h-5 w-5 shrink-0" />
+          <span>LDR</span>
         </a>
         <span aria-hidden="true" class="text-border">&middot;</span>
         <span>{t("footer.copyright")}</span>

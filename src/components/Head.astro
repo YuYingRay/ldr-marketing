@@ -14,7 +14,7 @@ interface Props {
 const {
   title,
   description,
-  ogImage = "/og-image.png",
+  ogImage = "/og-image-v1.png",
   canonicalUrl,
   jsonLd,
   lang = "en",
@@ -23,6 +23,8 @@ const {
 const t = useTranslations(lang);
 const canonical = canonicalUrl ?? Astro.url.href;
 const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url.origin).href;
+// 仅默认站点 og 图声明精确尺寸/类型；blog 文章封面图尺寸未知，硬声明会误导社交平台裁剪
+const isDefaultOgImage = ogImage === "/og-image-v1.png";
 
 const pathWithoutLang = Astro.url.pathname.replace(/^\/zh/, "") || "/";
 const enUrl = new URL(pathWithoutLang, Astro.site ?? Astro.url.origin).href;
@@ -43,6 +45,10 @@ const zhUrl = new URL(getLocalizedPath(pathWithoutLang, "zh"), Astro.site ?? Ast
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={ogImageUrl} />
+{isDefaultOgImage && <meta property="og:image:type" content="image/png" />}
+{isDefaultOgImage && <meta property="og:image:width" content="1200" />}
+{isDefaultOgImage && <meta property="og:image:height" content="630" />}
+<meta property="og:image:alt" content={`${title} | LDR`} />
 <meta property="og:site_name" content={t("og.siteName")} />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content={lang === "zh" ? "zh_CN" : "en_US"} />
@@ -52,6 +58,7 @@ const zhUrl = new URL(getLocalizedPath(pathWithoutLang, "zh"), Astro.site ?? Ast
 <meta name="twitter:title" content={`${title} | LDR`} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImageUrl} />
+<meta name="twitter:image:alt" content={`${title} | LDR`} />
 
 {jsonLd && (
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
