@@ -4,6 +4,12 @@ export type Lang = keyof typeof languages;
 
 export const ui = {
   en: {
+    // -- Announcement（顶部公告条）--
+    // 留空串 = 整条不渲染。useTranslations 用 ?? 判空，空串不会 fallback 到其他语言。
+    // 改文案会自动换掉 localStorage key（服务端按文案算 hash），关闭过的用户会重新看到新公告。
+    "announcement.text": "",
+    "announcement.dismiss": "Dismiss announcement",
+
     // -- Nav --
     "nav.useCases": "Use Cases",
     "nav.pricing": "Pricing",
@@ -70,7 +76,7 @@ export const ui = {
 
     // -- Pricing --
     "pricing.heading": "Simple, Transparent Pricing",
-    "pricing.subtitle": "Pay per project or subscribe for steady flow · Global USD pricing · Alipay / WeChat Pay / Cards supported",
+    "pricing.subtitle": "Pay per project or subscribe for steady flow · Global USD pricing · Cards / Alipay / Apple Pay / Google Pay",
     "pricing.subSection": "Trial & Subscriptions",
     "pricing.subSectionDesc": "From free trial to monthly subscriptions · upgrade anytime",
     "pricing.packSection": "Project Packs",
@@ -150,7 +156,7 @@ export const ui = {
     "faq.q6": "Are packs refundable?",
     "faq.a6": "Packs are non-refundable once purchased. Credits remain available for use throughout the validity period. New subscribers may be eligible for a 7-day money-back guarantee on their first subscription — see our Refund Policy for details.",
     "faq.q7": "What payment methods are supported?",
-    "faq.a7": "LDR uses Creem Inc. as the Merchant of Record. Supported methods include major credit cards, Alipay, and WeChat Pay. All prices are in USD; local currency is converted automatically at checkout.",
+    "faq.a7": "LDR uses Creem Inc. as the Merchant of Record. Currently available methods include major credit cards, Alipay, Apple Pay, and Google Pay — the exact options may vary by region, and the methods shown on the checkout page are authoritative. All prices are in USD; local currency is converted automatically at checkout.",
     "faq.q8": "What image formats are supported?",
     "faq.a8": "We accept JPG, PNG, and WebP images up to 20MB. The AI works best with clear daytime architectural or landscape photos.",
 
@@ -190,6 +196,11 @@ export const ui = {
   },
 
   zh: {
+    // -- Announcement（顶部公告条）--
+    // 支付宝 2026-07-25 上线（Creem 侧能力）。英文站故意留空：海外用户用不到支付宝。
+    "announcement.text": "🎉 支付宝已上线，扫码即可付款",
+    "announcement.dismiss": "关闭公告",
+
     // -- Nav --
     "nav.useCases": "应用场景",
     "nav.pricing": "价格",
@@ -256,7 +267,7 @@ export const ui = {
 
     // -- Pricing --
     "pricing.heading": "简单透明的价格",
-    "pricing.subtitle": "按项目购买或月度订阅 · 全球 USD 定价 · 支持支付宝 / 微信支付 / 银行卡",
+    "pricing.subtitle": "按项目购买或月度订阅 · 全球 USD 定价 · 支持支付宝 / 银行卡 / Apple Pay / Google Pay",
     "pricing.subSection": "试用与订阅",
     "pricing.subSectionDesc": "从免费试用到月度订阅 · 随时升级",
     "pricing.packSection": "项目包",
@@ -344,7 +355,7 @@ export const ui = {
     "faq.q6": "项目包可以退款吗？",
     "faq.a6": "项目包购买后不可退款。积分在有效期内可用。新订阅用户可能享有 7 天无理由退款保障 — 详见退款政策。",
     "faq.q7": "支持哪些支付方式？",
-    "faq.a7": "LDR 使用 Creem Inc. 作为责任商户。支持主流信用卡、支付宝和微信支付。所有价格以美元计价，结账时自动换算本币。",
+    "faq.a7": "LDR 使用 Creem Inc. 作为责任商户。目前可用方式包括主流信用卡、支付宝、Apple Pay 和 Google Pay —— 具体选项可能因地区而异，以结账页实际显示为准。所有价格以美元计价，结账时自动换算本币。",
     "faq.q8": "支持哪些图片格式？",
     "faq.a8": "支持 JPG、PNG 和 WebP，最大 20MB。AI 对清晰的白天建筑或景观照片效果最佳。",
 

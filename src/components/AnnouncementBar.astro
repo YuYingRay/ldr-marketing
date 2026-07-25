@@ -1,0 +1,103 @@
+---
+/**
+ * 顶部公告条（全站；由 PageLayout 注入在 Nav 之前）
+ *
+ * 文案来源 = i18n `announcement.text`（`src/i18n/ui.ts`）。**留空串即整条不渲染**——
+ * 英文站当前故意留空（支付宝对海外用户无价值）。改文案就是改 ui.ts → push → 自动部署，
+ * 与营销站其余文案同一套流程，不额外引入 env var 配置面。
+ *
+ * 关闭记忆：localStorage key = `ldr-ann-${hash(文案)}`，hash 在**服务端**算好传给脚本。
+ * 文案一改 hash 就变 → 关闭过旧公告的用户会重新看到新公告。与平台站
+ * `src/components/layout/AnnouncementBar.tsx` 同一算法，两站行为一致。
+ *
+ * ⚠️ 为什么用 `define:vars`（隐含 is:inline）而不是普通 <script>：Astro 默认把 script
+ * 打包成 module，module 是 defer 执行的 —— 那样"已关闭"的用户会先看到公告条闪一下才消失。
+ * inline 同步脚本紧跟元素，在首次绘制前就完成移除。
+ *
+ * 另外：默认渲染成**显示态**而非 hidden+JS显示。因为多数用户没关过公告，
+ * 优先保证他们零闪烁、零布局跳动；少数已关闭用户由同步脚本在绘制前移除。
+ *
+ * Nav 是 `sticky top-0`，公告条走普通文档流放在它前面即可 —— 滚动时公告条自然滚走、
+ * Nav 吸顶，无需计算高度偏移（平台站因用 fixed 才需要 ANNOUNCEMENT_HEIGHT）。
+ */
+import type { Lang } from "../i18n/ui";
+import { useTranslations, getLocalizedPath } from "../i18n/utils";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
+
+const text = t("announcement.text");
+const dismissLabel = t("announcement.dismiss");
+const href = getLocalizedPath("/pricing", lang);
+
+/** 与平台站 AnnouncementBar.tsx 的 hashText 保持同一算法，两站 key 语义一致 */
+function hashText(s: string): number {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+  return h;
+}
+const storageKey = `ldr-ann-${hashText(text)}`;
+---
+
+{
+  text && (
+    <>
+      <div
+        id="ldr-announcement"
+        class="relative flex items-center justify-center gap-3 bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 px-10 py-2 text-sm font-medium text-white"
+      >
+        <a href={href} class="truncate text-center no-underline hover:underline">
+          {text}
+        </a>
+        <button
+          id="ldr-announcement-dismiss"
+          type="button"
+          aria-label={dismissLabel}
+          class="absolute right-3 shrink-0 rounded-sm p-1 transition-colors hover:bg-white/20"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            class="h-3.5 w-3.5"
+            aria-hidden="true"
+          >
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <script is:inline define:vars={{ storageKey }}>
+        (function () {
+          var bar = document.getElementById("ldr-announcement");
+          if (!bar) return;
+          try {
+            if (localStorage.getItem(storageKey) === "1") {
+              bar.remove();
+              return;
+            }
+          } catch (e) {
+            /* localStorage 被禁用（隐私模式等）：公告照常显示，只是关不掉记忆 */
+          }
+          var btn = document.getElementById("ldr-announcement-dismiss");
+          if (btn) {
+            btn.addEventListener("click", function () {
+              try {
+                localStorage.setItem(storageKey, "1");
+              } catch (e) {
+                /* 同上，忽略写入失败 */
+              }
+              bar.remove();
+            });
+          }
+        })();
+      </script>
+    </>
+  )
+}
