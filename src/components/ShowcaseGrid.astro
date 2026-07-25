@@ -1,6 +1,7 @@
 ---
 import type { Lang } from "../i18n/ui";
 import { useTranslations } from "../i18n/utils";
+import { toThumbUrl } from "../lib/supabase";
 
 interface Showcase {
   id: string;
@@ -80,6 +81,17 @@ function localPrompt(item: Showcase) {
   if (lang !== "zh") return item.prompt;
   return item.prompt_zh || promptZh[item.prompt] || item.prompt;
 }
+
+/**
+ * alt 文案。category 缺失时不能拼进模板字符串 —— `${null}` 会渲染成字面量
+ * "null"（2026-07-25 线上实测：27 张卡片的 alt 都是 "null — …"，读屏软件会念出来）。
+ * 官方案例都填了 category，这里是防御性处理，防止将来手工上传时漏填。
+ */
+function altText(item: Showcase) {
+  const cat = localCategory(item.category);
+  const desc = localPrompt(item);
+  return cat ? `${cat} — ${desc}` : desc;
+}
 ---
 
 <section id="showcase" class="py-20 px-4">
@@ -91,27 +103,36 @@ function localPrompt(item: Showcase) {
     <div class="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       {
         hasItems ? (
-          showcases.map((item) => (
-            <div class="surface-card bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-2xl overflow-hidden">
-              <div class="aspect-[4/3] relative">
-                <img
-                  src={item.night_image_url}
-                  alt={`${localCategory(item.category)} — ${localPrompt(item)}`}
-                  class="w-full h-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <span class="absolute top-3 left-3 text-xs bg-[hsl(var(--background)/0.9)] text-[hsl(var(--foreground))] px-2 py-1 rounded-full">
-                  {localCategory(item.category)}
-                </span>
+          showcases.map((item) => {
+            const cat = localCategory(item.category);
+            return (
+              <div class="surface-card bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-2xl overflow-hidden">
+                <div class="aspect-[4/3] relative">
+                  {/* 缩略图（1200px/q75）而非原图：原图是 4-5K，此处只显示 366px 宽。
+                      onerror 先清 onerror 再回退原图，否则原图也失败会无限循环。
+                      JSON.stringify 生成合法 JS 字符串字面量，避免 URL 特殊字符破坏语法。 */}
+                  <img
+                    src={toThumbUrl(item.night_image_url)}
+                    onerror={`this.onerror=null;this.src=${JSON.stringify(item.night_image_url)}`}
+                    alt={altText(item)}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  {cat && (
+                    <span class="absolute top-3 left-3 text-xs bg-[hsl(var(--background)/0.9)] text-[hsl(var(--foreground))] px-2 py-1 rounded-full">
+                      {cat}
+                    </span>
+                  )}
+                </div>
+                <div class="p-4">
+                  <p class="text-sm text-[hsl(var(--muted-foreground))] line-clamp-2">
+                    {localPrompt(item)}
+                  </p>
+                </div>
               </div>
-              <div class="p-4">
-                <p class="text-sm text-[hsl(var(--muted-foreground))] line-clamp-2">
-                  {localPrompt(item)}
-                </p>
-              </div>
-            </div>
-          ))
+            );
+          })
         ) : (
           <div class="md:col-span-2 lg:col-span-3 surface-card bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-2xl overflow-hidden">
             <div class="aspect-[4/3] relative flex items-center justify-center bg-[hsl(var(--muted)/0.4)]">
