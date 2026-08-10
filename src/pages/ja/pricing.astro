@@ -1,8 +1,7 @@
 ---
 /**
- * 价格页（英文）。四种语言共用同一份结构，其他语言的同名文件只有 `lang` 一行不同。
- * FAQ 文案统一来自 i18n/ui.ts —— 改造前英文版把 8 组问答硬编码在这里，
- * 与 ui.ts 里的同一批文案并存，改一次要改两处。
+ * 价格页（日语）。四种语言共用同一份结构，其他语言的同名文件只有 `lang` 一行不同。
+ * FAQ 文案统一来自 i18n/ui.ts。
  */
 import PageLayout from "@/layouts/PageLayout.astro";
 import PricingTable from "@/components/PricingTable.astro";
@@ -10,7 +9,7 @@ import CTABanner from "@/components/CTABanner.astro";
 import type { Lang } from "@/i18n/ui";
 import { useTranslations } from "@/i18n/utils";
 
-const lang: Lang = "en";
+const lang: Lang = "ja";
 const t = useTranslations(lang);
 
 // as const 让键保持字面量类型，模板字符串才能对上 ui.ts 的键

@@ -1,4 +1,8 @@
 ---
+/**
+ * 价格页（中文）。四种语言共用同一份结构，其他语言的同名文件只有 `lang` 一行不同。
+ * FAQ 文案统一来自 i18n/ui.ts。
+ */
 import PageLayout from "@/layouts/PageLayout.astro";
 import PricingTable from "@/components/PricingTable.astro";
 import CTABanner from "@/components/CTABanner.astro";
@@ -7,6 +11,12 @@ import { useTranslations } from "@/i18n/utils";
 
 const lang: Lang = "zh";
 const t = useTranslations(lang);
+
+// as const 让键保持字面量类型，模板字符串才能对上 ui.ts 的键
+const faqNumbers = [1, 2, 3, 4, 5, 6, 7, 8] as const;
+
+/** 第 6 问的答案中间要插一个指向退款政策的链接，见 ui.ts 里 faq.a6 的说明 */
+const REFUND_FAQ = 6;
 ---
 
 <PageLayout
@@ -21,41 +31,14 @@ const t = useTranslations(lang);
   <section class="max-w-4xl mx-auto px-4 pb-20">
     <h2 class="text-2xl font-bold text-center mb-8">{t("faq.heading")}</h2>
     <div class="space-y-6">
-      <div>
-        <h3 class="font-semibold mb-2">{t("faq.q1")}</h3>
-        <p class="text-muted-foreground text-sm">{t("faq.a1")}</p>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-2">{t("faq.q2")}</h3>
-        <p class="text-muted-foreground text-sm">{t("faq.a2")}</p>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-2">{t("faq.q3")}</h3>
-        <p class="text-muted-foreground text-sm">{t("faq.a3")}</p>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-2">{t("faq.q4")}</h3>
-        <p class="text-muted-foreground text-sm">{t("faq.a4")}</p>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-2">{t("faq.q5")}</h3>
-        <p class="text-muted-foreground text-sm">{t("faq.a5")}</p>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-2">{t("faq.q6")}</h3>
-        <p class="text-muted-foreground text-sm">
-          {t("faq.a6")}
-          <a href="/refund" class="underline">退款政策</a>。
-        </p>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-2">{t("faq.q7")}</h3>
-        <p class="text-muted-foreground text-sm">{t("faq.a7")}</p>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-2">{t("faq.q8")}</h3>
-        <p class="text-muted-foreground text-sm">{t("faq.a8")}</p>
-      </div>
+      {faqNumbers.map((n) => (
+        <div>
+          <h3 class="font-semibold mb-2">{t(`faq.q${n}`)}</h3>
+          {/* 相邻表达式之间不能换行：换行会被渲染成一个空格，
+              中日文里这个空格会明显破坏句子（"詳しくは 返金ポリシー をご覧ください"）。 */}
+          <p class="text-muted-foreground text-sm">{t(`faq.a${n}`)}{n === REFUND_FAQ && <><a href="/refund" class="underline">{t("faq.a6.link")}</a>{t("faq.a6.suffix")}</>}</p>
+        </div>
+      ))}
     </div>
   </section>
 

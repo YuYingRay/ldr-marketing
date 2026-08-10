@@ -1,0 +1,120 @@
+---
+/**
+ * 应用场景详情页的统一版式。四种语言、四个场景共用这一份，
+ * 文案全部来自 src/i18n/useCases.ts —— 改版式改这里，改文案改数据。
+ *
+ * 页面壳（src/pages/**\/use-cases/[slug].astro）只负责：声明语言、
+ * 用 getStaticPaths 展开 slug、取案例数据。
+ */
+import PageLayout from "../layouts/PageLayout.astro";
+import ShowcaseGrid from "./ShowcaseGrid.astro";
+import CTABanner from "./CTABanner.astro";
+import type { Lang } from "../i18n/ui";
+import { useTranslations, getLocalizedPath } from "../i18n/utils";
+import {
+  useCaseDetails,
+  useCaseSlugs,
+  useCaseUiKeys,
+  type UseCaseSlug,
+} from "../i18n/useCases";
+import type { Showcase } from "../lib/supabase";
+
+interface Props {
+  lang: Lang;
+  slug: UseCaseSlug;
+  showcases: Showcase[];
+}
+
+const { lang, slug, showcases } = Astro.props;
+const t = useTranslations(lang);
+const detail = useCaseDetails[lang][slug];
+
+const path = getLocalizedPath(`/use-cases/${slug}`, lang);
+const pageUrl = new URL(path, Astro.site ?? Astro.url.origin).href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: detail.metaTitle,
+  description: detail.metaDesc,
+  url: pageUrl,
+  inLanguage: lang,
+};
+
+/** 其他三个场景，标题取自 ui.ts（与场景索引页的叫法保持一致） */
+const otherCases = useCaseSlugs
+  .filter((s) => s !== slug)
+  .map((s) => ({
+    label: t(useCaseUiKeys[s].title),
+    href: getLocalizedPath(`/use-cases/${s}`, lang),
+  }));
+
+/**
+ * 应用清单里"小标题 + 说明"之间的分隔。中文和日文的全角冒号自带间距，
+ * 再补一个半角空格会在句中留出明显缝隙；拉丁文语言则必须有这个空格。
+ */
+const termSep = lang === "zh" || lang === "ja" ? "" : " ";
+---
+
+<PageLayout
+  title={detail.metaTitle}
+  description={detail.metaDesc}
+  jsonLd={jsonLd}
+  lang={lang}
+>
+  <section class="max-w-4xl mx-auto px-4 pt-20 pb-12">
+    {/* 断词规则同 Hero：德语标题里有 Architekturbeleuchtung 这类长复合词，
+        断点由 i18n/useCases.ts 的德语 h1 里的软连字符指定 */}
+    <h1 class="text-4xl font-bold text-[hsl(var(--foreground))] leading-tight hyphens-manual break-words">
+      {detail.h1}
+    </h1>
+    {detail.intro.map((paragraph, i) => (
+      <p
+        class:list={[
+          "text-[hsl(var(--muted-foreground))] leading-relaxed",
+          i === 0 ? "mt-6" : "mt-4",
+          // 前两段用大字号，第三段（读者画像）回到正文字号 —— 沿用改造前的排版
+          i < 2 ? "text-lg" : "",
+        ]}
+      >
+        {paragraph}
+      </p>
+    ))}
+  </section>
+
+  <ShowcaseGrid showcases={showcases} lang={lang} />
+
+  <section class="max-w-4xl mx-auto px-4 py-16">
+    <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-6">
+      {detail.applicationsHeading}
+    </h2>
+    <ul class="space-y-3 text-[hsl(var(--muted-foreground))]">
+      {detail.applications.map((app) => (
+        <li class="flex gap-3">
+          <span class="text-[hsl(var(--primary))] font-bold shrink-0">—</span>
+          {/* 下面一行不能拆行：换行会被渲染成空格，中日文的全角冒号后
+              会多出一道缝，拉丁文则会变成两个空格 */}
+          <span><strong class="text-[hsl(var(--foreground))]">{app.term}</strong>{termSep}{app.desc}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 pb-16">
+    <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-4">
+      {t("useCases.exploreOther")}
+    </h2>
+    <div class="flex flex-wrap gap-4">
+      {otherCases.map((uc) => (
+        <a
+          href={uc.href}
+          class="px-4 py-2 rounded-xl border border-[hsl(var(--border))] text-sm text-[hsl(var(--foreground))] hover:border-[hsl(var(--primary))] transition-colors"
+        >
+          {uc.label}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <CTABanner lang={lang} />
+</PageLayout>

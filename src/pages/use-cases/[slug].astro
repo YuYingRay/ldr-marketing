@@ -1,0 +1,24 @@
+---
+/**
+ * 英文应用场景详情页。版式在 components/UseCaseDetail.astro，文案在 i18n/useCases.ts。
+ * URL 与改造前一致：/use-cases/architectural-lighting 等四个。
+ */
+import UseCaseDetail from "@/components/UseCaseDetail.astro";
+import { getShowcases } from "@/lib/supabase";
+import { useCaseSlugs, useCaseCategory, type UseCaseSlug } from "@/i18n/useCases";
+import type { Lang } from "@/i18n/ui";
+
+export async function getStaticPaths() {
+  return useCaseSlugs.map((slug) => ({ params: { slug } }));
+}
+
+const lang: Lang = "en";
+const slug = Astro.params.slug as UseCaseSlug;
+
+// 该场景没有对应分类的案例时退回全部案例，避免案例区空着
+const all = await getShowcases(lang);
+const matched = all.filter((s) => s.category === useCaseCategory[slug]);
+const showcases = matched.length > 0 ? matched : all;
+---
+
+<UseCaseDetail lang={lang} slug={slug} showcases={showcases} />

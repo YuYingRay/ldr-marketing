@@ -1,6 +1,12 @@
 ---
 import type { Lang } from "../i18n/ui";
-import { useTranslations, getLocalizedPath, getAlternateLang } from "../i18n/utils";
+import {
+  useTranslations,
+  getLocalizedPath,
+  getOtherLangs,
+  stripLangPrefix,
+  hasBlog,
+} from "../i18n/utils";
 import { languages } from "../i18n/ui";
 
 interface Props {
@@ -9,18 +15,32 @@ interface Props {
 
 const { lang = "en" } = Astro.props;
 const t = useTranslations(lang);
-const altLang = getAlternateLang(lang);
 
 const navLinks = [
   { label: t("nav.useCases"), href: getLocalizedPath("/use-cases", lang) },
   { label: t("nav.pricing"), href: getLocalizedPath("/pricing", lang) },
-  { label: t("nav.blog"), href: getLocalizedPath("/blog", lang) },
+  // 博客只在有译文的语言里出现（日/德暂无文章）
+  ...(hasBlog(lang)
+    ? [{ label: t("nav.blog"), href: getLocalizedPath("/blog", lang) }]
+    : []),
 ];
 
 const appUrl = "https://app.ldr-design.com";
 
-const currentPath = Astro.url.pathname.replace(/^\/zh/, "") || "/";
-const switchUrl = getLocalizedPath(currentPath, altLang);
+/**
+ * 语言切换保持当前页面。注意：并非所有页面在所有语言下都存在
+ * （博客只有 en/zh），切到没有该页的语言时会 404 —— 因此博客页里
+ * 只列出确实有博客的语言。其余页面四种语言齐全。
+ */
+const currentPath = stripLangPrefix(Astro.url.pathname);
+const isBlogPath = currentPath === "/blog" || currentPath.startsWith("/blog/");
+const otherLangs = getOtherLangs(lang).filter((l) => !isBlogPath || hasBlog(l));
+const langOptions = otherLangs.map((l) => ({
+  code: l,
+  label: languages[l],
+  // 博客文章的 slug 在各语言间一致，列表页同理，所以整条路径可以直接换前缀
+  href: getLocalizedPath(currentPath, l),
+}));
 ---
 
 <header class="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border/50">
@@ -51,20 +71,51 @@ const switchUrl = getLocalizedPath(currentPath, altLang);
 
     <!-- CTA + lang switch + mobile toggle -->
     <div class="flex items-center gap-3">
-      <!-- Language switcher -->
-      <a
-        href={switchUrl}
-        class="text-xs text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded border border-border/50 hover:border-border"
-        aria-label={`Switch to ${languages[altLang]}`}
-      >
-        {languages[altLang]}
-      </a>
+      <!-- Language switcher：用 <details> 而不是自建下拉，无 JS 也能展开，
+           <summary> 自带按钮语义与键盘支持（Enter/Space） -->
+      <details class="relative" id="lang-switcher">
+        <summary
+          class="flex cursor-pointer list-none items-center gap-1 rounded border border-border/50 px-2 py-1 text-xs text-muted-foreground transition-colors hover:border-border hover:text-foreground"
+          aria-label="Language"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            class="h-3.5 w-3.5 shrink-0"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="9" />
+            <path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18" />
+          </svg>
+          {/* 窄屏只留地球图标：德语的 CTA（"Kostenlos testen"）比中英文长得多，
+              375px 下语言名 + CTA 会挤到按钮换行、导航条变形 */}
+          <span class="hidden sm:inline">{languages[lang]}</span>
+        </summary>
+        <ul
+          class="absolute right-0 top-full z-50 mt-2 min-w-[8rem] overflow-hidden rounded-lg border border-border bg-background py-1 shadow-lg"
+        >
+          {langOptions.map((opt) => (
+            <li>
+              <a
+                href={opt.href}
+                hreflang={opt.code}
+                lang={opt.code}
+                class="block px-3 py-2 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              >
+                {opt.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
 
       <a
         href={appUrl}
         target="_blank"
         rel="noopener noreferrer"
-        class="bg-primary text-primary-foreground rounded-lg px-4 py-2 text-sm font-medium hover:opacity-90 transition-opacity"
+        class="whitespace-nowrap bg-primary text-primary-foreground rounded-lg px-4 py-2 text-sm font-medium hover:opacity-90 transition-opacity"
       >
         {t("nav.tryFree")}
       </a>
@@ -104,6 +155,13 @@ const switchUrl = getLocalizedPath(currentPath, altLang);
   </div>
 </header>
 
+<style>
+  /* Safari 仍然画自己的三角标记，list-style:none 对它无效 */
+  #lang-switcher > summary::-webkit-details-marker {
+    display: none;
+  }
+</style>
+
 <script>
   const toggle = document.getElementById("mobile-menu-toggle");
   const menu = document.getElementById("mobile-menu");
@@ -113,4 +171,22 @@ const switchUrl = getLocalizedPath(currentPath, altLang);
     menu?.classList.toggle("hidden", isOpen);
     toggle.setAttribute("aria-expanded", String(!isOpen));
   });
+
+  // 语言下拉：点击别处 / 按 Esc 关闭。<details> 原生不做这件事。
+  const langSwitcher = document.getElementById("lang-switcher") as HTMLDetailsElement | null;
+
+  if (langSwitcher) {
+    document.addEventListener("click", (e) => {
+      if (langSwitcher.open && !langSwitcher.contains(e.target as Node)) {
+        langSwitcher.open = false;
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && langSwitcher.open) {
+        langSwitcher.open = false;
+        langSwitcher.querySelector("summary")?.focus();
+      }
+    });
+  }
 </script>

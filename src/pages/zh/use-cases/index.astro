@@ -1,50 +1,38 @@
 ---
+/**
+ * 应用场景索引页（中文）。卡片顺序与文案来自 i18n/useCases.ts + ui.ts，
+ * 四种语言共用同一份结构 —— 其他语言的同名文件只有 `lang` 一行不同。
+ */
 import PageLayout from "@/layouts/PageLayout.astro";
 import CTABanner from "@/components/CTABanner.astro";
 import type { Lang } from "@/i18n/ui";
-import { useTranslations } from "@/i18n/utils";
+import { useTranslations, getLocalizedPath } from "@/i18n/utils";
+import { useCaseSlugs, useCaseUiKeys } from "@/i18n/useCases";
 
 const lang: Lang = "zh";
 const t = useTranslations(lang);
 
-const useCases = [
-  {
-    title: t("useCases.arch.title"),
-    slug: "architectural-lighting",
-    description: t("useCases.arch.desc"),
-    keywords: t("useCases.arch.keywords"),
-  },
-  {
-    title: t("useCases.landscape.title"),
-    slug: "landscape-lighting",
-    description: t("useCases.landscape.desc"),
-    keywords: t("useCases.landscape.keywords"),
-  },
-  {
-    title: t("useCases.urban.title"),
-    slug: "urban-night-planning",
-    description: t("useCases.urban.desc"),
-    keywords: t("useCases.urban.keywords"),
-  },
-  {
-    title: t("useCases.hospitality.title"),
-    slug: "hospitality-lighting",
-    description: t("useCases.hospitality.desc"),
-    keywords: t("useCases.hospitality.keywords"),
-  },
-];
+const useCases = useCaseSlugs.map((slug) => ({
+  slug,
+  title: t(useCaseUiKeys[slug].title),
+  description: t(useCaseUiKeys[slug].desc),
+  keywords: t(useCaseUiKeys[slug].keywords),
+  href: getLocalizedPath(`/use-cases/${slug}`, lang),
+}));
+
+const origin = Astro.site ?? Astro.url.origin;
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  name: "LDR 应用场景 — AI 灯光设计渲染",
-  description:
-    "了解灯光设计师、建筑师和城市规划师如何使用 LDR 在安装前可视化夜景渲染效果。",
-  url: "https://www.ldr-design.com/zh/use-cases",
+  name: t("meta.useCases.title"),
+  description: t("meta.useCases.desc"),
+  url: new URL(getLocalizedPath("/use-cases", lang), origin).href,
+  inLanguage: lang,
   hasPart: useCases.map((uc) => ({
     "@type": "WebPage",
     name: uc.title,
-    url: `https://www.ldr-design.com/zh/use-cases/${uc.slug}`,
+    url: new URL(uc.href, origin).href,
   })),
 };
 ---
@@ -68,10 +56,10 @@ const jsonLd = {
     <div class="grid md:grid-cols-2 gap-6">
       {useCases.map((uc) => (
         <a
-          href={`/zh/use-cases/${uc.slug}`}
+          href={uc.href}
           class="group block rounded-2xl border border-[hsl(var(--border))] p-8 hover:border-[hsl(var(--primary))] transition-colors"
         >
-          <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-3">
+          <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-3 hyphens-auto break-words">
             {uc.title}
           </h2>
           <p class="text-sm text-[hsl(var(--muted-foreground))] leading-relaxed mb-4">

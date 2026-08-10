@@ -1,6 +1,29 @@
 export const defaultLang = "en" as const;
-export const languages = { en: "English", zh: "中文" } as const;
+
+/**
+ * 站点语言。key = URL 前缀（默认语言 en 无前缀），value = 语言切换器里的自称名
+ * （endonym —— 德国用户看到的应该是 "Deutsch" 而不是 "German"）。
+ * 新增语言的完整清单见 README 式说明：
+ *   1. 这里加 key + 下面 ui 里加整块翻译
+ *   2. astro.config.mjs 的 i18n.locales 与 sitemap.i18n.locales
+ *   3. utils.ts 的 htmlLang / ogLocale / dateLocale 映射（漏了会静默退回 en）
+ *   4. src/pages/<lang>/ 下的页面壳 + src/i18n/useCases.ts 的场景长文案
+ */
+export const languages = {
+  en: "English",
+  zh: "中文",
+  ja: "日本語",
+  de: "Deutsch",
+} as const;
 export type Lang = keyof typeof languages;
+
+/**
+ * 有博客内容的语言。博客正文是 MDX 实体文件（src/data/blog[-<lang>]/），
+ * 不是 ui.ts 里的字符串 —— 没有对应 MDX 就不能放出入口，否则用户点进去是空列表。
+ * 2026-08-10：日语/德语先只做界面与落地页，博客待补。补齐后把语言加进来即可，
+ * Nav/Footer 的博客入口会自动出现。
+ */
+export const langsWithBlog: readonly Lang[] = ["en", "zh"];
 
 export const ui = {
   en: {
@@ -95,6 +118,15 @@ export const ui = {
     "pricing.period.forever": "forever",
     "pricing.period.oneTime": "one-time",
     "pricing.period.month": "month",
+    // 本币参考价：英文站以 USD 为准，不显示换算 —— 留空串即整行不渲染。
+    // key 在 en 里存在是为了让 t() 的键类型覆盖它（PricingTable 无条件读取该键）。
+    "pricing.free.localPrice": "",
+    "pricing.mini.localPrice": "",
+    "pricing.pro.localPrice": "",
+    "pricing.max.localPrice": "",
+    "pricing.small.localPrice": "",
+    "pricing.standard.localPrice": "",
+    "pricing.large.localPrice": "",
     // Plans
     "pricing.free.tagline": "Try before you buy",
     "pricing.free.f1": "5 credits on signup",
@@ -154,7 +186,12 @@ export const ui = {
     "faq.q5": "Can I cancel my subscription?",
     "faq.a5": "Yes, you can cancel anytime from the customer portal. Your subscription remains active until the end of the current billing period and there is no refund for the unused portion of that period.",
     "faq.q6": "Are packs refundable?",
-    "faq.a6": "Packs are non-refundable once purchased. Credits never expire, so they remain available until you use them. New subscribers may be eligible for a 7-day money-back guarantee on their first subscription — see our Refund Policy for details.",
+    // a6 分三段是因为中间要插一个指向 /refund 的链接。四种语言的语序不同
+    // （中文/日文把链接放在句末前，德文放在 "in unserer …" 之后），
+    // 所以拆成 前缀 + 链接文字 + 后缀，而不是在文案里硬编码 <a>。
+    "faq.a6": "Packs are non-refundable once purchased. Credits never expire, so they remain available until you use them. New subscribers may be eligible for a 7-day money-back guarantee on their first subscription — see our ",
+    "faq.a6.link": "Refund Policy",
+    "faq.a6.suffix": " for details.",
     "faq.q7": "What payment methods are supported?",
     "faq.a7": "LDR uses Creem Inc. as the Merchant of Record. Currently available methods include major credit cards, Alipay, Apple Pay, and Google Pay — the exact options may vary by region, and the methods shown on the checkout page are authoritative. All prices are in USD; local currency is converted automatically at checkout.",
     "faq.q8": "What image formats are supported?",
@@ -286,14 +323,16 @@ export const ui = {
     "pricing.period.forever": "永久",
     "pricing.period.oneTime": "一次性",
     "pricing.period.month": "月",
-    // RMB reference
-    "pricing.free.rmb": "",
-    "pricing.mini.rmb": "≈ ¥65",
-    "pricing.pro.rmb": "≈ ¥720/月",
-    "pricing.max.rmb": "≈ ¥1,800/月",
-    "pricing.small.rmb": "≈ ¥430",
-    "pricing.standard.rmb": "≈ ¥940",
-    "pricing.large.rmb": "≈ ¥2,170",
+    // 本币参考价（USD 结算，此处仅为换算提示；留空则不渲染这一行）
+    // 汇率 2026-08-10 取 1 USD ≈ ¥7.2，取整到易读数字。汇率漂移后手工更新即可，
+    // 不做实时汇率：营销页静态构建，且"约"字样已表明是参考值。
+    "pricing.free.localPrice": "",
+    "pricing.mini.localPrice": "≈ ¥65",
+    "pricing.pro.localPrice": "≈ ¥720/月",
+    "pricing.max.localPrice": "≈ ¥1,800/月",
+    "pricing.small.localPrice": "≈ ¥430",
+    "pricing.standard.localPrice": "≈ ¥940",
+    "pricing.large.localPrice": "≈ ¥2,170",
     // Plans
     "pricing.free.tagline": "先试后买",
     "pricing.free.f1": "注册送 5 积分",
@@ -353,7 +392,9 @@ export const ui = {
     "faq.q5": "可以取消订阅吗？",
     "faq.a5": "可以，随时通过客户门户取消。订阅在当前计费周期结束前仍然有效，剩余部分不退款。",
     "faq.q6": "项目包可以退款吗？",
-    "faq.a6": "项目包购买后不可退款。积分永久有效，会一直保留直到用完。新订阅用户可能享有 7 天无理由退款保障 — 详见退款政策。",
+    "faq.a6": "项目包购买后不可退款。积分永久有效，会一直保留直到用完。新订阅用户可能享有 7 天无理由退款保障 — 详见",
+    "faq.a6.link": "退款政策",
+    "faq.a6.suffix": "。",
     "faq.q7": "支持哪些支付方式？",
     "faq.a7": "LDR 使用 Creem Inc. 作为责任商户。目前可用方式包括主流信用卡、支付宝、Apple Pay 和 Google Pay —— 具体选项可能因地区而异，以结账页实际显示为准。所有价格以美元计价，结账时自动换算本币。",
     "faq.q8": "支持哪些图片格式？",
@@ -392,5 +433,430 @@ export const ui = {
     "meta.blog.desc": "AI 灯光设计渲染、夜景可视化和白天转夜景的实用指南、教程和技巧。",
     "meta.useCases.title": "应用场景 — AI 灯光设计渲染",
     "meta.useCases.desc": "了解建筑师、灯光设计师和城市规划师如何使用 LDR 在建筑、景观、城市和酒店项目中可视化夜景渲染。",
+  },
+
+  /**
+   * 日本語 —— 日本の照明デザイン市場向け。
+   *
+   * 用語方針：業界の実務語に寄せる。「夜景パース」「ライトアップ」「照明デザイン」
+   * 「配光」「色温度」は日本の照明設計者が実際に検索・使用する語。
+   * プラン名（Free / Mini / Pro / Max / Small / Standard / Large）は決済画面および
+   * アプリ内表記が英語のため、あえて訳さず英語のまま残す（対応が取れなくなるため）。
+   * 文体は「です・ます」体。過度な敬語は避け、B2B の実務トーンに揃える。
+   */
+  ja: {
+    // -- Announcement --
+    // 支付宝（Alipay）は日本のユーザーに無関係なので空 = 非表示。
+    "announcement.text": "",
+    "announcement.dismiss": "お知らせを閉じる",
+
+    // -- Nav --
+    "nav.useCases": "活用シーン",
+    "nav.pricing": "料金",
+    "nav.blog": "ブログ",
+    "nav.tryFree": "無料で試す",
+    "nav.toggleMenu": "メニューを開閉",
+
+    // -- Footer --
+    "footer.useCases": "活用シーン",
+    "footer.pricing": "料金",
+    "footer.blog": "ブログ",
+    "footer.app": "アプリ",
+    "footer.terms": "利用規約",
+    "footer.privacy": "プライバシーポリシー",
+    "footer.refund": "返金ポリシー",
+    "footer.copyright": "© 2026 All rights reserved.",
+    "footer.navLabel": "フッターナビゲーション",
+
+    // -- OG --
+    "og.siteName": "LDR - 照明デザインレンダリング",
+
+    // -- Hero --
+    "hero.title": "昼間の写真を、プロ品質の夜景パースへ",
+    "hero.subtitle": "AI による照明デザインの可視化。昼間の写真をアップロードするだけで、数秒でプロ品質の夜景レンダリングが手に入ります。",
+    "hero.cta": "無料でレンダリングを始める",
+    "hero.examples": "事例を見る",
+    "hero.day": "昼",
+    "hero.night": "夜",
+    "hero.fallback": "下のビフォーアフター事例をご覧ください",
+    "hero.scrollGallery": "ギャラリーへスクロール",
+    "hero.altDay": "昼間の写真：",
+    "hero.altNight": "AI 夜景レンダリング：",
+
+    // -- Features --
+    "features.heading": "LDR が選ばれる理由",
+    "features.speed.title": "昼から夜へ、数秒で",
+    "features.speed.desc": "建築・ランドスケープの昼間の写真をアップロードするだけで、プロ品質の夜景パースをすぐに生成します。",
+    "features.ai.title": "AI による高精度な描写",
+    "features.ai.desc": "建築的な文脈、素材の質感、光の物理を理解した AI が、リアルな仕上がりを実現します。",
+    "features.seg.title": "セマンティックセグメンテーション",
+    "features.seg.desc": "HQ-SAM による高度なシーン解析が、建物・空・植栽を自動で分離します。",
+    "features.quality.title": "4K のプロ仕様出力",
+    "features.quality.desc": "最大 4096px、提出資料にそのまま使える解像度。有料プランはウォーターマークなし。",
+
+    // -- How It Works --
+    "how.heading": "ご利用の流れ",
+    "how.step1.title": "アップロード",
+    "how.step1.desc": "建築・ランドスケープ・街並みなど、昼間の写真をアップロード",
+    "how.step2.title": "指示する",
+    "how.step2.desc": "照明のイメージを AI に伝えるか、AI の提案に任せる",
+    "how.step3.title": "レンダリング",
+    "how.step3.desc": "60 秒以内にプロ品質の夜景パースが完成",
+
+    // -- Showcase --
+    "showcase.heading": "生成事例",
+    "showcase.empty": "事例画像は近日公開予定です",
+    "showcase.emptyDesc": "LDR AI が生成したプロ品質の夜景レンダリング",
+
+    // -- CTA --
+    "cta.heading": "照明デザインの伝え方を変えませんか？",
+    "cta.subtitle": "AI で夜景照明を可視化する設計者・建築家の仲間入りを。",
+    "cta.button": "無料で始める",
+    "cta.note": "クレジットカード不要 · 毎日 1 回無料レンダリング",
+
+    // -- Pricing --
+    "pricing.heading": "シンプルで明快な料金",
+    "pricing.subtitle": "プロジェクト単位でも、月額でも · 全世界 USD 建て · クレジットカード / Apple Pay / Google Pay",
+    "pricing.subSection": "無料トライアルと月額プラン",
+    "pricing.subSectionDesc": "無料トライアルから月額プランまで · いつでもアップグレード可能",
+    "pricing.packSection": "プロジェクトパック",
+    "pricing.packSectionDesc": "プロジェクト単位で購入 · 月額契約なし · パックのクレジットは無期限有効",
+    "pricing.popular": "人気 No.1",
+    "pricing.disclaimer": "プロジェクトパックは返金対象外です（クレジットは無期限有効）。月額プランはいつでも解約できますが、当期分の返金はありません。表示価格は USD 建てで、地域により消費税等が加算される場合があります。",
+    // Plan names（決済画面・アプリ内表記に合わせて英語のまま）
+    "pricing.free.name": "Free",
+    "pricing.mini.name": "Mini",
+    "pricing.pro.name": "Pro",
+    "pricing.max.name": "Max",
+    "pricing.small.name": "Small",
+    "pricing.standard.name": "Standard",
+    "pricing.large.name": "Large",
+    // Periods
+    "pricing.period.forever": "永久",
+    "pricing.period.oneTime": "買い切り",
+    "pricing.period.month": "月",
+    // 円換算の参考価格（2026-08-10 時点で 1 USD ≈ 150 円として概算・端数は丸め）
+    "pricing.free.localPrice": "",
+    "pricing.mini.localPrice": "約 1,350 円",
+    "pricing.pro.localPrice": "約 15,000 円/月",
+    "pricing.max.localPrice": "約 37,400 円/月",
+    "pricing.small.localPrice": "約 8,900 円",
+    "pricing.standard.localPrice": "約 19,400 円",
+    "pricing.large.localPrice": "約 44,900 円",
+    // Plans
+    "pricing.free.tagline": "まずは試してから",
+    "pricing.free.f1": "登録時に 5 クレジット付与",
+    "pricing.free.f2": "毎日 1 回無料で生成",
+    "pricing.free.f3": "1K 解像度・ウォーターマークあり",
+    "pricing.free.f4": "全機能を利用可能（キャンバス + チャット）",
+    "pricing.free.cta": "無料で始める",
+    "pricing.mini.tagline": "はじめての有料プラン — 商用品質を体験",
+    "pricing.mini.f1": "5 クレジット（4K 商用画像 約 2〜3 枚）",
+    "pricing.mini.f2": "4K 解像度・ウォーターマークなし",
+    "pricing.mini.f3": "全機能を開放",
+    "pricing.mini.f4": "クレジットは無期限有効",
+    "pricing.mini.cta": "Mini を購入",
+    "pricing.pro.tagline": "継続案件向け — 月 2〜3 プロジェクト",
+    "pricing.pro.f1": "月 120 クレジット（4K 画像 約 60 枚）",
+    "pricing.pro.f2": "バッチ生成（5 並列）",
+    "pricing.pro.f3": "優先生成キュー",
+    "pricing.pro.f4": "4K ウォーターマークなし · 全機能",
+    "pricing.pro.f5": "いつでも解約可・次回請求なし",
+    "pricing.pro.cta": "Pro を契約",
+    "pricing.max.tagline": "チーム向け — 月 10 プロジェクト以上",
+    "pricing.max.f1": "月 400 クレジット（4K 画像 約 200 枚）",
+    "pricing.max.f2": "バッチ生成 + 優先キュー",
+    "pricing.max.f3": "API アクセス",
+    "pricing.max.f4": "優先メールサポート",
+    "pricing.max.f5": "いつでも解約可・次回請求なし",
+    "pricing.max.cta": "Max を契約",
+    "pricing.small.tagline": "小規模案件、5〜10 枚",
+    "pricing.small.f1": "30 クレジット（4K 画像 約 15 枚）",
+    "pricing.small.f2": "4K ウォーターマークなし",
+    "pricing.small.f3": "キャンバス編集 + チャットエージェント",
+    "pricing.small.f4": "クレジットは無期限有効",
+    "pricing.small.cta": "Small を購入",
+    "pricing.standard.tagline": "14 枚規模の商用案件に最適",
+    "pricing.standard.f1": "80 クレジット（4K 画像 約 40 枚）",
+    "pricing.standard.f2": "キャンバスでの反復調整",
+    "pricing.standard.f3": "全機能 + チャンネル図",
+    "pricing.standard.f4": "クレジットは無期限有効",
+    "pricing.standard.cta": "Standard を購入",
+    "pricing.large.tagline": "多段階の検討や 50 枚以上に",
+    "pricing.large.f1": "250 クレジット（4K 画像 約 125 枚）",
+    "pricing.large.f2": "キャンバス + チャット + チャンネル図",
+    "pricing.large.f3": "優先サポート対応",
+    "pricing.large.f4": "クレジットは無期限有効",
+    "pricing.large.cta": "Large を購入",
+
+    // -- Pricing FAQ --
+    "faq.heading": "よくあるご質問",
+    "faq.q1": "LDR は無料で試せますか？",
+    "faq.a1": "はい。アカウント登録時に 5 クレジットを付与し、さらに毎日 1 回、1K 解像度で無料生成できます。クレジットカードの登録は不要です。",
+    "faq.q2": "プロジェクトパックと月額プランの違いは？",
+    "faq.a2": "プロジェクトパック（Mini・Small・Standard・Large）は買い切りで、決まった数のクレジットが無期限で使えます。具体的な案件が決まっているときに向いています。月額プラン（Pro・Max）は毎月自動更新され、サイクルごとにクレジットが補充されます。継続的に案件がある場合はこちらが有利です。併用も可能で、月額プランを契約したうえで大型案件のときだけパックを追加購入できます。",
+    "faq.q3": "レンダリングの解像度は？",
+    "faq.a3": "無料プランは 1K 解像度・ウォーターマークありです。有料プラン（Mini・Small・Standard・Large・Pro・Max）はすべて最大 4K（4096px）・ウォーターマークなしで、プレゼン資料や出版物にそのまま使えます。",
+    "faq.q4": "使い切らなかったパックのクレジットは失効しますか？",
+    "faq.a4": "いいえ。パックのクレジットは無期限有効で、使い切るまでアカウントに残ります。月額プランのクレジットは毎回の請求サイクルでリセットされ、翌月へ繰り越されません。",
+    "faq.q5": "月額プランは解約できますか？",
+    "faq.a5": "はい、カスタマーポータルからいつでも解約できます。解約後も当期の請求期間が終わるまではご利用いただけますが、残り期間分の返金はありません。",
+    "faq.q6": "パックは返金できますか？",
+    "faq.a6": "プロジェクトパックはご購入後の返金を承っておりません。クレジットは無期限有効なので、使い切るまで残ります。初回の月額プランについては 7 日間の返金保証の対象となる場合があります。詳しくは",
+    "faq.a6.link": "返金ポリシー",
+    "faq.a6.suffix": "をご覧ください。",
+    "faq.q7": "対応している支払い方法は？",
+    "faq.a7": "LDR は Creem Inc. を Merchant of Record（販売事業者）としています。現在ご利用いただける方法は主要クレジットカード、Apple Pay、Google Pay です。地域によって選択肢が異なる場合があり、決済画面に表示される方法が最終的なものとなります。価格はすべて USD 建てで、決済時に自動的に現地通貨へ換算されます。",
+    "faq.q8": "対応している画像形式は？",
+    "faq.a8": "JPG・PNG・WebP、最大 20MB まで対応しています。輪郭のはっきりした昼間の建築・ランドスケープ写真がもっとも良い結果になります。",
+
+    // -- Blog page（日本語ブログ記事は未整備。langsWithBlog に ja を追加すれば導線が出る）--
+    "blog.heading": "ブログ",
+    "blog.subtitle": "照明デザインの可視化、AI レンダリングのワークフロー、夜景計画についての実践ガイド。",
+    "blog.empty": "記事はまだありません。近日公開予定です。",
+    "blog.backToBlog": "← ブログ一覧へ戻る",
+
+    // -- Use Cases index --
+    "useCases.heading": "デザイナーは LDR をこう使う",
+    "useCases.subtitle": "4 つの領域に共通する課題は一つ — 器具を 1 台も設置する前に、施主は夜の見え方を確認したい。LDR はその隔たりを埋めます。",
+    "useCases.learnMore": "詳しく見る →",
+    "useCases.arch.title": "建築照明",
+    "useCases.arch.desc": "ファサード照明、エントランスキャノピー、歴史的建造物のライトアップを施工前に可視化。建築家・照明コンサルタント・設計施工会社向け。",
+    "useCases.arch.keywords": "ファサード · エントランス · 歴史的建造物",
+    "useCases.landscape.title": "ランドスケープ照明",
+    "useCases.landscape.desc": "庭園のアッパーライト、園路照明、水景照明の効果を事前に確認。ランドスケープアーキテクトや住宅外構デザイナー向け。",
+    "useCases.landscape.keywords": "庭園 · 園路 · 水景",
+    "useCases.urban.title": "都市夜景計画",
+    "useCases.urban.desc": "都市スケールの夜間環境、橋梁ライトアップ、公共空間の照明をシミュレーション。都市計画者・行政デザイナー・自治体コンサルタント向け。",
+    "useCases.urban.keywords": "橋梁 · 公共空間 · 都市デザイン",
+    "useCases.hospitality.title": "ホスピタリティ照明",
+    "useCases.hospitality.desc": "ホテルのファサード、プールデッキ、ルーフトップバー、レストランの雰囲気を再現。ホスピタリティ照明コンサルタントやブランドチーム向け。",
+    "useCases.hospitality.keywords": "ホテル · リゾート · レストラン · バー",
+    "useCases.exploreOther": "他の活用シーンを見る",
+
+    // -- Meta --
+    "meta.home.title": "AI 照明デザインレンダリング — 昼から夜へ数秒で",
+    "meta.home.desc": "AI で昼間の写真をプロ品質の夜景パースに。写真をアップロードして照明イメージを伝えるだけで、提案書に使えるレンダリングがすぐ手に入ります。",
+    "meta.pricing.title": "料金 — LDR 照明デザインレンダリング",
+    "meta.pricing.desc": "AI 夜景レンダリングの明快な料金。毎日 1 回無料、買い切りパックは $9 から、月額プランは $99 から（4K・ウォーターマークなし）。",
+    "meta.blog.title": "ブログ — 照明デザインと AI レンダリングのガイド",
+    "meta.blog.desc": "AI 照明デザインレンダリング、夜景可視化、昼夜変換についての実践ガイド・チュートリアル・ノウハウ。",
+    "meta.useCases.title": "活用シーン — AI 照明デザインレンダリング",
+    "meta.useCases.desc": "建築家・照明デザイナー・都市計画者が、建築／ランドスケープ／都市／ホスピタリティの各案件で LDR をどう使っているかをご紹介します。",
+  },
+
+  /**
+   * Deutsch —— für den deutschsprachigen Lichtplanungsmarkt (DE / AT / CH).
+   *
+   * Terminologie: an der Berufspraxis orientiert. "Lichtplanung" ist die
+   * Berufsbezeichnung der Branche (Lichtplaner:in) und das Suchwort, nicht die
+   * wörtliche Übersetzung "Lichtdesign". Weitere Ankerbegriffe: Fassadenbeleuchtung,
+   * Nachtvisualisierung, Lichtkonzept, Farbtemperatur, Anstrahlung.
+   * Anrede: durchgehend "Sie" (B2B-Standard).
+   * Tarifnamen (Free / Mini / Pro / Max / Small / Standard / Large) bleiben englisch —
+   * so heißen sie in der App und auf der Checkout-Seite.
+   */
+  de: {
+    // -- Announcement --
+    // Alipay ist für den deutschsprachigen Markt irrelevant → leer = wird nicht gerendert.
+    "announcement.text": "",
+    "announcement.dismiss": "Hinweis schließen",
+
+    // -- Nav --
+    "nav.useCases": "Anwendungen",
+    "nav.pricing": "Preise",
+    "nav.blog": "Blog",
+    "nav.tryFree": "Kostenlos testen",
+    "nav.toggleMenu": "Menü umschalten",
+
+    // -- Footer --
+    "footer.useCases": "Anwendungen",
+    "footer.pricing": "Preise",
+    "footer.blog": "Blog",
+    "footer.app": "App",
+    "footer.terms": "Nutzungsbedingungen",
+    "footer.privacy": "Datenschutz",
+    "footer.refund": "Rückerstattung",
+    "footer.copyright": "© 2026 Alle Rechte vorbehalten.",
+    "footer.navLabel": "Fußzeilen-Navigation",
+
+    // -- OG --
+    "og.siteName": "LDR – Lichtplanung & Nachtvisualisierung",
+
+    // -- Hero --
+    // 词中的 ­ 是软连字符：手机上标题必须断行，浏览器的德语断词词典会切成
+    // "Nachtvi-sualisierungen"（合法但不在词素边界）。显式给出断点后是
+    // "Nacht-visualisierungen"，符合德语复合词的断法。不影响正常显示与复制搜索。
+    "hero.title": "Tagesfotos in professionelle Nacht­visualisierungen verwandeln",
+    "hero.subtitle": "KI-gestützte Visualisierung für die Lichtplanung. Laden Sie ein Tagesfoto hoch und erhalten Sie in Sekunden ein professionelles Nachtrendering.",
+    "hero.cta": "Kostenlos rendern",
+    "hero.examples": "Beispiele ansehen",
+    "hero.day": "Tag",
+    "hero.night": "Nacht",
+    "hero.fallback": "Vorher-Nachher-Beispiele finden Sie weiter unten",
+    "hero.scrollGallery": "Zur Galerie scrollen",
+    "hero.altDay": "Tagesaufnahme von",
+    "hero.altNight": "KI-Nachtvisualisierung von",
+
+    // -- Features --
+    "features.heading": "Warum LDR?",
+    "features.speed.title": "Vom Tag zur Nacht in Sekunden",
+    "features.speed.desc": "Laden Sie ein beliebiges Tagesfoto einer Architektur oder Landschaft hoch und erhalten Sie sofort ein professionelles Nachtrendering.",
+    "features.ai.title": "Präzision durch KI",
+    "features.ai.desc": "Unsere KI erfasst den architektonischen Kontext, Materialeigenschaften und die Physik des Lichts – für glaubwürdige Ergebnisse.",
+    "features.seg.title": "Semantische Segmentierung",
+    "features.seg.desc": "Intelligente Szenenanalyse mit HQ-SAM trennt Gebäude, Himmel und Vegetation automatisch.",
+    "features.quality.title": "4K in Profiqualität",
+    "features.quality.desc": "Publikationsreife Renderings mit bis zu 4096 px Auflösung. In allen Bezahltarifen ohne Wasserzeichen.",
+
+    // -- How It Works --
+    "how.heading": "So funktioniert es",
+    "how.step1.title": "Hochladen",
+    "how.step1.desc": "Laden Sie ein Tagesfoto eines Gebäudes, einer Landschaft oder eines Stadtraums hoch",
+    "how.step2.title": "Beschreiben",
+    "how.step2.desc": "Beschreiben Sie der KI Ihr Lichtkonzept – oder lassen Sie sich einen Entwurf vorschlagen",
+    "how.step3.title": "Rendern",
+    "how.step3.desc": "In unter 60 Sekunden erhalten Sie Ihr professionelles Nachtrendering",
+
+    // -- Showcase --
+    "showcase.heading": "Ergebnisse ansehen",
+    "showcase.empty": "Beispielbilder folgen in Kürze",
+    "showcase.emptyDesc": "Professionelle Nachtrenderings, erzeugt mit LDR AI",
+
+    // -- CTA --
+    "cta.heading": "Bereit, Ihr Lichtkonzept sichtbar zu machen?",
+    "cta.subtitle": "Schließen Sie sich den Planerinnen und Planern an, die Nachtbeleuchtung mit KI visualisieren.",
+    "cta.button": "Kostenlos starten",
+    "cta.note": "Keine Kreditkarte erforderlich · 1 kostenloses Rendering pro Tag",
+
+    // -- Pricing --
+    "pricing.heading": "Klare, transparente Preise",
+    "pricing.subtitle": "Pro Projekt zahlen oder abonnieren · Weltweite Preise in USD · Kreditkarte / Apple Pay / Google Pay",
+    "pricing.subSection": "Test & Abonnements",
+    "pricing.subSectionDesc": "Vom kostenlosen Test bis zum Monatsabo · jederzeit wechselbar",
+    "pricing.packSection": "Projektpakete",
+    "pricing.packSectionDesc": "Pro Projekt kaufen · kein Abo · Paket-Credits verfallen nie",
+    "pricing.popular": "Am beliebtesten",
+    "pricing.disclaimer": "Projektpakete sind nach dem Kauf nicht erstattungsfähig (die Credits verfallen nie). Abonnements können jederzeit gekündigt werden; für die laufende Abrechnungsperiode erfolgt keine Rückerstattung. Alle Preise in USD, zuzüglich der je nach Region anfallenden Umsatzsteuer.",
+    // Plan names (bleiben englisch – so heißen sie in App und Checkout)
+    "pricing.free.name": "Free",
+    "pricing.mini.name": "Mini",
+    "pricing.pro.name": "Pro",
+    "pricing.max.name": "Max",
+    "pricing.small.name": "Small",
+    "pricing.standard.name": "Standard",
+    "pricing.large.name": "Large",
+    // Periods
+    "pricing.period.forever": "dauerhaft",
+    "pricing.period.oneTime": "einmalig",
+    "pricing.period.month": "Monat",
+    // Euro-Richtwert (Stand 2026-08-10, gerechnet mit 1 USD ≈ 0,88 €, gerundet)
+    "pricing.free.localPrice": "",
+    "pricing.mini.localPrice": "ca. 8 €",
+    "pricing.pro.localPrice": "ca. 87 €/Monat",
+    "pricing.max.localPrice": "ca. 219 €/Monat",
+    "pricing.small.localPrice": "ca. 52 €",
+    "pricing.standard.localPrice": "ca. 114 €",
+    "pricing.large.localPrice": "ca. 263 €",
+    // Plans
+    "pricing.free.tagline": "Erst testen, dann entscheiden",
+    "pricing.free.f1": "5 Credits bei der Anmeldung",
+    "pricing.free.f2": "1 kostenlose Generierung pro Tag",
+    "pricing.free.f3": "1K-Auflösung mit Wasserzeichen",
+    "pricing.free.f4": "Alle Funktionen nutzbar (Canvas + Chat)",
+    "pricing.free.cta": "Jetzt starten",
+    "pricing.mini.tagline": "Der Einstieg – Profiqualität ausprobieren",
+    "pricing.mini.f1": "5 Credits (ca. 2–3 Bilder in 4K)",
+    "pricing.mini.f2": "4K-Auflösung, ohne Wasserzeichen",
+    "pricing.mini.f3": "Alle Funktionen freigeschaltet",
+    "pricing.mini.f4": "Credits verfallen nie",
+    "pricing.mini.cta": "Mini kaufen",
+    "pricing.pro.tagline": "Laufender Betrieb – 2–3 Projekte pro Monat",
+    "pricing.pro.f1": "120 Credits / Monat (ca. 60 Bilder in 4K)",
+    "pricing.pro.f2": "Stapelverarbeitung (5 parallel)",
+    "pricing.pro.f3": "Priorisierte Warteschlange",
+    "pricing.pro.f4": "4K ohne Wasserzeichen · voller Funktionsumfang",
+    "pricing.pro.f5": "Jederzeit kündbar, keine Folgekosten",
+    "pricing.pro.cta": "Pro abonnieren",
+    "pricing.max.tagline": "Teams – ab 10 Projekten pro Monat",
+    "pricing.max.f1": "400 Credits / Monat (ca. 200 Bilder in 4K)",
+    "pricing.max.f2": "Stapelverarbeitung + Priorität",
+    "pricing.max.f3": "API-Zugang",
+    "pricing.max.f4": "Bevorzugter E-Mail-Support",
+    "pricing.max.f5": "Jederzeit kündbar, keine Folgekosten",
+    "pricing.max.cta": "Max abonnieren",
+    "pricing.small.tagline": "Ein kleines Projekt, 5–10 Bilder",
+    "pricing.small.f1": "30 Credits (ca. 15 Bilder in 4K)",
+    "pricing.small.f2": "4K ohne Wasserzeichen",
+    "pricing.small.f3": "Canvas-Editor + Chat-Agent",
+    "pricing.small.f4": "Credits verfallen nie",
+    "pricing.small.cta": "Small kaufen",
+    "pricing.standard.tagline": "Passt für ein Projekt mit 14 Bildern",
+    "pricing.standard.f1": "80 Credits (ca. 40 Bilder in 4K)",
+    "pricing.standard.f2": "Iteratives Feintuning im Canvas",
+    "pricing.standard.f3": "Alle Funktionen + Kanaldiagramm",
+    "pricing.standard.f4": "Credits verfallen nie",
+    "pricing.standard.cta": "Standard kaufen",
+    "pricing.large.tagline": "Mehrere Iterationsrunden oder 50+ Bilder",
+    "pricing.large.f1": "250 Credits (ca. 125 Bilder in 4K)",
+    "pricing.large.f2": "Canvas + Chat + Kanaldiagramm",
+    "pricing.large.f3": "Bevorzugte Support-Reaktion",
+    "pricing.large.f4": "Credits verfallen nie",
+    "pricing.large.cta": "Large kaufen",
+
+    // -- Pricing FAQ --
+    "faq.heading": "Häufige Fragen",
+    "faq.q1": "Kann ich LDR kostenlos testen?",
+    "faq.a1": "Ja. Jedes Konto erhält bei der Anmeldung 5 Credits und zusätzlich täglich ein kostenloses Rendering in 1K-Auflösung. Eine Kreditkarte ist dafür nicht erforderlich.",
+    "faq.q2": "Worin unterscheiden sich Projektpaket und Abonnement?",
+    "faq.a2": "Projektpakete (Mini, Small, Standard, Large) sind Einmalkäufe mit einem festen Credit-Kontingent, das nie verfällt – die richtige Wahl, wenn ein konkretes Projekt ansteht. Abonnements (Pro, Max) verlängern sich monatlich und stellen in jedem Zyklus frische Credits bereit – sinnvoll bei kontinuierlicher Auslastung. Beides lässt sich kombinieren: Sie können abonnieren und für ein großes Projekt zusätzlich ein Paket kaufen.",
+    "faq.q3": "In welcher Auflösung wird gerendert?",
+    "faq.a3": "Der kostenlose Tarif rendert in 1K mit Wasserzeichen. Alle Bezahltarife (Mini, Small, Standard, Large, Pro, Max) rendern mit bis zu 4K (4096 px) ohne Wasserzeichen – geeignet für Präsentationen und Publikationen.",
+    "faq.q4": "Verfallen nicht genutzte Paket-Credits?",
+    "faq.a4": "Nein. Paket-Credits verfallen nie und bleiben in Ihrem Konto, bis Sie sie verbrauchen. Abo-Credits werden zu jedem Abrechnungszyklus erneuert und nicht in den Folgemonat übertragen.",
+    "faq.q5": "Kann ich mein Abonnement kündigen?",
+    "faq.a5": "Ja, jederzeit über das Kundenportal. Das Abonnement bleibt bis zum Ende der laufenden Abrechnungsperiode aktiv; für den nicht genutzten Teil dieser Periode erfolgt keine Rückerstattung.",
+    "faq.q6": "Sind Projektpakete erstattungsfähig?",
+    "faq.a6": "Projektpakete sind nach dem Kauf nicht erstattungsfähig. Die Credits verfallen nie und bleiben verfügbar, bis Sie sie einsetzen. Für das erste Abonnement kann eine 7-tägige Geld-zurück-Garantie gelten – Einzelheiten dazu in unserer ",
+    "faq.a6.link": "Rückerstattungsrichtlinie",
+    "faq.a6.suffix": ".",
+    "faq.q7": "Welche Zahlungsmethoden werden unterstützt?",
+    "faq.a7": "LDR nutzt Creem Inc. als Merchant of Record. Verfügbar sind derzeit gängige Kreditkarten, Apple Pay und Google Pay – die konkreten Optionen können je nach Region abweichen; maßgeblich ist die Auswahl auf der Checkout-Seite. Alle Preise verstehen sich in USD und werden beim Bezahlen automatisch in Ihre Landeswährung umgerechnet.",
+    "faq.q8": "Welche Bildformate werden unterstützt?",
+    "faq.a8": "Wir akzeptieren JPG, PNG und WebP bis 20 MB. Die besten Ergebnisse liefern klare Tagesaufnahmen von Architektur oder Landschaft.",
+
+    // -- Blog page (deutsche Beiträge stehen noch aus – siehe langsWithBlog) --
+    "blog.heading": "Blog",
+    "blog.subtitle": "Praxisleitfäden zu Lichtvisualisierung, KI-Rendering-Workflows und Nachtplanung.",
+    "blog.empty": "Noch keine Beiträge veröffentlicht. Schauen Sie bald wieder vorbei.",
+    "blog.backToBlog": "← Zurück zum Blog",
+
+    // -- Use Cases index --
+    "useCases.heading": "So arbeiten Planer mit LDR",
+    "useCases.subtitle": "Vier Disziplinen, ein gemeinsames Problem: Bauherren müssen die Nachtwirkung sehen, bevor die erste Leuchte montiert ist. LDR schließt genau diese Lücke.",
+    "useCases.learnMore": "Mehr erfahren →",
+    "useCases.arch.title": "Architekturbeleuchtung",
+    "useCases.arch.desc": "Fassadenbeleuchtung, Eingangsüberdachungen und Denkmalbeleuchtung schon vor der Montage sichtbar machen. Für Architektinnen, Lichtplaner und Generalunternehmer.",
+    "useCases.arch.keywords": "Fassaden · Eingänge · Denkmalschutz",
+    "useCases.landscape.title": "Landschaftsbeleuchtung",
+    "useCases.landscape.desc": "Anstrahlung im Garten, Wegebeleuchtung und beleuchtete Wasserflächen vorab beurteilen. Für Landschaftsarchitekten und Planer hochwertiger Wohnanlagen.",
+    "useCases.landscape.keywords": "Gärten · Wege · Wasserflächen",
+    "useCases.urban.title": "Städtische Nachtplanung",
+    "useCases.urban.desc": "Nächtliche Stadträume, Brückenbeleuchtung und öffentliche Räume im Stadtmaßstab durchspielen. Für Stadtplanerinnen, Gestaltungsbeiräte und kommunale Berater.",
+    "useCases.urban.keywords": "Brücken · Öffentlicher Raum · Stadtgestaltung",
+    "useCases.hospitality.title": "Hotellerie & Gastronomie",
+    "useCases.hospitality.desc": "Hotelfassaden, Poolterrassen, Rooftop-Bars und die Atmosphäre von Boutique-Restaurants rendern. Für Lichtplaner und Markenteams im Gastgewerbe.",
+    "useCases.hospitality.keywords": "Hotels · Resorts · Restaurants · Bars",
+    "useCases.exploreOther": "Weitere Anwendungen",
+
+    // -- Meta --
+    "meta.home.title": "KI-Rendering für die Lichtplanung – vom Tag zur Nacht in Sekunden",
+    "meta.home.desc": "Verwandeln Sie Tagesfotos mit KI in professionelle Nachtvisualisierungen. Foto hochladen, Lichtkonzept beschreiben, publikationsreifes Rendering erhalten.",
+    "meta.pricing.title": "Preise – LDR Rendering für die Lichtplanung",
+    "meta.pricing.desc": "Transparente Preise für KI-Nachtrenderings. Kostenlos starten mit 1 Rendering pro Tag, Einmalpakete ab 9 $ oder Abo ab 99 $/Monat für 4K ohne Wasserzeichen.",
+    "meta.blog.title": "Blog – Lichtplanung und KI-Rendering in der Praxis",
+    "meta.blog.desc": "Praxisleitfäden, Tutorials und Tipps zu KI-gestütztem Rendering für die Lichtplanung, Nachtvisualisierung und Tag-Nacht-Umwandlung.",
+    "meta.useCases.title": "Anwendungen – KI-Rendering für die Lichtplanung",
+    "meta.useCases.desc": "Wie Architekten, Lichtplaner und Stadtplanerinnen mit LDR Nachtvisualisierungen für Architektur-, Landschafts-, Stadt- und Hotelprojekte erstellen.",
   },
 } as const;
