@@ -1,6 +1,6 @@
 ---
 /**
- * 应用场景索引页（英文）。卡片顺序与文案来自 i18n/useCases.ts + ui.ts，
+ * 应用场景索引页（德语）。卡片顺序与文案来自 i18n/useCases.ts + ui.ts，
  * 四种语言共用同一份结构 —— 其他语言的同名文件只有 `lang` 一行不同。
  */
 import PageLayout from "@/layouts/PageLayout.astro";
@@ -9,7 +9,7 @@ import type { Lang } from "@/i18n/ui";
 import { useTranslations, getLocalizedPath } from "@/i18n/utils";
 import { useCaseSlugs, useCaseUiKeys } from "@/i18n/useCases";
 
-const lang: Lang = "en";
+const lang: Lang = "de";
 const t = useTranslations(lang);
 
 const useCases = useCaseSlugs.map((slug) => ({

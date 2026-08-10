@@ -1,6 +1,7 @@
 ---
 import type { Lang } from "../i18n/ui";
 import { useTranslations } from "../i18n/utils";
+import { showcaseAlt } from "../i18n/showcase";
 import { toThumbUrl } from "../lib/supabase";
 
 interface Props {
@@ -27,17 +28,20 @@ const t = useTranslations(lang);
 const heroDaySrc = showcase ? toThumbUrl(showcase.day_image_url) : "";
 const heroNightSrc = showcase ? toThumbUrl(showcase.night_image_url) : "";
 
-/** category 缺失时不拼进 alt，否则模板字符串会渲染出字面量 "null" */
-const heroDesc = showcase
-  ? (lang === "zh" && showcase.prompt_zh ? showcase.prompt_zh : showcase.prompt)
-  : "";
-const heroSubject = showcase?.category
-  ? `${showcase.category} — ${heroDesc}`
-  : heroDesc;
+/** 分类与描述按语言查表（缺失时回落英文原文），alt 的拼接规则见 i18n/showcase.ts */
+const heroSubject = showcase ? showcaseAlt(showcase, lang) : "";
 ---
 
 <section class="flex flex-col items-center justify-center text-center py-20 md:py-32 px-4">
-  <h1 class="text-4xl md:text-6xl font-bold tracking-tight max-w-4xl">
+  {/* 德语复合词（Nachtvisualisierungen）在 375px 下一行放不下，必须断词。
+      用 hyphens-manual 而不是 auto：auto 会让浏览器按自己的词典断，实测切成
+      "Nachtvi-sualisierungen"（合法但不在词素边界）；manual 只认文案里的软连字符，
+      断点由 ui.ts 的德语文案自己指定。break-words 兜底，防止将来新增的长词溢出屏幕。 */}
+  {/* line-break:strict 是日本語の禁則処理：浏览器默认(auto)允许长音符「ー」
+      落在行首，实测标题被切成「夜景パ / ースへ」；strict 会把它带回上一行。 */}
+  <h1
+    class="text-4xl md:text-6xl font-bold tracking-tight max-w-4xl hyphens-manual break-words [line-break:strict]"
+  >
     {t("hero.title")}
   </h1>
 

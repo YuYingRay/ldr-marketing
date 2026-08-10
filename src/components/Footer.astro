@@ -1,6 +1,6 @@
 ---
 import type { Lang } from "../i18n/ui";
-import { useTranslations, getLocalizedPath } from "../i18n/utils";
+import { useTranslations, getLocalizedPath, hasBlog } from "../i18n/utils";
 
 interface Props {
   lang?: Lang;
@@ -13,7 +13,10 @@ const appUrl = "https://app.ldr-design.com";
 const navLinks = [
   { label: t("footer.useCases"), href: getLocalizedPath("/use-cases", lang) },
   { label: t("footer.pricing"), href: getLocalizedPath("/pricing", lang) },
-  { label: t("footer.blog"), href: getLocalizedPath("/blog", lang) },
+  // 与 Nav 同理：无译文的语言不放博客入口
+  ...(hasBlog(lang)
+    ? [{ label: t("footer.blog"), href: getLocalizedPath("/blog", lang) }]
+    : []),
   { label: t("footer.app"), href: appUrl, external: true },
 ];
 

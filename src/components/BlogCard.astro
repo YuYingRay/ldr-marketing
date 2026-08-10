@@ -1,6 +1,6 @@
 ---
 import type { Lang } from "../i18n/ui";
-import { getLocalizedPath } from "../i18n/utils";
+import { getLocalizedPath, dateLocale } from "../i18n/utils";
 
 interface ImageProp {
   url: string;
@@ -18,7 +18,7 @@ interface Props {
 
 const { title, description, pubDate, slug, image, lang = "en" } = Astro.props;
 
-const formattedDate = pubDate.toLocaleDateString(lang === "zh" ? "zh-CN" : "en-US", {
+const formattedDate = pubDate.toLocaleDateString(dateLocale(lang), {
   year: "numeric",
   month: "short",
   day: "numeric",

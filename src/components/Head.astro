@@ -1,6 +1,12 @@
 ---
-import type { Lang } from "../i18n/ui";
-import { getLocalizedPath, useTranslations } from "../i18n/utils";
+import { languages, defaultLang, type Lang } from "../i18n/ui";
+import {
+  getLocalizedPath,
+  useTranslations,
+  stripLangPrefix,
+  hasBlog,
+  ogLocale,
+} from "../i18n/utils";
 
 interface Props {
   title: string;
@@ -26,9 +32,36 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url.origin).href;
 // 仅默认站点 og 图声明精确尺寸/类型；blog 文章封面图尺寸未知，硬声明会误导社交平台裁剪
 const isDefaultOgImage = ogImage === "/og-image-v1.png";
 
-const pathWithoutLang = Astro.url.pathname.replace(/^\/zh/, "") || "/";
-const enUrl = new URL(pathWithoutLang, Astro.site ?? Astro.url.origin).href;
-const zhUrl = new URL(getLocalizedPath(pathWithoutLang, "zh"), Astro.site ?? Astro.url.origin).href;
+/**
+ * hreflang。只声明**确实存在**的语言版本 —— 给不存在的 URL 发 alternate
+ * 会让 Google 抓到 404 并作废整组互链声明。博客目前只有 en/zh
+ * （见 ui.ts 的 langsWithBlog），其余页面四语齐全。
+ */
+const origin = Astro.site ?? Astro.url.origin;
+const pathWithoutLang = stripLangPrefix(Astro.url.pathname);
+const isBlogPath =
+  pathWithoutLang === "/blog" || pathWithoutLang.startsWith("/blog/");
+
+/**
+ * 站点以目录形式构建（/de/pricing/index.html），canonical 因此带尾斜杠。
+ * hreflang 指向的 URL 必须与目标页自己的 canonical **逐字符一致**，
+ * 否则 Google 会认为互链声明对不上而整组忽略 —— 所以这里补回尾斜杠。
+ */
+function localizedHref(lang: Lang): string {
+  const path = getLocalizedPath(pathWithoutLang, lang);
+  return new URL(path === "/" ? path : `${path}/`, origin).href;
+}
+
+const alternates = (Object.keys(languages) as Lang[])
+  .filter((l) => !isBlogPath || hasBlog(l))
+  .map((l) => ({
+    // zh 用 zh-Hans 而非 zh-CN：按脚本而非地区声明，简体中文使用者
+    // 不论在新加坡还是马来西亚都能命中
+    hreflang: l === "zh" ? "zh-Hans" : l,
+    href: localizedHref(l),
+  }));
+
+const defaultUrl = localizedHref(defaultLang);
 ---
 
 <title>{title} | LDR</title>
@@ -36,9 +69,10 @@ const zhUrl = new URL(getLocalizedPath(pathWithoutLang, "zh"), Astro.site ?? Ast
 <link rel="canonical" href={canonical} />
 
 <!-- hreflang -->
-<link rel="alternate" hreflang="en" href={enUrl} />
-<link rel="alternate" hreflang="zh" href={zhUrl} />
-<link rel="alternate" hreflang="x-default" href={enUrl} />
+{alternates.map((alt) => (
+  <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+))}
+<link rel="alternate" hreflang="x-default" href={defaultUrl} />
 
 <!-- Open Graph -->
 <meta property="og:title" content={`${title} | LDR`} />
@@ -51,7 +85,7 @@ const zhUrl = new URL(getLocalizedPath(pathWithoutLang, "zh"), Astro.site ?? Ast
 <meta property="og:image:alt" content={`${title} | LDR`} />
 <meta property="og:site_name" content={t("og.siteName")} />
 <meta property="og:type" content="website" />
-<meta property="og:locale" content={lang === "zh" ? "zh_CN" : "en_US"} />
+<meta property="og:locale" content={ogLocale(lang)} />
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />

@@ -1,6 +1,7 @@
 ---
 import type { Lang } from "../i18n/ui";
 import { useTranslations } from "../i18n/utils";
+import { localCategory, localPrompt, showcaseAlt } from "../i18n/showcase";
 import { toThumbUrl } from "../lib/supabase";
 
 interface Showcase {
@@ -20,78 +21,6 @@ interface Props {
 const { showcases = [], lang = "en" } = Astro.props;
 const t = useTranslations(lang);
 const hasItems = showcases.length > 0;
-
-const categoryZh: Record<string, string> = {
-  Architecture: "建筑",
-  Commercial: "商业",
-  Landscape: "景观",
-  Urban: "城市",
-  Hospitality: "酒店",
-  Residential: "住宅",
-  Cultural: "文化",
-  Industrial: "工业",
-  Sports: "体育",
-  Public: "公共",
-  Park: "公园",
-  Bridge: "桥梁",
-  Road: "道路",
-  Plaza: "广场",
-  Waterfront: "滨水",
-  Transportation: "交通",
-  Art: "艺术",
-  Municipal: "市政",
-  Education: "教育",
-  Healthcare: "医疗",
-  Religious: "宗教",
-  Heritage: "文保",
-  Garden: "园林",
-  Retail: "零售",
-  Office: "办公",
-};
-
-const promptZh: Record<string, string> = {
-  "Building facade night lighting": "建筑立面夜景照明",
-  "Commercial plaza lighting design": "商业广场灯光设计",
-  "Airport & transit hub lighting": "机场与交通枢纽照明",
-  "Light art installation": "灯光艺术装置",
-  "Landscape garden lighting": "景观园林照明",
-  "Urban night scene planning": "城市夜景规划",
-  "Hotel exterior lighting": "酒店外立面照明",
-  "Residential community lighting": "住宅社区照明",
-  "Bridge night lighting": "桥梁夜景照明",
-  "Park pathway lighting": "公园步道照明",
-  "Waterfront promenade lighting": "滨水步道照明",
-  "Sports venue lighting": "体育场馆照明",
-  "Cultural building lighting": "文化建筑照明",
-  "Road & street lighting": "道路街道照明",
-  "Plaza public lighting": "广场公共照明",
-  "Industrial facility lighting": "工业设施照明",
-  "Residential landscape lighting": "住宅景观照明",
-  "Cultural tourism night scene": "文旅夜景",
-  "Office building facade lighting": "办公楼立面照明",
-  "Hotel architecture night rendering": "酒店建筑夜景渲染",
-  "Urban planning night vision": "城市规划夜景方案",
-};
-
-function localCategory(cat: string) {
-  return lang === "zh" ? categoryZh[cat] ?? cat : cat;
-}
-
-function localPrompt(item: Showcase) {
-  if (lang !== "zh") return item.prompt;
-  return item.prompt_zh || promptZh[item.prompt] || item.prompt;
-}
-
-/**
- * alt 文案。category 缺失时不能拼进模板字符串 —— `${null}` 会渲染成字面量
- * "null"（2026-07-25 线上实测：27 张卡片的 alt 都是 "null — …"，读屏软件会念出来）。
- * 官方案例都填了 category，这里是防御性处理，防止将来手工上传时漏填。
- */
-function altText(item: Showcase) {
-  const cat = localCategory(item.category);
-  const desc = localPrompt(item);
-  return cat ? `${cat} — ${desc}` : desc;
-}
 ---
 
 <section id="showcase" class="py-20 px-4">
@@ -104,7 +33,7 @@ function altText(item: Showcase) {
       {
         hasItems ? (
           showcases.map((item) => {
-            const cat = localCategory(item.category);
+            const cat = localCategory(item.category, lang);
             return (
               <div class="surface-card bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-2xl overflow-hidden">
                 <div class="aspect-[4/3] relative">
@@ -114,7 +43,7 @@ function altText(item: Showcase) {
                   <img
                     src={toThumbUrl(item.night_image_url)}
                     onerror={`this.onerror=null;this.src=${JSON.stringify(item.night_image_url)}`}
-                    alt={altText(item)}
+                    alt={showcaseAlt(item, lang)}
                     class="w-full h-full object-cover"
                     loading="lazy"
                     decoding="async"
@@ -127,7 +56,7 @@ function altText(item: Showcase) {
                 </div>
                 <div class="p-4">
                   <p class="text-sm text-[hsl(var(--muted-foreground))] line-clamp-2">
-                    {localPrompt(item)}
+                    {localPrompt(item, lang)}
                   </p>
                 </div>
               </div>

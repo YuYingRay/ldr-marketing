@@ -112,7 +112,8 @@ const packsSection: Plan[] = [
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {
           plansSection.map((plan) => {
-            const rmb = lang === "zh" ? t(`pricing.${plan.planKey}.rmb`) : "";
+            // 本币参考价：英文站该键为空串 → 整行不渲染（见 ui.ts）
+            const localPrice = t(`pricing.${plan.planKey}.localPrice`);
             return (
             <div
               class={[
@@ -142,8 +143,8 @@ const packsSection: Plan[] = [
                     /{t(`pricing.period.${plan.periodKey}`)}
                   </span>
                 </div>
-                {rmb && (
-                  <p class="mt-1 text-xs text-[hsl(var(--muted-foreground))]">{rmb}</p>
+                {localPrice && (
+                  <p class="mt-1 text-xs text-[hsl(var(--muted-foreground))]">{localPrice}</p>
                 )}
                 <p class="mt-2 text-sm text-[hsl(var(--muted-foreground))]">
                   {t(`pricing.${plan.planKey}.tagline`)}
@@ -202,7 +203,8 @@ const packsSection: Plan[] = [
       <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {
           packsSection.map((plan) => {
-            const rmb = lang === "zh" ? t(`pricing.${plan.planKey}.rmb`) : "";
+            // 本币参考价：英文站该键为空串 → 整行不渲染（见 ui.ts）
+            const localPrice = t(`pricing.${plan.planKey}.localPrice`);
             return (
             <div
               class={[
@@ -232,8 +234,8 @@ const packsSection: Plan[] = [
                     /{t(`pricing.period.${plan.periodKey}`)}
                   </span>
                 </div>
-                {rmb && (
-                  <p class="mt-1 text-xs text-[hsl(var(--muted-foreground))]">{rmb}</p>
+                {localPrice && (
+                  <p class="mt-1 text-xs text-[hsl(var(--muted-foreground))]">{localPrice}</p>
                 )}
                 <p class="mt-2 text-sm text-[hsl(var(--muted-foreground))]">
                   {t(`pricing.${plan.planKey}.tagline`)}
