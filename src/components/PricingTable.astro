@@ -4,10 +4,19 @@ import { useTranslations } from "../i18n/utils";
 
 interface Props {
   lang?: Lang;
+  /**
+   * 价格区块标题的层级。首页里它是页面中的一个小节，Hero 已经占了 h1，所以用 h2；
+   * 而 /pricing 整页就是这张表，标题必须是 h1 —— 否则整页没有 h1，
+   * 搜索引擎缺少判断页面主题的首要信号，读屏用户也无法定位主要内容。
+   */
+  headingLevel?: "h1" | "h2";
 }
 
-const { lang = "en" } = Astro.props;
+const { lang = "en", headingLevel = "h2" } = Astro.props;
 const t = useTranslations(lang);
+
+// 首字母大写才会被 Astro 当作动态标签渲染
+const Heading = headingLevel;
 
 const APP_URL = "https://app.ldr-design.com";
 
@@ -93,9 +102,9 @@ const packsSection: Plan[] = [
 
 <section class="py-20 px-4">
   <div class="max-w-7xl mx-auto">
-    <h2 class="text-3xl font-bold text-center text-[hsl(var(--foreground))]">
+    <Heading class="text-3xl font-bold text-center text-[hsl(var(--foreground))]">
       {t("pricing.heading")}
-    </h2>
+    </Heading>
     <p class="mt-3 text-center text-[hsl(var(--muted-foreground))]">
       {t("pricing.subtitle")}
     </p>
