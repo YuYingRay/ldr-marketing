@@ -28,6 +28,18 @@ const {
 
 const t = useTranslations(lang);
 const canonical = canonicalUrl ?? Astro.url.href;
+
+/**
+ * Naver 站长工具（searchadvisor.naver.com）的站点所有权验证。
+ *
+ * 为什么单独为 Naver 做这件事：韩国约六成搜索发生在 Naver 而不是 Google，
+ * 它的爬虫 Yeti 不会自然发现新站点 —— 不注册验证，韩语站在最大的入口上等于不存在。
+ *
+ * 这串码由 Naver 按「站点」发放（https 与 http 在后台是两条不同记录，码也不同），
+ * 属于公开信息，本来就明文出现在 HTML 里，不是密钥，无需走环境变量。
+ * 验证通过后**不要删除** —— 删了会丢失所有权验证。若将来要停用，置空串即可。
+ */
+const NAVER_SITE_VERIFICATION = "31cdd9defd466ce8c26a6612d45e65b4912fb439";
 const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url.origin).href;
 // 仅默认站点 og 图声明精确尺寸/类型；blog 文章封面图尺寸未知，硬声明会误导社交平台裁剪
 const isDefaultOgImage = ogImage === "/og-image-v1.png";
@@ -77,6 +89,11 @@ const defaultUrl = localizedHref(defaultLang);
 <title>{title} | LDR</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
+
+<!-- 站长工具验证（见上方常量说明） -->
+{NAVER_SITE_VERIFICATION && (
+  <meta name="naver-site-verification" content={NAVER_SITE_VERIFICATION} />
+)}
 
 <!-- hreflang -->
 {alternates.map((alt) => (
