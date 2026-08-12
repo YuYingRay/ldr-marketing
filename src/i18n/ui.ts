@@ -13,17 +13,13 @@ export const languages = {
   en: "English",
   zh: "中文",
   ja: "日本語",
+  ko: "한국어",
   de: "Deutsch",
 } as const;
 export type Lang = keyof typeof languages;
 
-/**
- * 有博客内容的语言。博客正文是 MDX 实体文件（src/data/blog[-<lang>]/），
- * 不是 ui.ts 里的字符串 —— 没有对应 MDX 就不能放出入口，否则用户点进去是空列表。
- * 2026-08-10：日语/德语先只做界面与落地页，博客待补。补齐后把语言加进来即可，
- * Nav/Footer 的博客入口会自动出现。
- */
-export const langsWithBlog: readonly Lang[] = ["en", "zh"];
+// 哪些语言有博客、哪些页面缺某个语言版本，一律由 src/pages 下的实际文件推导，
+// 见 ./routes.ts —— 这类清单只要靠手工维护，加语言时就会漏。
 
 export const ui = {
   en: {
@@ -643,6 +639,223 @@ export const ui = {
     "meta.blog.desc": "AI 照明デザインレンダリング、夜景可視化、昼夜変換についての実践ガイド・チュートリアル・ノウハウ。",
     "meta.useCases.title": "活用シーン — AI 照明デザインレンダリング",
     "meta.useCases.desc": "建築家・照明デザイナー・都市計画者が、建築／ランドスケープ／都市／ホスピタリティの各案件で LDR をどう使っているかをご紹介します。",
+  },
+
+  /**
+   * 한국어 —— 한국 조명디자인 시장 대상.
+   *
+   * 용어 원칙: 업계에서 실제로 쓰는 말을 쓴다.
+   * - 「경관조명」은 경관법에 근거한 이 분야의 공식 용어이고,
+   *   「야간경관 계획」은 서울시 등 지자체가 실제로 발주하는 사업명이다.
+   *   urban-night-planning 을 "도시 야경 계획"이 아니라 「야간경관 계획」이라 부르는 이유.
+   * - landscape 는 「조경조명」(조경 = landscape architecture), architectural 은 「건축조명」.
+   * - 「등기구」(luminaire), 「색온도」, 「업라이팅」, 「투시도/렌더링」은 실무 표기 그대로.
+   * 문체는 하십시오체(-습니다). 버튼은 한국 UI 관행대로 「-하기」 명사형.
+   * 조사(을/를, 은/는, 이/가)는 앞 글자의 받침에 맞춘다 —— "LDR"은 [엘디알]로 읽어
+   * 받침이 있으므로 「LDR을 / LDR은 / LDR이」가 맞다.
+   * 플랜 이름(Free / Mini / Pro / Max / Small / Standard / Large)은 앱·결제 페이지
+   * 표기가 영문이라 그대로 둔다.
+   */
+  ko: {
+    // -- Announcement --
+    // 알리페이는 한국 사용자와 무관하므로 비워 둔다 = 공지 배너 자체가 렌더링되지 않음.
+    "announcement.text": "",
+    "announcement.dismiss": "공지 닫기",
+
+    // -- Nav --
+    "nav.useCases": "활용 사례",
+    "nav.pricing": "요금제",
+    "nav.blog": "블로그",
+    // 독일어에서 겪은 문제와 같은 이유로 짧게: 모바일 헤더에서 줄바꿈되면 안 된다
+    "nav.tryFree": "무료 체험",
+    "nav.toggleMenu": "메뉴 열기/닫기",
+
+    // -- Footer --
+    "footer.useCases": "활용 사례",
+    "footer.pricing": "요금제",
+    "footer.blog": "블로그",
+    "footer.app": "앱",
+    "footer.terms": "이용약관",
+    "footer.privacy": "개인정보처리방침",
+    "footer.refund": "환불 정책",
+    "footer.copyright": "© 2026 All rights reserved.",
+    "footer.navLabel": "푸터 내비게이션",
+
+    // -- OG --
+    "og.siteName": "LDR - 조명디자인 렌더링",
+
+    // -- Hero --
+    "hero.title": "낮 사진을 전문가급 야경 렌더링으로",
+    "hero.subtitle": "AI 기반 조명디자인 시각화. 낮에 찍은 사진 한 장을 올리면 몇 초 만에 전문가급 야경 렌더링이 완성됩니다.",
+    "hero.cta": "무료로 렌더링 시작하기",
+    "hero.examples": "사례 보기",
+    "hero.day": "낮",
+    "hero.night": "밤",
+    "hero.fallback": "아래에서 전후 비교 사례를 확인하세요",
+    "hero.scrollGallery": "갤러리로 이동",
+    "hero.altDay": "낮 사진:",
+    "hero.altNight": "AI 야경 렌더링:",
+
+    // -- Features --
+    "features.heading": "LDR을 선택하는 이유",
+    "features.speed.title": "낮에서 밤까지, 단 몇 초",
+    "features.speed.desc": "건축물이나 조경의 낮 사진을 올리기만 하면 전문가급 야경 렌더링이 바로 완성됩니다.",
+    "features.ai.title": "AI 기반 정밀 렌더링",
+    "features.ai.desc": "건축적 맥락, 재질 특성, 빛의 물리를 이해하는 AI가 사실적인 결과물을 만들어냅니다.",
+    "features.seg.title": "시맨틱 세그멘테이션",
+    "features.seg.desc": "HQ-SAM 기반 장면 분석이 건물, 하늘, 식재를 자동으로 분리합니다.",
+    "features.quality.title": "4K 전문가용 출력",
+    "features.quality.desc": "최대 4096px, 발표 자료와 출판물에 바로 쓸 수 있는 해상도. 유료 플랜은 워터마크가 없습니다.",
+
+    // -- How It Works --
+    "how.heading": "이용 방법",
+    "how.step1.title": "업로드",
+    "how.step1.desc": "건축물, 조경, 도시 경관 등 낮에 찍은 사진을 올립니다",
+    "how.step2.title": "설명",
+    "how.step2.desc": "원하는 조명 콘셉트를 AI에 전달하거나, AI의 제안을 받습니다",
+    "how.step3.title": "렌더링",
+    "how.step3.desc": "60초 안에 전문가급 야경 렌더링이 완성됩니다",
+
+    // -- Showcase --
+    "showcase.heading": "결과물 보기",
+    "showcase.empty": "사례 이미지는 곧 공개됩니다",
+    "showcase.emptyDesc": "LDR AI로 생성한 전문가급 야경 렌더링",
+
+    // -- CTA --
+    "cta.heading": "조명디자인을 보여주는 방식을 바꿔보세요",
+    "cta.subtitle": "AI로 야간 조명을 시각화하는 디자이너와 건축가들과 함께하세요.",
+    "cta.button": "무료로 시작하기",
+    "cta.note": "신용카드 불필요 · 매일 1회 무료 렌더링",
+
+    // -- Pricing --
+    "pricing.heading": "간단하고 투명한 요금제",
+    "pricing.subtitle": "프로젝트 단위 결제 또는 월 구독 · 전 세계 USD 기준 · 신용카드 / Apple Pay / Google Pay",
+    "pricing.subSection": "무료 체험 및 구독 플랜",
+    "pricing.subSectionDesc": "무료 체험부터 월 구독까지 · 언제든 변경 가능",
+    "pricing.packSection": "프로젝트 패키지",
+    "pricing.packSectionDesc": "프로젝트 단위 구매 · 구독 없음 · 패키지 크레딧은 소멸되지 않음",
+    "pricing.popular": "가장 인기",
+    "pricing.disclaimer": "프로젝트 패키지는 구매 후 환불되지 않습니다(크레딧은 소멸되지 않습니다). 구독은 언제든 해지할 수 있으나 현재 결제 주기에 대한 환불은 없습니다. 표시 가격은 USD 기준이며 지역에 따라 부가세가 추가될 수 있습니다.",
+    // Plan names（앱·결제 페이지 표기에 맞춰 영문 유지）
+    "pricing.free.name": "Free",
+    "pricing.mini.name": "Mini",
+    "pricing.pro.name": "Pro",
+    "pricing.max.name": "Max",
+    "pricing.small.name": "Small",
+    "pricing.standard.name": "Standard",
+    "pricing.large.name": "Large",
+    // Periods
+    "pricing.period.forever": "평생",
+    "pricing.period.oneTime": "1회 결제",
+    "pricing.period.month": "월",
+    // 원화 참고가（2026-08-10 기준 1 USD ≈ 1,400원으로 환산 후 반올림）
+    "pricing.free.localPrice": "",
+    "pricing.mini.localPrice": "약 12,600원",
+    "pricing.pro.localPrice": "약 138,000원/월",
+    "pricing.max.localPrice": "약 349,000원/월",
+    "pricing.small.localPrice": "약 83,000원",
+    "pricing.standard.localPrice": "약 181,000원",
+    "pricing.large.localPrice": "약 419,000원",
+    // Plans
+    "pricing.free.tagline": "먼저 써보고 결정하세요",
+    "pricing.free.f1": "가입 시 5크레딧 지급",
+    "pricing.free.f2": "매일 1회 무료 생성",
+    "pricing.free.f3": "1K 해상도, 워터마크 포함",
+    "pricing.free.f4": "모든 기능 사용 가능(캔버스 + 챗)",
+    "pricing.free.cta": "무료로 시작하기",
+    "pricing.mini.tagline": "첫 유료 플랜 — 상업용 품질 체험",
+    "pricing.mini.f1": "5크레딧(4K 상업용 이미지 약 2~3장)",
+    "pricing.mini.f2": "4K 해상도, 워터마크 없음",
+    "pricing.mini.f3": "모든 기능 잠금 해제",
+    "pricing.mini.f4": "크레딧 소멸 없음",
+    "pricing.mini.cta": "Mini 구매",
+    "pricing.pro.tagline": "꾸준한 작업량 — 월 2~3개 프로젝트",
+    "pricing.pro.f1": "월 120크레딧(4K 이미지 약 60장)",
+    "pricing.pro.f2": "일괄 생성(5개 동시)",
+    "pricing.pro.f3": "우선 생성 대기열",
+    "pricing.pro.f4": "4K 워터마크 없음 · 전체 기능",
+    "pricing.pro.f5": "언제든 해지, 다음 주기 청구 없음",
+    "pricing.pro.cta": "Pro 구독",
+    "pricing.max.tagline": "팀 단위 — 월 10개 이상 프로젝트",
+    "pricing.max.f1": "월 400크레딧(4K 이미지 약 200장)",
+    "pricing.max.f2": "일괄 생성 + 우선 대기열",
+    "pricing.max.f3": "API 연동",
+    "pricing.max.f4": "우선 이메일 지원",
+    "pricing.max.f5": "언제든 해지, 다음 주기 청구 없음",
+    "pricing.max.cta": "Max 구독",
+    "pricing.small.tagline": "소규모 프로젝트, 5~10장",
+    "pricing.small.f1": "30크레딧(4K 이미지 약 15장)",
+    "pricing.small.f2": "4K 워터마크 없음",
+    "pricing.small.f3": "캔버스 편집 + 챗 에이전트",
+    "pricing.small.f4": "크레딧 소멸 없음",
+    "pricing.small.cta": "Small 구매",
+    "pricing.standard.tagline": "14장 규모 상업 프로젝트에 적합",
+    "pricing.standard.f1": "80크레딧(4K 이미지 약 40장)",
+    "pricing.standard.f2": "캔버스에서 반복 보정",
+    "pricing.standard.f3": "전체 기능 + 채널 다이어그램",
+    "pricing.standard.f4": "크레딧 소멸 없음",
+    "pricing.standard.cta": "Standard 구매",
+    "pricing.large.tagline": "여러 차례 수정 또는 50장 이상",
+    "pricing.large.f1": "250크레딧(4K 이미지 약 125장)",
+    "pricing.large.f2": "캔버스 + 챗 + 채널 다이어그램",
+    "pricing.large.f3": "우선 지원 응대",
+    "pricing.large.f4": "크레딧 소멸 없음",
+    "pricing.large.cta": "Large 구매",
+
+    // -- Pricing FAQ --
+    "faq.heading": "자주 묻는 질문",
+    "faq.q1": "LDR을 무료로 사용해볼 수 있나요?",
+    "faq.a1": "네. 가입하면 5크레딧이 지급되고, 매일 1회 1K 해상도로 무료 생성할 수 있습니다. 신용카드 등록은 필요하지 않습니다.",
+    "faq.q2": "프로젝트 패키지와 구독은 어떻게 다른가요?",
+    "faq.a2": "프로젝트 패키지(Mini, Small, Standard, Large)는 1회 결제로 정해진 크레딧을 받는 방식이며 크레딧은 소멸되지 않습니다. 진행할 프로젝트가 정해져 있을 때 적합합니다. 구독(Pro, Max)은 매월 갱신되며 주기마다 크레딧이 새로 지급되므로, 작업이 꾸준히 있을 때 유리합니다. 두 가지를 함께 쓸 수도 있어 구독 중에 큰 프로젝트가 생기면 패키지를 추가로 구매하면 됩니다.",
+    "faq.q3": "렌더링 해상도는 어떻게 되나요?",
+    "faq.a3": "무료 플랜은 1K 해상도에 워터마크가 포함됩니다. 유료 플랜(Mini, Small, Standard, Large, Pro, Max)은 모두 최대 4K(4096px), 워터마크 없이 출력되어 발표 자료나 출판물에 바로 사용할 수 있습니다.",
+    "faq.q4": "사용하지 않은 패키지 크레딧은 소멸되나요?",
+    "faq.a4": "아니요. 패키지 크레딧은 소멸되지 않으며 다 쓸 때까지 계정에 남아 있습니다. 구독 크레딧은 결제 주기마다 초기화되며 다음 달로 이월되지 않습니다.",
+    "faq.q5": "구독을 해지할 수 있나요?",
+    "faq.a5": "네, 고객 포털에서 언제든 해지할 수 있습니다. 해지 후에도 현재 결제 주기가 끝날 때까지는 이용할 수 있으며 남은 기간에 대한 환불은 없습니다.",
+    "faq.q6": "패키지는 환불되나요?",
+    "faq.a6": "프로젝트 패키지는 구매 후 환불되지 않습니다. 크레딧은 소멸되지 않으므로 다 쓸 때까지 그대로 남아 있습니다. 첫 구독에 한해 7일 환불 보장이 적용될 수 있습니다. 자세한 내용은 ",
+    "faq.a6.link": "환불 정책",
+    "faq.a6.suffix": "을 확인해 주세요.",
+    "faq.q7": "어떤 결제 수단을 지원하나요?",
+    "faq.a7": "LDR의 판매 사업자(Merchant of Record)는 Creem Inc.입니다. 현재 주요 신용카드, Apple Pay, Google Pay를 지원하며 이용 가능한 수단은 지역에 따라 다를 수 있습니다. 결제 페이지에 표시되는 수단이 기준입니다. 모든 가격은 USD 기준이며 결제 시 자동으로 현지 통화로 환산됩니다.",
+    "faq.q8": "어떤 이미지 형식을 지원하나요?",
+    "faq.a8": "JPG, PNG, WebP를 최대 20MB까지 지원합니다. 선명한 낮 시간대의 건축·조경 사진일수록 결과가 좋습니다.",
+
+    // -- Blog page（한국어 글은 아직 없음. langsWithBlog 에 ko 를 넣으면 메뉴가 나타난다）--
+    "blog.heading": "블로그",
+    "blog.subtitle": "조명 시각화, AI 렌더링 워크플로, 야간경관 계획에 대한 실무 가이드.",
+    "blog.empty": "아직 게시된 글이 없습니다. 곧 업데이트됩니다.",
+    "blog.backToBlog": "← 블로그 목록으로",
+
+    // -- Use Cases index --
+    "useCases.heading": "디자이너들은 LDR을 이렇게 씁니다",
+    "useCases.subtitle": "네 가지 분야, 하나의 공통 과제 — 등기구를 한 대도 설치하기 전에 발주처는 밤의 모습을 확인하고 싶어 합니다. LDR이 그 간극을 메웁니다.",
+    "useCases.learnMore": "자세히 보기 →",
+    "useCases.arch.title": "건축조명",
+    "useCases.arch.desc": "파사드 조명, 캐노피 조명, 역사적 건축물 조명을 시공 전에 시각화합니다. 건축가, 조명 컨설턴트, 설계시공 업체를 위한 기능입니다.",
+    "useCases.arch.keywords": "파사드 · 출입구 · 역사적 건축물",
+    "useCases.landscape.title": "조경조명",
+    "useCases.landscape.desc": "정원 업라이팅, 보행로 조명, 수경시설 조명을 미리 확인합니다. 조경건축가와 주거단지 설계자를 위한 기능입니다.",
+    "useCases.landscape.keywords": "정원 · 보행로 · 수경시설",
+    "useCases.urban.title": "야간경관 계획",
+    "useCases.urban.desc": "도시 규모의 야간 환경, 교량 조명, 공공공간 조명을 시뮬레이션합니다. 도시계획가, 공공디자인 담당자, 지자체 컨설턴트를 위한 기능입니다.",
+    "useCases.urban.keywords": "교량 · 공공공간 · 도시디자인",
+    "useCases.hospitality.title": "호스피탈리티 조명",
+    "useCases.hospitality.desc": "호텔 파사드, 풀 데크, 루프톱 바, 레스토랑 분위기를 렌더링합니다. 호스피탈리티 조명 컨설턴트와 브랜드 팀을 위한 기능입니다.",
+    "useCases.hospitality.keywords": "호텔 · 리조트 · 레스토랑 · 바",
+    "useCases.exploreOther": "다른 활용 사례 보기",
+
+    // -- Meta --
+    "meta.home.title": "AI 조명디자인 렌더링 — 낮에서 밤까지 몇 초 만에",
+    "meta.home.desc": "AI로 낮 사진을 전문가급 야경 렌더링으로 바꿉니다. 사진을 올리고 조명 콘셉트를 설명하면 발표용 이미지가 바로 완성됩니다.",
+    "meta.pricing.title": "요금제 — LDR 조명디자인 렌더링",
+    "meta.pricing.desc": "AI 야경 렌더링의 간단한 요금제. 매일 1회 무료, 1회 결제 패키지는 $9부터, 월 구독은 $99부터(4K·워터마크 없음).",
+    "meta.blog.title": "블로그 — 조명디자인과 AI 렌더링 실무 가이드",
+    "meta.blog.desc": "AI 조명디자인 렌더링, 야경 시각화, 낮밤 변환에 대한 실무 가이드와 튜토리얼.",
+    "meta.useCases.title": "활용 사례 — AI 조명디자인 렌더링",
+    "meta.useCases.desc": "건축가, 조명디자이너, 도시계획가가 건축·조경·도시·호스피탈리티 프로젝트에서 LDR로 야경 렌더링을 만드는 방법을 소개합니다.",
   },
 
   /**

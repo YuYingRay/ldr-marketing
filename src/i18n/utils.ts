@@ -1,4 +1,9 @@
-import { ui, defaultLang, languages, langsWithBlog, type Lang } from "./ui";
+import { ui, defaultLang, languages, type Lang } from "./ui";
+import { routeExistsIn } from "./routes";
+import {
+  assertTranslationsComplete,
+  assertCoversAllLangs,
+} from "./validate";
 
 /** 非默认语言的 URL 前缀，如 ["zh", "ja", "de"]。默认语言 en 无前缀。 */
 const prefixedLangs = (Object.keys(languages) as Lang[]).filter(
@@ -35,9 +40,12 @@ export function getOtherLangs(lang: Lang): Lang[] {
   return (Object.keys(languages) as Lang[]).filter((l) => l !== lang);
 }
 
-/** 该语言是否有博客文章（无 MDX 就不放导航入口，避免点进空列表）。 */
+/**
+ * 该语言是否有博客（无对应页面就不放导航入口，避免点进 404）。
+ * 判据是 src/pages/<lang>/blog 是否存在，不是手工维护的语言清单。
+ */
 export function hasBlog(lang: Lang): boolean {
-  return langsWithBlog.includes(lang);
+  return routeExistsIn("/blog", lang);
 }
 
 /**
@@ -59,6 +67,7 @@ const HTML_LANG: Record<Lang, string> = {
   en: "en",
   zh: "zh-CN",
   ja: "ja",
+  ko: "ko",
   de: "de",
 };
 
@@ -67,6 +76,7 @@ const OG_LOCALE: Record<Lang, string> = {
   en: "en_US",
   zh: "zh_CN",
   ja: "ja_JP",
+  ko: "ko_KR",
   de: "de_DE",
 };
 
@@ -75,17 +85,29 @@ const DATE_LOCALE: Record<Lang, string> = {
   en: "en-US",
   zh: "zh-CN",
   ja: "ja-JP",
+  ko: "ko-KR",
   de: "de-DE",
 };
 
+/**
+ * 构建期自检。这三张表和 ui.ts 的文案表漏了语言都是**静默降级**
+ * （韩语页会标成 `<html lang="en">`、韩文里混进英文句子），
+ * 而 astro build 不做类型检查，Record<Lang, …> 挡不住。所以在这里断言。
+ * 见 ./validate.ts 的说明。
+ */
+assertTranslationsComplete();
+assertCoversAllLangs("HTML_LANG", HTML_LANG);
+assertCoversAllLangs("OG_LOCALE", OG_LOCALE);
+assertCoversAllLangs("DATE_LOCALE", DATE_LOCALE);
+
 export function htmlLang(lang: Lang): string {
-  return HTML_LANG[lang] ?? HTML_LANG[defaultLang];
+  return HTML_LANG[lang];
 }
 
 export function ogLocale(lang: Lang): string {
-  return OG_LOCALE[lang] ?? OG_LOCALE[defaultLang];
+  return OG_LOCALE[lang];
 }
 
 export function dateLocale(lang: Lang): string {
-  return DATE_LOCALE[lang] ?? DATE_LOCALE[defaultLang];
+  return DATE_LOCALE[lang];
 }

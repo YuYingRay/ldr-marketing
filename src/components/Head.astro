@@ -1,12 +1,12 @@
 ---
-import { languages, defaultLang, type Lang } from "../i18n/ui";
+import { defaultLang, type Lang } from "../i18n/ui";
 import {
   getLocalizedPath,
   useTranslations,
   stripLangPrefix,
-  hasBlog,
   ogLocale,
 } from "../i18n/utils";
+import { getLangsForRoute } from "../i18n/routes";
 
 interface Props {
   title: string;
@@ -34,13 +34,24 @@ const isDefaultOgImage = ogImage === "/og-image-v1.png";
 
 /**
  * hreflang。只声明**确实存在**的语言版本 —— 给不存在的 URL 发 alternate
- * 会让 Google 抓到 404 并作废整组互链声明。博客目前只有 en/zh
- * （见 ui.ts 的 langsWithBlog），其余页面四语齐全。
+ * 会让 Google 抓到 404 并作废整组互链声明。
+ *
+ * 哪些语言存在由 i18n/routes.ts 从 src/pages 的实际文件推导：博客只有 en/zh，
+ * 法律页只有 en，其余页面五语齐全。这里不做任何路径特判 ——
+ * 特判过一次（只判了 /blog），结果漏掉法律页，导致它们声明了 4 个 404 的 alternate。
  */
 const origin = Astro.site ?? Astro.url.origin;
 const pathWithoutLang = stripLangPrefix(Astro.url.pathname);
-const isBlogPath =
-  pathWithoutLang === "/blog" || pathWithoutLang.startsWith("/blog/");
+const availableLangs = getLangsForRoute(pathWithoutLang);
+
+// 当前页自己必须在结果里。不满足说明路由匹配逻辑没覆盖这种路径形态，
+// 此时生成的 hreflang 一定是错的 —— 与其静默上线，不如让构建失败。
+if (!availableLangs.includes(lang)) {
+  throw new Error(
+    `[i18n] 路由 ${pathWithoutLang} 未被识别为存在 ${lang} 版本（识别到：${availableLangs.join(", ") || "无"}）。` +
+      `请检查 src/i18n/routes.ts 的动态路由匹配。`
+  );
+}
 
 /**
  * 站点以目录形式构建（/de/pricing/index.html），canonical 因此带尾斜杠。
@@ -52,8 +63,7 @@ function localizedHref(lang: Lang): string {
   return new URL(path === "/" ? path : `${path}/`, origin).href;
 }
 
-const alternates = (Object.keys(languages) as Lang[])
-  .filter((l) => !isBlogPath || hasBlog(l))
+const alternates = availableLangs
   .map((l) => ({
     // zh 用 zh-Hans 而非 zh-CN：按脚本而非地区声明，简体中文使用者
     // 不论在新加坡还是马来西亚都能命中

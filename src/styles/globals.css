@@ -69,6 +69,22 @@
     color: hsl(var(--foreground));
     font-family: "Inter", system-ui, sans-serif;
   }
+
+  /*
+   * 韩语换行。默认 word-break: normal 下浏览器把韩文当 CJK 处理，可以在任意音节间
+   * 断行 —— 实测韩语价格页有 16 处从词中间切开（「요금|제」「크|레딧」「소멸|되지」），
+   * 相当于把英文 credit 断成 cre/dit 还不加连字符。韩语是有分词空格的，
+   * keep-all 让它像西文一样只在空格处断，这是韩国主流站点的标准处理。
+   *
+   * 必须用 :lang(ko) 限定作用域，不能全局加：中文和日文没有词间空格，
+   * keep-all 会让它们完全无法换行，标题会直接冲出屏幕。
+   *
+   * overflow-wrap 是兜底：某个词组真的比容器还宽时才允许硬断，避免横向溢出。
+   */
+  :lang(ko) {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
 }
 
 @layer utilities {
