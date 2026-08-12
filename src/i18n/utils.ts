@@ -67,6 +67,7 @@ const HTML_LANG: Record<Lang, string> = {
   en: "en",
   zh: "zh-CN",
   ja: "ja",
+  ko: "ko",
   de: "de",
 };
 
@@ -75,6 +76,7 @@ const OG_LOCALE: Record<Lang, string> = {
   en: "en_US",
   zh: "zh_CN",
   ja: "ja_JP",
+  ko: "ko_KR",
   de: "de_DE",
 };
 
@@ -83,12 +85,13 @@ const DATE_LOCALE: Record<Lang, string> = {
   en: "en-US",
   zh: "zh-CN",
   ja: "ja-JP",
+  ko: "ko-KR",
   de: "de-DE",
 };
 
 /**
  * 构建期自检。这三张表和 ui.ts 的文案表漏了语言都是**静默降级**
- * （新语言的页面会标成 `<html lang="en">`、译文里混进英文句子），
+ * （韩语页会标成 `<html lang="en">`、韩文里混进英文句子），
  * 而 astro build 不做类型检查，Record<Lang, …> 挡不住。所以在这里断言。
  * 见 ./validate.ts 的说明。
  */
