@@ -7,6 +7,7 @@ import {
   stripLangPrefix,
   hasBlog,
 } from "../i18n/utils";
+import { routeExistsIn } from "../i18n/routes";
 import { languages } from "../i18n/ui";
 
 interface Props {
@@ -28,18 +29,22 @@ const navLinks = [
 const appUrl = "https://app.ldr-design.com";
 
 /**
- * 语言切换保持当前页面。注意：并非所有页面在所有语言下都存在
- * （博客只有 en/zh），切到没有该页的语言时会 404 —— 因此博客页里
- * 只列出确实有博客的语言。其余页面四种语言齐全。
+ * 语言切换。并非每个页面都有全部语言版本（博客只有 en/zh，法律页只有 en），
+ * 直接换前缀会切到 404。
+ *
+ * 这里与 hreflang 采取不同策略，因为两者的目标不同：
+ *   hreflang 只能声明真实存在的页面（见 Head.astro），
+ *   而语言菜单如果把缺失的语言直接藏掉，用户在法律页会发现切换器忽然少了几项。
+ * 所以菜单始终列出全部语言，本页没有对应版本时退回该语言首页 —— 降级但不 404。
  */
 const currentPath = stripLangPrefix(Astro.url.pathname);
-const isBlogPath = currentPath === "/blog" || currentPath.startsWith("/blog/");
-const otherLangs = getOtherLangs(lang).filter((l) => !isBlogPath || hasBlog(l));
-const langOptions = otherLangs.map((l) => ({
+const langOptions = getOtherLangs(lang).map((l) => ({
   code: l,
   label: languages[l],
-  // 博客文章的 slug 在各语言间一致，列表页同理，所以整条路径可以直接换前缀
-  href: getLocalizedPath(currentPath, l),
+  // 同名页面在各语言下 slug 一致，所以存在时整条路径换前缀即可
+  href: routeExistsIn(currentPath, l)
+    ? getLocalizedPath(currentPath, l)
+    : getLocalizedPath("/", l),
 }));
 ---
 

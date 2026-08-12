@@ -1,4 +1,5 @@
 import type { Lang } from "./ui";
+import { assertCoversAllLangsAndKeys } from "./validate";
 
 /**
  * 应用场景详情页的全部文案。
@@ -592,3 +593,6 @@ export const useCaseDetails: Record<
     },
   },
 };
+
+/** 漏一种语言或漏一个场景都会让详情页在构建时崩在 undefined 上，这里提前报出缺哪一项 */
+assertCoversAllLangsAndKeys("useCaseDetails", useCaseDetails, useCaseSlugs);

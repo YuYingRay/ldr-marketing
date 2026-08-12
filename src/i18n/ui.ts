@@ -17,13 +17,8 @@ export const languages = {
 } as const;
 export type Lang = keyof typeof languages;
 
-/**
- * 有博客内容的语言。博客正文是 MDX 实体文件（src/data/blog[-<lang>]/），
- * 不是 ui.ts 里的字符串 —— 没有对应 MDX 就不能放出入口，否则用户点进去是空列表。
- * 2026-08-10：日语/德语先只做界面与落地页，博客待补。补齐后把语言加进来即可，
- * Nav/Footer 的博客入口会自动出现。
- */
-export const langsWithBlog: readonly Lang[] = ["en", "zh"];
+// 哪些语言有博客、哪些页面缺某个语言版本，一律由 src/pages 下的实际文件推导，
+// 见 ./routes.ts —— 这类清单只要靠手工维护，加语言时就会漏。
 
 export const ui = {
   en: {
