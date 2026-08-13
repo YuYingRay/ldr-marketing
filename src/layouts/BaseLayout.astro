@@ -36,5 +36,27 @@ const { title, description, ogImage, canonicalUrl, jsonLd, lang = "en" } = Astro
   </head>
   <body class="min-h-screen flex flex-col bg-background text-foreground antialiased">
     <slot />
+
+    {/*
+      Vercel Web Analytics。
+
+      为什么直接引脚本而不装 @vercel/analytics：官方包的主要增值是跟踪 SPA
+      路由切换，而本站是纯静态 MPA，每次导航都是整页加载，那部分能力用不上。
+      /_vercel/insights/script.js 是 Vercel 的公开约定路径，官方包最终也是加载它。
+      将来若要用自定义事件（例如统计 CTA 点击），再换成官方包不迟。
+
+      为什么选它而不是 GA4：本站已面向德国市场，GA4 会写 cookie，
+      按德国 TDDDG 需要 Cookie-Banner 并同步改隐私政策；
+      Vercel Analytics 不写 cookie、不做跨站追踪，因此不触发同意横幅要求。
+
+      is:inline —— 这个路径在构建时并不存在（由 Vercel 边缘在运行时提供），
+      不加的话 Astro 会把它当成待解析的本地资源。
+      import.meta.env.PROD —— 只在构建产物里注入，本地 astro dev 不会因 404 报错。
+
+      注意：还需要在 Vercel 项目后台开启 Web Analytics，否则该脚本返回 404，不会有数据。
+    */}
+    {import.meta.env.PROD && (
+      <script is:inline defer src="/_vercel/insights/script.js"></script>
+    )}
   </body>
 </html>
