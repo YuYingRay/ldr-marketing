@@ -1,6 +1,7 @@
 ---
 import type { Lang } from "../i18n/ui";
 import { useTranslations } from "../i18n/utils";
+import { appLink } from "../lib/appUrl";
 
 interface Props {
   lang?: Lang;
@@ -18,8 +19,6 @@ const t = useTranslations(lang);
 // 首字母大写才会被 Astro 当作动态标签渲染
 const Heading = headingLevel;
 
-const APP_URL = "https://app.ldr-design.com";
-
 type PlanKey = "free" | "mini" | "pro" | "max" | "small" | "standard" | "large";
 type PeriodKey = "forever" | "oneTime" | "month";
 
@@ -28,7 +27,9 @@ interface Plan {
   price: string;
   periodKey: PeriodKey;
   featureCount: number;
-  ctaHref: string;
+  /** 产品站上的目标路径。完整 URL 在渲染时由 appLink 生成，
+      这样链接的来源标记能直接从 planKey 派生，不用在每个套餐里手写一遍 */
+  appPath: string;
   popular?: boolean;
   ctaVariant: "primary" | "outline";
 }
@@ -40,7 +41,7 @@ const plansSection: Plan[] = [
     price: "$0",
     periodKey: "forever",
     featureCount: 4,
-    ctaHref: APP_URL,
+    appPath: "/",
     ctaVariant: "outline",
   },
   {
@@ -48,7 +49,7 @@ const plansSection: Plan[] = [
     price: "$9",
     periodKey: "oneTime",
     featureCount: 4,
-    ctaHref: `${APP_URL}/pricing`,
+    appPath: "/pricing",
     ctaVariant: "primary",
   },
   {
@@ -56,7 +57,7 @@ const plansSection: Plan[] = [
     price: "$99",
     periodKey: "month",
     featureCount: 5,
-    ctaHref: `${APP_URL}/pricing`,
+    appPath: "/pricing",
     popular: true,
     ctaVariant: "primary",
   },
@@ -65,7 +66,7 @@ const plansSection: Plan[] = [
     price: "$249",
     periodKey: "month",
     featureCount: 5,
-    ctaHref: `${APP_URL}/pricing`,
+    appPath: "/pricing",
     ctaVariant: "primary",
   },
 ];
@@ -77,7 +78,7 @@ const packsSection: Plan[] = [
     price: "$59",
     periodKey: "oneTime",
     featureCount: 4,
-    ctaHref: `${APP_URL}/pricing`,
+    appPath: "/pricing",
     ctaVariant: "outline",
   },
   {
@@ -85,7 +86,7 @@ const packsSection: Plan[] = [
     price: "$129",
     periodKey: "oneTime",
     featureCount: 4,
-    ctaHref: `${APP_URL}/pricing`,
+    appPath: "/pricing",
     popular: true,
     ctaVariant: "primary",
   },
@@ -94,7 +95,7 @@ const packsSection: Plan[] = [
     price: "$299",
     periodKey: "oneTime",
     featureCount: 4,
-    ctaHref: `${APP_URL}/pricing`,
+    appPath: "/pricing",
     ctaVariant: "outline",
   },
 ];
@@ -184,7 +185,7 @@ const packsSection: Plan[] = [
               </ul>
 
               <a
-                href={plan.ctaHref}
+                href={appLink(plan.appPath, lang, `pricing-${plan.planKey}`)}
                 class={[
                   "inline-flex items-center justify-center px-5 py-2.5 rounded-xl text-sm font-semibold transition-opacity",
                   plan.ctaVariant === "primary"
@@ -275,7 +276,7 @@ const packsSection: Plan[] = [
               </ul>
 
               <a
-                href={plan.ctaHref}
+                href={appLink(plan.appPath, lang, `pricing-${plan.planKey}`)}
                 class={[
                   "inline-flex items-center justify-center px-5 py-2.5 rounded-xl text-sm font-semibold transition-opacity",
                   plan.ctaVariant === "primary"

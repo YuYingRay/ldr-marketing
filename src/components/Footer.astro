@@ -1,6 +1,7 @@
 ---
 import type { Lang } from "../i18n/ui";
 import { useTranslations, getLocalizedPath, hasBlog } from "../i18n/utils";
+import { appLink } from "../lib/appUrl";
 
 interface Props {
   lang?: Lang;
@@ -8,7 +9,6 @@ interface Props {
 
 const { lang = "en" } = Astro.props;
 const t = useTranslations(lang);
-const appUrl = "https://app.ldr-design.com";
 
 const navLinks = [
   { label: t("footer.useCases"), href: getLocalizedPath("/use-cases", lang) },
@@ -17,7 +17,7 @@ const navLinks = [
   ...(hasBlog(lang)
     ? [{ label: t("footer.blog"), href: getLocalizedPath("/blog", lang) }]
     : []),
-  { label: t("footer.app"), href: appUrl, external: true },
+  { label: t("footer.app"), href: appLink("/", lang, "footer"), external: true },
 ];
 
 const legalLinks = [

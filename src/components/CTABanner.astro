@@ -1,6 +1,7 @@
 ---
 import type { Lang } from "../i18n/ui";
 import { useTranslations } from "../i18n/utils";
+import { appLink } from "../lib/appUrl";
 
 interface Props {
   lang?: Lang;
@@ -8,7 +9,6 @@ interface Props {
 
 const { lang = "en" } = Astro.props;
 const t = useTranslations(lang);
-const APP_URL = "https://app.ldr-design.com";
 ---
 
 <section class="py-20 px-4">
@@ -22,7 +22,7 @@ const APP_URL = "https://app.ldr-design.com";
     </p>
 
     <a
-      href={APP_URL}
+      href={appLink("/", lang, "cta-banner")}
       class="mt-8 inline-flex items-center justify-center px-8 py-3 text-lg font-semibold rounded-xl bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:opacity-90 transition-opacity"
     >
       {t("cta.button")}

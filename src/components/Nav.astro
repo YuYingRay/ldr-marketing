@@ -9,6 +9,7 @@ import {
 } from "../i18n/utils";
 import { routeExistsIn } from "../i18n/routes";
 import { languages } from "../i18n/ui";
+import { appLink } from "../lib/appUrl";
 
 interface Props {
   lang?: Lang;
@@ -25,8 +26,6 @@ const navLinks = [
     ? [{ label: t("nav.blog"), href: getLocalizedPath("/blog", lang) }]
     : []),
 ];
-
-const appUrl = "https://app.ldr-design.com";
 
 /**
  * 语言切换。并非每个页面都有全部语言版本（博客只有 en/zh，法律页只有 en），
@@ -117,7 +116,7 @@ const langOptions = getOtherLangs(lang).map((l) => ({
       </details>
 
       <a
-        href={appUrl}
+        href={appLink("/", lang, "nav")}
         target="_blank"
         rel="noopener noreferrer"
         class="whitespace-nowrap bg-primary text-primary-foreground rounded-lg px-4 py-2 text-sm font-medium hover:opacity-90 transition-opacity"

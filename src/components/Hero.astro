@@ -3,6 +3,7 @@ import type { Lang } from "../i18n/ui";
 import { useTranslations } from "../i18n/utils";
 import { showcaseAlt } from "../i18n/showcase";
 import { toThumbUrl } from "../lib/supabase";
+import { appLink } from "../lib/appUrl";
 
 interface Props {
   showcase?: {
@@ -15,7 +16,6 @@ interface Props {
   lang?: Lang;
 }
 
-const APP_URL = "https://app.ldr-design.com";
 const { showcase, lang = "en" } = Astro.props;
 const t = useTranslations(lang);
 
@@ -51,7 +51,7 @@ const heroSubject = showcase ? showcaseAlt(showcase, lang) : "";
 
   <div class="mt-10 flex flex-col sm:flex-row items-center gap-4">
     <a
-      href={APP_URL}
+      href={appLink("/", lang, "hero")}
       class="inline-flex items-center justify-center px-6 py-3 rounded-xl text-base font-semibold bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:opacity-90 transition-opacity"
     >
       {t("hero.cta")}
