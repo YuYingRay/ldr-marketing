@@ -97,19 +97,33 @@ const legalLinks = [
       id="wechat-group-dialog"
       class="m-auto w-[min(92vw,22rem)] rounded-xl border border-border bg-background p-6 text-foreground backdrop:bg-black/60"
     >
-      <div class="flex flex-col items-center gap-3 text-center">
+      <div class="flex flex-col items-center gap-4 text-center">
         <h2 class="text-base font-bold">LDR 产品交流群</h2>
-        <p class="text-xs text-muted-foreground">产品交流群，技术与设计交流</p>
-        <img
-          src="/wechat-qr.jpg"
-          alt="LDR 产品交流群二维码"
-          width="256"
-          height="277"
-          loading="lazy"
-          class="w-64 max-w-full rounded-lg border border-border bg-white"
-        />
-        <p class="text-sm">扫码添加创始人微信，备注「进群」，邀你加入交流群</p>
-        <p class="text-xs text-muted-foreground">手机用户：保存二维码后，在微信「扫一扫」中识别相册图片</p>
+        <div class="flex items-center gap-2.5">
+          <img
+            src="/wechat-avatar.jpg"
+            alt=""
+            width="36"
+            height="36"
+            loading="lazy"
+            class="h-9 w-9 rounded-full border border-border object-cover"
+          />
+          <span class="text-sm font-medium text-foreground">余英 · LDR 创始人</span>
+        </div>
+        <div class="rounded-2xl border border-border bg-white p-3 shadow-sm">
+          <img
+            src="/wechat-qr.jpg"
+            alt="LDR 产品交流群二维码"
+            width="224"
+            height="240"
+            loading="lazy"
+            class="h-auto w-56"
+          />
+        </div>
+        <div class="space-y-1">
+          <p class="text-sm font-medium text-foreground">扫码添加微信，备注「进群」</p>
+          <p class="text-xs text-muted-foreground">技术与设计交流 · 手机用户可保存二维码后在微信中识别</p>
+        </div>
         <div class="flex items-center gap-3">
           <a
             href="/wechat-qr.jpg"
