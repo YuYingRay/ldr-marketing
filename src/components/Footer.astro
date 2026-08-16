@@ -70,8 +70,83 @@ const legalLinks = [
               </a>
             </li>
           ))}
+          {lang === "zh" && (
+            <>
+              <li aria-hidden="true" class="text-border">&middot;</li>
+              <li>
+                <button
+                  type="button"
+                  id="wechat-group-open"
+                  class="hover:text-foreground transition-colors"
+                >
+                  微信交流群
+                </button>
+              </li>
+            </>
+          )}
         </ul>
       </nav>
     </div>
   </div>
+
+  {/* 微信群二维码弹窗:仅中文站渲染。文案刻意内联中文、不进 ui.ts —— 英文站不渲染此块,
+      进 ui.ts 只会制造零消费者的英文死数据(同 pricing FAQ 陷阱)。script 用 is:inline
+      保证只随 zh 页输出,不被 Astro hoist 进英文页。 */}
+  {lang === "zh" && (
+    <dialog
+      id="wechat-group-dialog"
+      class="m-auto w-[min(92vw,22rem)] rounded-xl border border-border bg-background p-6 text-foreground backdrop:bg-black/60"
+    >
+      <div class="flex flex-col items-center gap-3 text-center">
+        <h2 class="text-base font-bold">LDR 产品交流群</h2>
+        <p class="text-xs text-muted-foreground">产品交流群，技术与设计交流</p>
+        <img
+          src="/wechat-qr.jpg"
+          alt="LDR 产品交流群二维码"
+          width="256"
+          height="277"
+          loading="lazy"
+          class="w-64 max-w-full rounded-lg border border-border bg-white"
+        />
+        <p class="text-sm">扫码添加创始人微信，备注「进群」，邀你加入交流群</p>
+        <p class="text-xs text-muted-foreground">手机用户：保存二维码后，在微信「扫一扫」中识别相册图片</p>
+        <div class="flex items-center gap-3">
+          <a
+            href="/wechat-qr.jpg"
+            download="ldr-wechat-group-qr.jpg"
+            class="rounded-md border border-border px-3 py-1.5 text-xs hover:text-foreground hover:border-foreground/40 transition-colors"
+          >
+            保存二维码
+          </a>
+          <button
+            type="button"
+            id="wechat-group-close"
+            class="rounded-md border border-border px-3 py-1.5 text-xs hover:text-foreground hover:border-foreground/40 transition-colors"
+          >
+            关闭
+          </button>
+        </div>
+      </div>
+    </dialog>
+  )}
+  {lang === "zh" && (
+    <script is:inline>
+      (function () {
+        var openBtn = document.getElementById("wechat-group-open");
+        var dialog = document.getElementById("wechat-group-dialog");
+        var closeBtn = document.getElementById("wechat-group-close");
+        if (!openBtn || !dialog) return;
+        openBtn.addEventListener("click", function () {
+          dialog.showModal();
+        });
+        if (closeBtn)
+          closeBtn.addEventListener("click", function () {
+            dialog.close();
+          });
+        dialog.addEventListener("click", function (e) {
+          if (e.target === dialog) dialog.close();
+        });
+      })();
+    </script>
+  )}
 </footer>
