@@ -57,7 +57,8 @@ const jsonLd = {
   jsonLd={jsonLd}
   lang={lang}
 >
-  <article class="max-w-3xl mx-auto px-4 pt-20 pb-24">
+  {/* 宽度与字号的取舍见英文版同一处注释 */}
+  <article class="max-w-[44rem] mx-auto px-4 pt-20 pb-24">
     <a
       href="/zh/blog"
       class="inline-flex items-center gap-2 text-sm text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] transition-colors mb-10"
@@ -65,22 +66,9 @@ const jsonLd = {
       {t("blog.backToBlog")}
     </a>
 
-    {
-      image && (
-        <div class="aspect-video overflow-hidden rounded-2xl mb-10">
-          <img
-            src={image.url}
-            alt={image.alt}
-            class="w-full h-full object-cover"
-            loading="eager"
-            decoding="async"
-          />
-        </div>
-      )
-    }
-
     <header class="mb-10">
-      <h1 class="text-3xl sm:text-4xl font-bold text-[hsl(var(--foreground))] leading-tight">
+      {/* text-balance 理由见英文版 */}
+      <h1 class="text-balance text-3xl sm:text-4xl font-bold text-[hsl(var(--foreground))] leading-tight">
         {title}
       </h1>
       <div
@@ -92,18 +80,22 @@ const jsonLd = {
       </div>
     </header>
 
-    <div
-      class="prose prose-neutral dark:prose-invert max-w-none
-             prose-headings:font-bold prose-headings:text-[hsl(var(--foreground))]
-             prose-p:text-[hsl(var(--muted-foreground))] prose-p:leading-relaxed
-             prose-a:text-[hsl(var(--primary))] prose-a:no-underline hover:prose-a:underline
-             prose-strong:text-[hsl(var(--foreground))]
-             prose-li:text-[hsl(var(--muted-foreground))]
-             prose-table:text-sm prose-th:text-[hsl(var(--foreground))]
-             prose-td:text-[hsl(var(--muted-foreground))]
-             prose-code:text-[hsl(var(--foreground))] prose-code:bg-[hsl(var(--muted)/0.4)]
-             prose-code:px-1 prose-code:py-0.5 prose-code:rounded"
-    >
+    {/* 撑宽参数与英文版一致，见那边的注释 */}
+    {
+      image && (
+        <div class="blog-bleed aspect-video overflow-hidden rounded-xl border border-[hsl(var(--border))] mb-12">
+          <img
+            src={image.url}
+            alt={image.alt}
+            class="w-full h-full object-cover"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      )
+    }
+
+    <div class="prose prose-lg max-w-none">
       <Content />
     </div>
 

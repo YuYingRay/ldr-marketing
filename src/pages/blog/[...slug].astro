@@ -46,7 +46,10 @@ const jsonLd = {
   ogImage={image?.url}
   jsonLd={jsonLd}
 >
-  <article class="max-w-3xl mx-auto px-4 pt-20 pb-24">
+  {/* 44rem 而不是 3xl(48rem)：配 prose-lg 的 18px 字号，英文约 74 字符/行、
+      中文约 37 字/行，都落在舒适区。48rem + 16px 时英文每行逼近 95 字符，
+      眼睛回到行首容易串行。 */}
+  <article class="max-w-[44rem] mx-auto px-4 pt-20 pb-24">
     <a
       href="/blog"
       class="inline-flex items-center gap-2 text-sm text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] transition-colors mb-10"
@@ -54,22 +57,12 @@ const jsonLd = {
       &larr; Back to Blog
     </a>
 
-    {
-      image && (
-        <div class="aspect-video overflow-hidden rounded-2xl mb-10">
-          <img
-            src={image.url}
-            alt={image.alt}
-            class="w-full h-full object-cover"
-            loading="eager"
-            decoding="async"
-          />
-        </div>
-      )
-    }
-
+    {/* 标题在封面图之前：封面是 16:9，放在最上面会把 h1 顶到首屏之外，
+        读者要先滚动才知道这篇讲什么 */}
     <header class="mb-10">
-      <h1 class="text-3xl sm:text-4xl font-bold text-[hsl(var(--foreground))] leading-tight">
+      {/* text-balance：不加的话「…Without Writing a / Prompt」会把最后一个词
+          单独甩到第二行 */}
+      <h1 class="text-balance text-3xl sm:text-4xl font-bold text-[hsl(var(--foreground))] leading-tight">
         {title}
       </h1>
       <div
@@ -81,18 +74,25 @@ const jsonLd = {
       </div>
     </header>
 
-    <div
-      class="prose prose-neutral dark:prose-invert max-w-none
-             prose-headings:font-bold prose-headings:text-[hsl(var(--foreground))]
-             prose-p:text-[hsl(var(--muted-foreground))] prose-p:leading-relaxed
-             prose-a:text-[hsl(var(--primary))] prose-a:no-underline hover:prose-a:underline
-             prose-strong:text-[hsl(var(--foreground))]
-             prose-li:text-[hsl(var(--muted-foreground))]
-             prose-table:text-sm prose-th:text-[hsl(var(--foreground))]
-             prose-td:text-[hsl(var(--muted-foreground))]
-             prose-code:text-[hsl(var(--foreground))] prose-code:bg-[hsl(var(--muted)/0.4)]
-             prose-code:px-1 prose-code:py-0.5 prose-code:rounded"
-    >
+    {/* 封面与正文里的 figure 用同一组撑宽参数（见 tailwind.config.ts），
+        否则封面比正文配图还窄，一眼就看出两套规则 */}
+    {
+      image && (
+        <div class="blog-bleed aspect-video overflow-hidden rounded-xl border border-[hsl(var(--border))] mb-12">
+          <img
+            src={image.url}
+            alt={image.alt}
+            class="w-full h-full object-cover"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      )
+    }
+
+    {/* 具体排版规则见 tailwind.config.ts 的 theme.extend.typography ——
+        中英两套路由页共用，避免改一处漏另一处 */}
+    <div class="prose prose-lg max-w-none">
       <Content />
     </div>
 

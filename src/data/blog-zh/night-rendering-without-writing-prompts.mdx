@@ -4,8 +4,8 @@ description: "通用 AI 出的是漂亮的图，不是专业的图。LDR 上传�
 pubDate: "2026-08-16"
 author: "LDR Team"
 image:
-  url: "/blog/facade-night.jpg"
-  alt: "LDR 根据一张建筑立面白天照片生成的夜景灯光效果图"
+  url: "/blog/ldr-night.jpg"
+  alt: "LDR 根据一张商业综合体白天照片生成的夜景灯光效果图"
 tags: ["Chat Agent", "工作流程", "AI 渲染", "灯光设计"]
 draft: false
 ---
@@ -40,21 +40,43 @@ LDR（[ldr-design.com](https://app.ldr-design.com)）是一个照明设计师做
 
 全程不用写提示词。
 
-![LDR 的 Chat Agent 输入框：上传白天图后描述留空，AI 自己写灯光方案](/blog/chat-agent-zh.png)
+<figure>
+  <img
+    src="/blog/chat-agent-zh.png"
+    alt="LDR 的 Chat Agent 输入框：上传白天图后描述留空，AI 自己写灯光方案"
+  />
+  <figcaption>输入框愿意接受你的描述，但留空才是重点——Chat Agent 模式就是为此存在的。</figcaption>
+</figure>
 
-输入框愿意接受你的描述，但**留空才是重点**——Chat Agent 模式就是为此存在的。
-
-![LDR Chat Agent 自动生成的灯光设计方案，含色温方案、亮度秩序与逐对象手法](/blog/chat-agent-2-zh.png)
+<figure>
+  <img
+    src="/blog/chat-agent-2-zh.png"
+    alt="LDR Chat Agent 自动生成的灯光设计方案，含色温方案、亮度秩序与逐对象手法"
+  />
+  <figcaption>AI 写完方案才出图，方案先摆给你看。</figcaption>
+</figure>
 
 这就是"AI 自动生成灯光方案"的实际样子。它先讲清整体思路，再给出色温方案（主调 3000K、功能性 4000K、标识 3500K），然后把画面里的每个部位排进一套**亮度秩序**——L5 是视觉中心，L0 是果断留暗——最后逐个对象说明手法。方案摆在你面前，你点确认，它才开始出图。
 
-## 效果：同一张图的白天与夜晚
+## 效果：同一个画面的白天与夜晚
 
-![上传到 LDR 的建筑立面白天原图](/blog/facade-day.jpg)
+<figure>
+  <img
+    src="/blog/ldr-day.jpg"
+    alt="上传到 LDR 的白天原图：大型商业综合体，白色穿孔表皮立面"
+  />
+  <figcaption>白天——原图，原样上传。</figcaption>
+</figure>
 
-![LDR 根据上图生成的夜景效果图，立面有明暗层次、室内内透色温错落](/blog/facade-night.jpg)
+<figure>
+  <img
+    src="/blog/ldr-night.jpg"
+    alt="LDR 根据上图生成的夜景效果图：穿孔表皮成为发光肌理，商业内透色温错落，背后塔楼保持暗部"
+  />
+  <figcaption>夜景——由上图生成。同机位、同人物、同一个画面，变的只有光。</figcaption>
+</figure>
 
-看的不是"亮不亮"，是这几件事：立面有明暗层次，不是一片平铺的亮；室内内透色温错落（真实建筑晚上就是这样，不会整栋楼一个颜色）；入口最亮，因为那是要指引人进去的地方；而画面里大片区域**敢于暗下去**——这是通用模型最学不像的一点，也是行内判断一张夜景图专不专业最直接的标志。这些都是照明设计的行活，不是滤镜。
+看的不是"亮不亮"，是这几件事：穿孔表皮被打成**发光的肌理**，而不是一面被泛光打亮的墙；商业内透透过玻璃呈现错落的色温（真实建筑晚上就是这样，不会整栋楼一个颜色）；入口和中庭最亮，因为那是要指引人进去的地方；背后的塔楼和大片天空**敢于暗下去**——这份克制是通用模型最学不像的一点，也是行内判断一张夜景图专不专业最直接的标志。这些都是照明设计的行活，不是滤镜。
 
 ## 常见问题
 

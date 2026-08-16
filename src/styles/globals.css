@@ -95,3 +95,29 @@
     @apply bg-card rounded-2xl border border-border/60 shadow-subtle;
   }
 }
+
+/**
+ * 博客配图「撑出正文」。
+ *
+ * 正文按可读性收窄到 44rem（见 blog/[...slug].astro），但配图是这类文章的
+ * 论据，跟着收窄就太小了。这里用负的 margin-inline 把图向两侧撑到 56rem。
+ *
+ * 为什么写在这里而不是各自用 Tailwind 任意值：正文里的 <figure> 由
+ * tailwind.config.ts 的 typography 规则管，而封面图在 prose 之外、是普通
+ * div —— 两处若各写一份，数值迟早对不上。放在同一条规则里，56rem/28rem
+ * 只存在一处。
+ *
+ * （另：`mx-[calc(50%-28rem)]` 这种 Tailwind 任意值是无效的，calc 的减号
+ * 两侧需要空格，而 Tailwind 类名里的空格得写成下划线。写错不会报错，
+ * 只是静默不生成 CSS。）
+ *
+ * 60rem 以下不撑：小屏上图与正文同宽，避免横向溢出。
+ */
+@media (min-width: 60rem) {
+  .prose > figure,
+  .prose > table,
+  .blog-bleed {
+    width: 56rem;
+    margin-inline: calc(50% - 28rem);
+  }
+}
