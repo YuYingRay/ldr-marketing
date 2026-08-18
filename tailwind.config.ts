@@ -161,6 +161,32 @@ export default {
             "code::before": { content: '""' },
             "code::after": { content: '""' },
 
+            /**
+             * 代码块。站内此前 8 篇文章一个代码块都没有，这套样式是为提示词
+             * 模板准备的 —— 那是**自然语言**，不是代码：
+             *   - pre-wrap 而不是默认的横向滚动：读者要通读并复制整段提示词，
+             *     一行 60 多个汉字横着滚是没法读的；这类文本也没有靠缩进表意。
+             *   - break-words 兜底，防止超长 URL 之类撑破容器。
+             *
+             * 字号不在这里定：prose-lg 自己的 pre 规则排在后面，会覆盖掉
+             * DEFAULT 里的任何 fontSize（实测生效值是 16px，中文读着正好）。
+             */
+            pre: {
+              whiteSpace: "pre-wrap",
+              overflowWrap: "break-word",
+              lineHeight: "1.7",
+              padding: "1.2em 1.4em",
+              borderRadius: "0.75rem",
+              border: "1px solid hsl(var(--border))",
+            },
+            // 行内 code 的底色/内边距会被继承到 pre 里，在深色块上叠出第二层背景
+            "pre code": {
+              backgroundColor: "transparent",
+              padding: "0",
+              fontWeight: "400",
+              fontSize: "inherit",
+            },
+
             // 表格：complete-guide 和 traditional-vs-ai 里都有对比表，
             // 插件缺失时它们是没有边框的裸 table
             "thead th": {

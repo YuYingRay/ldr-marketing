@@ -12,6 +12,19 @@ export default defineConfig({
     locales: ["en", "zh", "ja", "ko", "de"],
     routing: { prefixDefaultLocale: false },
   },
+  markdown: {
+    /**
+     * Shiki 默认用 github-dark 主题，并把配色**写成行内样式**打在 <pre> 上：
+     *   style="background-color:#24292e;color:#e1e4e8"
+     * 行内样式压过设计系统的 token，于是代码块是 GitHub 那种偏蓝的灰，
+     * 而站点背景是纯中性的 #0d0d0d —— 一眼能看出是两套色。
+     *
+     * css-variables 主题改为吐 var(--astro-code-*)，实际取值在
+     * globals.css 里绑到本站的设计变量上。这样既拿回配色控制权，
+     * 又保留了将来贴真代码时的语法高亮能力。
+     */
+    shikiConfig: { theme: "css-variables" },
+  },
   integrations: [
     tailwind(),
     mdx(),

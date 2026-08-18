@@ -116,8 +116,38 @@
 @media (min-width: 60rem) {
   .prose > figure,
   .prose > table,
+  .prose > pre,
   .blog-bleed {
     width: 56rem;
     margin-inline: calc(50% - 28rem);
   }
+}
+
+/**
+ * Shiki 的 css-variables 主题（见 astro.config.mjs）把配色交给这些变量，
+ * 这里把它们绑到本站的设计系统上 —— 代码块于是和站点其它表面同一套灰阶，
+ * 而不是 GitHub 主题那种偏蓝的灰。
+ *
+ * 注意 Shiki 仍然把这些 var() 写成**行内样式**打在 <pre> 上，所以 prose 里
+ * 那份 --tw-prose-pre-bg 对它无效；配色只能从这里走。
+ */
+:root {
+  /* 用 token 而不是写死的白色叠加：BaseLayout 目前把 dark 写死在 <html> 上，
+     但 :root 里那套浅色调色板还在。将来真加主题切换时，别的都会跟着翻，
+     写死的值只会静默失效。 */
+  --astro-code-background: hsl(var(--muted) / 0.4);
+  --astro-code-foreground: hsl(var(--foreground) / 0.86);
+
+  /* 语法 token。本站是单色设计，用不透明度分层次而不是上色；
+     现在的代码块都是 plaintext 用不到这些，但真贴代码时若不定义，
+     token 颜色会落到未定义值上。 */
+  --astro-code-token-comment: hsl(var(--foreground) / 0.45);
+  --astro-code-token-punctuation: hsl(var(--foreground) / 0.55);
+  --astro-code-token-string: hsl(var(--foreground) / 0.75);
+  --astro-code-token-keyword: hsl(var(--foreground));
+  --astro-code-token-function: hsl(var(--foreground));
+  --astro-code-token-constant: hsl(var(--foreground) / 0.75);
+  --astro-code-token-parameter: hsl(var(--foreground) / 0.86);
+  --astro-code-token-string-expression: hsl(var(--foreground) / 0.75);
+  --astro-code-token-link: hsl(var(--primary));
 }
