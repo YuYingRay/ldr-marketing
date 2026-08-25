@@ -95,7 +95,7 @@ export const ui = {
 
     // -- Pricing --
     "pricing.heading": "Simple, Transparent Pricing",
-    "pricing.subtitle": "Pay per project or subscribe for steady flow · Global USD pricing · Cards / Alipay / Apple Pay / Google Pay",
+    "pricing.subtitle": "Pay per project or subscribe for steady flow · Global USD pricing · Cards / Apple Pay / Google Pay · Alipay for one-time packs",
     "pricing.subSection": "Trial & Subscriptions",
     "pricing.subSectionDesc": "From free trial to monthly subscriptions · upgrade anytime",
     "pricing.packSection": "Project Packs",
@@ -189,7 +189,7 @@ export const ui = {
     "faq.a6.link": "Refund Policy",
     "faq.a6.suffix": " for details.",
     "faq.q7": "What payment methods are supported?",
-    "faq.a7": "LDR uses Creem Inc. as the Merchant of Record. Currently available methods include major credit cards, Alipay, Apple Pay, and Google Pay — the exact options may vary by region, and the methods shown on the checkout page are authoritative. All prices are in USD; local currency is converted automatically at checkout.",
+    "faq.a7": "LDR uses Creem Inc. as the Merchant of Record. Currently available methods include major credit cards, Alipay, Apple Pay, and Google Pay — the exact options may vary by region, and the methods shown on the checkout page are authoritative. Alipay is available for one-time purchases only; subscriptions require a card, Apple Pay, or Google Pay. All prices are in USD; local currency is converted automatically at checkout.",
     "faq.q8": "What image formats are supported?",
     "faq.a8": "We accept JPG, PNG, and WebP images up to 20MB. The AI works best with clear daytime architectural or landscape photos.",
 
@@ -231,7 +231,7 @@ export const ui = {
   zh: {
     // -- Announcement（顶部公告条）--
     // 支付宝 2026-07-25 上线（Creem 侧能力）。英文站故意留空：海外用户用不到支付宝。
-    "announcement.text": "🎉 支付宝已上线，扫码即可付款",
+    "announcement.text": "🎉 支付宝已上线，项目包扫码即付",
     "announcement.dismiss": "关闭公告",
 
     // -- Nav --
@@ -300,7 +300,7 @@ export const ui = {
 
     // -- Pricing --
     "pricing.heading": "简单透明的价格",
-    "pricing.subtitle": "按项目购买或月度订阅 · 全球 USD 定价 · 支持支付宝 / 银行卡 / Apple Pay / Google Pay",
+    "pricing.subtitle": "按项目购买或月度订阅 · 全球 USD 定价 · 银行卡 / Apple Pay / Google Pay · 项目包支持支付宝",
     "pricing.subSection": "试用与订阅",
     "pricing.subSectionDesc": "从免费试用到月度订阅 · 随时升级",
     "pricing.packSection": "项目包",
@@ -392,7 +392,7 @@ export const ui = {
     "faq.a6.link": "退款政策",
     "faq.a6.suffix": "。",
     "faq.q7": "支持哪些支付方式？",
-    "faq.a7": "LDR 使用 Creem Inc. 作为责任商户。目前可用方式包括主流信用卡、支付宝、Apple Pay 和 Google Pay —— 具体选项可能因地区而异，以结账页实际显示为准。所有价格以美元计价，结账时自动换算本币。",
+    "faq.a7": "LDR 使用 Creem Inc. 作为责任商户。目前可用方式包括主流信用卡、支付宝、Apple Pay 和 Google Pay —— 具体选项可能因地区而异，以结账页实际显示为准。支付宝仅适用于一次性购买（Mini 与项目包），订阅需使用银行卡、Apple Pay 或 Google Pay。所有价格以美元计价，结账时自动换算本币。",
     "faq.q8": "支持哪些图片格式？",
     "faq.a8": "支持 JPG、PNG 和 WebP，最大 20MB。AI 对清晰的白天建筑或景观照片效果最佳。",
 
