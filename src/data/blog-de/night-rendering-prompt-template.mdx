@@ -1,0 +1,155 @@
+---
+title: "Prompt-Aufbau für KI-Nachtvisualisierungen"
+description: "Die meisten schreiben keinen Prompt, sondern einen Wunsch. Der vierteilige Aufbau eines Lichtplaners plus zwei komplette Projektvorlagen."
+pubDate: "2026-08-18"
+author: "LDR Team"
+image:
+  url: "/blog/ldr-night1.jpg"
+  alt: "Nachtvisualisierung von Büroturm und Sockelbau, mit der Vorlage aus diesem Beitrag von LDR aus einem Tagbild erzeugt"
+tags: ["Tutorial", "Prompt", "KI-Rendering", "Lichtplanung"]
+draft: false
+---
+
+Wenn Menschen eine KI um eine Nachtvisualisierung bitten, schreiben die meisten keinen Prompt — sie äußern einen **Wunsch**. „Mach das Licht hochwertig." „High-Tech-Nachtstimmung." „Atmosphärisch." Was hochwertig bedeutet, weiß das Modell nicht.
+
+Nehmen wir eine einzelne Wand. Ein Anfänger schreibt: *Wandfluter beleuchtet die Wand*. Eine Lichtplanerin schreibt: *Wandfluter an der Attika montiert, nach unten gerichtet, 3000K, weicher gleichmäßiger Verlauf*. Der Unterschied ist kein Vokabular. Es sind vier Entscheidungen: **wo die Leuchte montiert ist, in welche Richtung sie strahlt, welche Farbtemperatur sie hat und was das Licht mit der Oberfläche macht.**
+
+Ich mache seit zehn Jahren Lichtplanung. Das hier ist der Aufbau, den ich benutze — so ausgeschrieben, dass Sie ihn übernehmen können, mit zwei vollständigen Prompts aus realen Projekten am Ende.
+
+## Ein fachlicher Prompt hat genau vier Teile
+
+**Teil 1 — der Rollensatz.** Geben Sie dem Modell eine Identität und legen Sie die Aufgabe fest.
+
+> Sie sind Lichtplaner für Bürogebäude. Wandeln Sie diese Tagszene in eine nächtliche Lichtszene um (Szene unverändert lassen).
+
+„Szene unverändert lassen" verdient seinen Platz. Ohne diesen Zusatz hält sich das Modell für berechtigt, Ihr Gebäude gleich mit umzuplanen.
+
+**Teil 2 — die Zonenliste.** Das ist der Körper des Prompts und die eigentliche Arbeit. Eine Zeile je beleuchteter Zone, und jede Zeile trägt alle vier Entscheidungen: **Zone + Leuchte + Strahlrichtung + Farbtemperatur + Lichtwirkung.**
+
+**Teil 3 — allgemeine Anforderungen.** Eine Zeile für die Stimmung, eine für die Bildqualität, eine für die Uhrzeit („20:30 Uhr" ist ein anderes Bild als „Mitternacht").
+
+**Teil 4 — Ausschlusskriterien.** Was Sie ausdrücklich **nicht** wollen: keine Überstrahlung, keine sichtbaren Hotspots, keine Konturbeleuchtung entlang der Gebäudekante. Wenn eine Nachtvisualisierung falsch zurückkommt, liegt es in neun von zehn Fällen nicht daran, dass Sie zu wenig geschrieben haben. Sie haben zu wenig **verboten**.
+
+Noch ein nützlicher Hinweis: Wenn das Tagfoto harte Schlagschatten auf der Fassade hat, ergänzen Sie in Teil 3 „Schatten ausgleichen".
+
+## Vorlage 1: Turm und Sockelbau
+
+Ein reales Projekt. Das Tagbild ging unverändert hinein, das Nachtbild kam aus dem darunter abgedruckten Prompt heraus.
+
+<figure>
+  <img
+    src="/blog/ldr-day1.jpg"
+    alt="Tagaufnahme eines Büroturms mit rotbrauner Rasterfassade und begrünten Terrassen, daneben ein weißer Flachbau"
+  />
+  <figcaption>Tag — das Ausgangsbild, unverändert hochgeladen.</figcaption>
+</figure>
+
+<figure>
+  <img
+    src="/blog/ldr-night1.jpg"
+    alt="Dieselbe Ansicht bei Nacht: Gebäudekrone und Deckenuntersichten der Terrassen warm beleuchtet, Geschosse in wechselnden Farbtemperaturen, Lichtspuren von Fahrzeugen im Vordergrund"
+  />
+  <figcaption>Nacht — erzeugt aus dem Prompt unten. Gleiche Kamera, gleiche Szene; verändert hat sich nur das Licht.</figcaption>
+</figure>
+
+```
+Sie sind Lichtplaner für Bürogebäude. Wandeln Sie diese Tagszene in eine nächtliche Lichtszene um (Szene unverändert lassen):
+- Gebäudekrone: die rechteckigen Rahmen auf allen vier Seiten — leistungsstarke, brüstungsmontierte Leuchten waschen die Glasrahmenkonstruktion, warm 3000K.
+- Gebäudekrone: die Bäume innerhalb der Krone — Erdspießstrahler beleuchten die Kronen von unten, warm 3000K.
+
+- Turmfassade: offene, unverglaste Terrassen — Bodeneinbaustrahler waschen die Deckenuntersichten gleichmäßig, geringe Beleuchtungsstärke, feine Materialtextur, warm 3000K.
+- Turmfassade: Terrassenbepflanzung — Erdspießstrahler beleuchten die Baumkronen von unten, warm 3000K.
+- Turmfassade: Deckenuntersichten und Bepflanzung müssen in Ton und Farbtemperatur einheitlich bleiben — der Architekt hat sie als ein durchgehendes Element entworfen.
+- Turminnenräume: schwaches Streulicht aus den Büros, einige Geschosse beleuchtet, andere dunkel, realistischer Innenraumschein, dunkler als die Fassadenbeleuchtung, Farbtemperatur zufällig zwischen 2200-4000K.
+
+- Eingang und Stützen im Erdgeschoss: Einbaudownlights im Vordach für die Funktionsbeleuchtung; Bodeneinbaustrahler streifen die Stützen, warm 3000K.
+- Eingang und Innenräume L1-L2: warme, einladende Atmosphäre, hohe Helligkeit, 2700K.
+
+- Fassade Flachbau: der Rahmen des linken Flachbaus — Bodeneinbau-Wandfluter beleuchten die obere Platte des Rahmens von unten, hohe Helligkeit, warm 2700K.
+- Fassade Flachbau: große Natursteinflächen — mastmontierte Fluter waschen den Stein gleichmäßig, warm 3000K.
+- Eingang und Innenräume Flachbau: warmer Innenraum, hohe Helligkeit, 2700K.
+
+- Freiraum: Straßenbäume in den Pflanzstreifen — warme Bodeneinbaustrahler auf die Kronen, 3000K.
+- Straße: LED-Straßenbeleuchtung, gleichmäßig, hellstes Element im Bild, warmweiß 4000K.
+- Verkehr: rote und weiße Lichtspuren von Fahrzeugen in Langzeitbelichtung, klare und lebendige Stadtatmosphäre.
+
+- Gesamtstimmung: harmonisch, klare Hell-Dunkel-Hierarchie, Qualität hochwertiger Nachtfotografie.
+- Bildqualität: Originalauflösung beibehalten, Detailgrad auf 8K-Niveau, scharfe Materialtextur.
+- Himmel: 20:30 Uhr simulieren.
+- Überstrahlung und sichtbare Hotspots strikt ausgeschlossen; Kontur- oder Umrissbeleuchtung am Gebäude strikt ausgeschlossen.
+```
+
+Drei Dinge in diesem Prompt sind hervorzuheben, weil sie darüber entscheiden, ob eine Visualisierung fachlich wirkt oder nicht.
+
+**Das Gebäude ist in drei vertikale Abschnitte zerlegt — Krone, Fassade, Sockel und Eingang — und jeder Abschnitt wird von innen nach außen beschrieben:** Kern, dann Bepflanzung, dann Vorhangfassade. Geben Sie einem Modell räumliche Logik, und es beleuchtet mit räumlicher Logik. Geben Sie ihm eine Liste in zufälliger Reihenfolge, bekommen Sie eine Liste in zufälliger Reihenfolge zurück.
+
+**Das Streulicht der Innenräume liegt zufällig zwischen 2200K und 4000K.** Eine einheitliche Farbtemperatur ist der schnellste Weg, eine Visualisierung unecht aussehen zu lassen. In einem realen Büroturm um halb neun abends arbeiten einige Geschosse länger, andere stehen leer, manche haben warme Schreibtischleuchten, manche kühle Deckenpaneele. Genau diese Unregelmäßigkeit lässt das Auge das Bild akzeptieren.
+
+**Helligkeit wird gestaffelt, nicht maximiert.** Straße am hellsten, dann Eingang, dann Fassade, Innenräume am dunkelsten. Wenn jede Zone im Prompt hell sein will, liest sich am Ende nichts im Bild als hell. Dunkle Zonen sind kein verschenkter Raum — aus ihnen entsteht die Komposition.
+
+## Vorlage 2: Medienfassade
+
+Ein anderes Gebäude und bewusst eine andere Behandlung.
+
+```
+Sie sind Lichtplaner für Bürogebäude. Wandeln Sie diese Tagszene in eine nächtliche Lichtszene um (Szene unverändert lassen):
+- Gebäudekrone: Lichtlinien in den vertikalen Aluminiumlamellen der Vorhangfassade, an der Fassade nach unten fortgeführt, kaltweiß 4000K.
+- Gebäudekrone: der Kern — Wandfluter beleuchten ihn gleichmäßig von unten, sodass er durch das Glas klar ablesbar ist, warm 3000K.
+
+- Fassade: Lichtlinien in den vertikalen Lamellen bilden eine Medienfassade, Inhalt: Bildwelt einer chinesischen Tuschelandschaft in Schwarz-Weiß-Grau, kaltweiß 4000K.
+- Innenräume Fassade: schwaches Streulicht aus den Büros, einige Geschosse beleuchtet, andere dunkel, muss dunkler bleiben als die Fassadenbeleuchtung, zufällig 2200-4000K.
+
+- Sockelfassade: Lichtlinien in den vertikalen Lamellen, Inhalt: warm schimmernder Wassereffekt, 3000K.
+- Ladenflächen im Sockel: weicher, gleichmäßiger Innenraumschein, dunkler als die Lichtlinien der Fassade, warm 2200K.
+
+- Eingang und Innenräume im Erdgeschoss: warme, einladende Atmosphäre, hohe Helligkeit, 2700K.
+
+- Freiraum: Straßenbäume mit warmen Bodeneinbaustrahlern von unten beleuchtet, 3000K; Hofrasen mit Gartenleuchten, Bäume von unten mit 3000K.
+- Straße: LED-Straßenbeleuchtung, gleichmäßig, hellstes Element, warmweiß 4000K.
+- Verkehr: rote und weiße Lichtspuren in Langzeitbelichtung.
+
+- Gesamtstimmung: harmonisch, klare Hell-Dunkel-Hierarchie, Qualität hochwertiger Nachtfotografie.
+- Bildqualität: Originalauflösung beibehalten, Detailgrad auf 8K-Niveau, scharfe Materialtextur.
+- Himmel: 20:30 Uhr simulieren.
+- Überstrahlung und sichtbare Hotspots strikt ausgeschlossen; Kontur- oder Umrissbeleuchtung strikt ausgeschlossen.
+```
+
+Beachten Sie die Trennung: Die Medienfassade läuft kühl bei 4000K mit Tuschemalerei-Inhalten, während der Sockel für die Einzelhandelsatmosphäre auf 3000K und 2200K ins Warme dreht. Zonierter Warm-Kalt-Kontrast ist eine Entwurfsentscheidung. Ein einziger Ton über das ganze Bild ist eine Voreinstellung — und Voreinstellungen sehen aus wie Voreinstellungen.
+
+**Eine ehrliche Anmerkung zu „8K".** In einem Prompt ist „8K" ein Stilbegriff. Er zieht das Modell in Richtung feiner Details und scharfer Textur. Es ist keine Auflösungseinstellung. Aktuelle KI-Bildgenerierung, LDR eingeschlossen, endet bei 4K Ausgabe. Schreiben Sie es, weil es der Anmutung hilft — erwarten Sie aber keine 8K-Datei.
+
+## Die Reverse-Prompt-Methode
+
+Am schnellsten lernt man das, indem man es rückwärts betreibt. Wenn Ihnen eine Nachtvisualisierung gefällt, laden Sie sie in eine beliebige leistungsfähige KI und schicken Sie dies:
+
+```
+Analysieren Sie diese Nachtvisualisierung. Geben Sie für jede leuchtende Zone aus: Zone (wo die Leuchte montiert ist), Leuchtentyp, Strahlrichtung, Farbtemperatur, Helligkeitsrang (am hellsten / zweitrangig / dunkel) und Lichtwirkung (gleichmäßig / Verlauf / Lichtbögen). Nennen Sie außerdem: die Gesamtstimmung in einem Satz, die Uhrzeit der Nacht und die drei dunkelsten Bereiche im Bild.
+```
+
+Machen Sie das mit zehn guten Bildern, und die vier Entscheidungen hören auf, eine Checkliste zu sein, die man nachschlägt — sie werden zu der Art, wie Sie Licht betrachten.
+
+## Der Aufbau ist kopierbar. Das Urteil darin nicht.
+
+Sie können beide Vorlagen sofort in ein Modell einfügen. Was Sie nicht einfügen können, ist der Grund, warum jede Zeile das sagt, was sie sagt.
+
+Jede Zeile dieser Zonenliste ist eine Entscheidung, die jemand bereits getroffen hat: dass Terrassenuntersichten Bodeneinbaustrahler bekommen und keine Downlights; dass die Innenräume unter der Fassade bleiben müssen, sonst liest sich der Turm als Laterne; dass die Straße das hellste Element im Bild ist. Vorlage 1 funktioniert für eine Turm-Sockel-Komposition, aufgenommen von der gegenüberliegenden Straßenseite. Ihr Gebäude ist nicht dieses Gebäude, und in dem Moment, in dem Sie Ihr eigenes Grundstück einsetzen, treffen Sie diese Entscheidungen wieder selbst.
+
+Das ist zugleich das ehrliche Argument für beide Modi von LDR. Der **Rendering-Modus** ist für den Fall, dass Sie jede Entscheidung selbst treffen wollen: Sie schreiben den Prompt, und das System hält die harten Ausschlusskriterien, damit ein beiläufiges „mach es heller" das Modell nicht dazu überredet, Ihre Fassade zu umranden. Der **Chat-Agent-Modus** ist für den Fall, dass Sie das lieber nicht möchten: Tagfoto hochladen, die KI schreibt die Zonenliste selbst, Sie lesen sie, Sie bestätigen — und rund eine Minute später liegt die Visualisierung vor. Das ist [die andere Hälfte dieses Paars](/de/blog/night-rendering-without-writing-prompts).
+
+Es sind in beiden Fällen dieselben vier Entscheidungen. Die einzige Frage ist, wer sie trifft.
+
+## Häufige Fragen
+
+**Funktioniert diese Vorlage auch mit anderen KI-Werkzeugen?** Der Aufbau ist allgemeingültig — jedes leistungsfähige Bildmodell reagiert besser auf Zone-Leuchte-Richtung-Farbtemperatur als auf „mach es hochwertig". Zwei Dinge sind im Rendering-Modus von LDR anders: Die Ausschlusskriterien werden vom System durchgesetzt und nicht dem Ermessen des Modells überlassen, und Sie wandeln ein Foto Ihres realen Grundstücks um, statt ein Gebäude aus dem Nichts zu erzeugen.
+
+**Funktioniert der vierteilige Aufbau auch für Innenräume und Freiraum?** Ja. Das Gerüst bleibt gleich: Rollensatz gegen die passende Fachrichtung tauschen, Zonenliste in räumlicher Ordnung schreiben, Ausschlusskriterien beibehalten. Freiraumlisten werden meist länger, weil Bepflanzung nach Art und Wuchshöhe einzeln aufgeführt wird.
+
+**Wie ausführlich ist ausführlich genug?** Eine Zeile je leuchtender Zone, mit allen vier Entscheidungen in jeder Zeile, plus die Ausschlusskriterien. Das hat einen nützlichen Nebeneffekt: **Jede Zone, für die Sie keine Zeile schreiben können, ist eine Zone, die Sie noch nicht entworfen haben.**
+
+Ein Prompt auf diesem Niveau bringt Sie auf etwa 60 von 100 Punkten. Weiter zu kommen ist keine Frage von mehr Wörtern — es geht darum, Leuchtenpositionen auf dem Tagfoto zu markieren und auf der Canvas zu annotieren. Siehe [Warum KI-Korrekturen unschärfer werden](/de/blog/why-ai-edits-get-blurrier).
+
+**Muss ich in einer bestimmten Sprache schreiben?** Schreiben Sie in der Sprache, in der Sie denken. Die Bedeutung trägt der Aufbau, nicht die Formulierung.
+
+## Probieren Sie es an Ihrem eigenen Projekt
+
+Öffnen Sie [LDR](https://app.ldr-design.com), holen Sie sich die 5 kostenlosen Credits und schicken Sie eines Ihrer eigenen Tagbilder mit einer selbst geschriebenen Zonenliste durch den Rendering-Modus. Lassen Sie danach dasselbe Bild durch den Chat Agent laufen und vergleichen Sie. Der Vergleich lehrt mehr als jedes der beiden Ergebnisse für sich.

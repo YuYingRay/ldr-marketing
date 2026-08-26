@@ -1,0 +1,114 @@
+---
+import { getCollection, render } from "astro:content";
+import PageLayout from "@/layouts/PageLayout.astro";
+import type { Lang } from "@/i18n/ui";
+import { useTranslations, dateLocale } from "@/i18n/utils";
+import { getBlogPostLangs } from "@/i18n/blogLangs";
+
+const lang: Lang = "ja";
+const t = useTranslations(lang);
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog-ja" as "blog");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const { title, description, pubDate, author, image } = post.data;
+
+const formattedDate = pubDate.toLocaleDateString(dateLocale(lang), {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+/**
+ * 只声明**这一篇**真实有译文的语言。不能用路由级推导 ——
+ * 那会让只有 en/zh 的旧文章也声明 hreflang="ja"，指向 404。见 i18n/blogLangs.ts。
+ */
+const availableLangs = await getBlogPostLangs(post.id);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: title,
+  description: description,
+  datePublished: pubDate.toISOString(),
+  author: {
+    "@type": "Organization",
+    name: author,
+  },
+  publisher: {
+    "@type": "Organization",
+    name: t("og.siteName"),
+    url: "https://www.ldr-design.com",
+  },
+  ...(image ? { image: image.url } : {}),
+};
+---
+
+<PageLayout
+  title={`${title} — LDR ブログ`}
+  description={description}
+  ogImage={image?.url}
+  jsonLd={jsonLd}
+  lang={lang}
+  availableLangs={availableLangs}
+>
+  {/* 宽度与字号的取舍见英文版同一处注释 */}
+  <article class="max-w-[44rem] mx-auto px-4 pt-20 pb-24">
+    <a
+      href="/ja/blog"
+      class="inline-flex items-center gap-2 text-sm text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] transition-colors mb-10"
+    >
+      {t("blog.backToBlog")}
+    </a>
+
+    <header class="mb-10">
+      {/* text-balance 理由见英文版 */}
+      <h1 class="text-balance text-3xl sm:text-4xl font-bold text-[hsl(var(--foreground))] leading-tight">
+        {title}
+      </h1>
+      <div
+        class="mt-4 flex items-center gap-4 text-sm text-[hsl(var(--muted-foreground))]"
+      >
+        <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+        <span aria-hidden="true">&bull;</span>
+        <span>{author}</span>
+      </div>
+    </header>
+
+    {/* 撑宽参数与英文版一致，见那边的注释 */}
+    {
+      image && (
+        <div class="blog-bleed aspect-video overflow-hidden rounded-xl border border-[hsl(var(--border))] mb-12">
+          <img
+            src={image.url}
+            alt={image.alt}
+            class="w-full h-full object-cover"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      )
+    }
+
+    <div class="prose prose-lg max-w-none">
+      <Content />
+    </div>
+
+    <footer class="mt-16 pt-8 border-t border-[hsl(var(--border))]">
+      <a
+        href="/ja/blog"
+        class="text-sm text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] transition-colors"
+      >
+        {t("blog.backToBlog")}
+      </a>
+    </footer>
+  </article>
+</PageLayout>

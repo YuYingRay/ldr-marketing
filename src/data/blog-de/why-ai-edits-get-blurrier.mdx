@@ -1,0 +1,112 @@
+---
+title: "Warum KI-Korrekturen unschärfer werden"
+description: "Eine Leuchte ändern — und das ganze Gebäude verzieht sich. Jede Korrektur ist eine vollständige Neuberechnung. Warum das so ist, und drei Techniken dagegen."
+pubDate: "2026-08-22"
+author: "LDR Team"
+image:
+  url: "/blog/ldr-control-night.jpg"
+  alt: "Innenraum bei Nacht, erzeugt aus im Tagfoto markierten Leuchtenpositionen — jedes Downlight sitzt dort, wo es eingezeichnet wurde"
+tags: ["Tutorial", "KI-Rendering", "Lichtplanung", "Kontrolle"]
+draft: false
+---
+
+Sie kennen das Gefühl. Die KI-Nachtvisualisierung stimmt zu 90 Prozent. Eine Stelle stört. Sie bitten um eine Änderung — und das Gebäude verzieht sich, die Materialien driften ab, und das Bild kommt weicher zurück als vorher. Nach der dritten Korrektur ist es nicht mehr Ihr Bild.
+
+Es liegt nicht daran, dass Sie das Werkzeug falsch bedienen. Hier steht, was tatsächlich passiert — und drei Wege, die Kontrolle zurückzuholen.
+
+## Die Wahrheit: KI-„Bearbeitung" ist keine Bearbeitung
+
+Viele KI-Bildwerkzeuge werben mit „bearbeiten Sie genau dort, wo Sie hinzeigen". Die ehrliche Fassung lautet: **Jedes Mal, wenn Sie eine Änderung verlangen, erzeugt das Modell das gesamte Bild neu.** Sie glauben, eine Leuchte anzupassen. Neu gemalt wird das ganze Bild.
+
+Deshalb driftet jede Korrektur ein Stück weiter von Ihrem ursprünglichen Tagfoto weg. Fensterpfosten, Steintextur, Gesimskanten, die die erste Generierung überlebt haben, verrutschen in der zweiten und dritten. Dass es mit jeder Korrektur unschärfer wird, ist die Funktionsweise dieser Modellgeneration. Es ist nicht Ihr Fehler und nicht der Fehler eines einzelnen Anbieters — auch LDR rechnet im Hintergrund neu. Der Unterschied liegt darin, **ob das Werkzeug Ihnen etwas an die Hand gibt, um Dinge festzunageln.**
+
+Wie also kontrollieren Sie das? In einem Satz: **Geben Sie dem Modell eine Referenz.** Was auf dem Bild bereits eingezeichnet ist, verschiebt es nur ungern.
+
+## Technik 1: Leuchtenpositionen vor dem Rendern im Tagfoto markieren
+
+Downlights in der Decke, Bodeneinbaustrahler entlang der Fassade, Handlaufleuchten, Pollerleuchten im Garten — zeichnen Sie ihre Positionen zuerst in das Tagbild ein. Wo Sie zeichnen, erscheint das Licht.
+
+<figure>
+  <img
+    src="/blog/ldr-control-ceiling-day.jpg"
+    alt="Deckenausschnitt des Tagfotos: helle abgehängte Decke mit Voute, noch ohne markierte Leuchtenpositionen"
+  />
+  <figcaption>① Die Tagdecke, unverändert.</figcaption>
+</figure>
+
+<figure>
+  <img
+    src="/blog/ldr-control-ceiling-marked.jpg"
+    alt="Dieselbe Decke, an jeder Downlight-Position ein kleiner Punkt eingezeichnet"
+  />
+  <figcaption>② Jedes Downlight mit einem Punkt markiert. Nur Positionen — keine Wirkungen.</figcaption>
+</figure>
+
+<figure>
+  <img
+    src="/blog/ldr-control-night.jpg"
+    alt="Aus den Markierungen erzeugte Nachtansicht: Lichtkegel und Vouten-Beleuchtung decken sich eins zu eins mit den Punkten, Möbel und Materialien unverändert"
+  />
+  <figcaption>③ Das Ergebnis: an jeder markierten Position ein Lichtkegel — und Möbel, Materialien und Raumgeometrie blieben unangetastet.</figcaption>
+</figure>
+
+Einen Schritt weiter: **Zeichnen Sie auch die Farbe richtig ein.** Wenn Sie eine seeblaue Lichtlinie wollen, ziehen Sie eine seeblaue Linie im Tagfoto — keine weiße. Wenn das Bild Weiß sagt und der Prompt Blau, muss das Modell raten, und aus diesem Raten entstehen Halluzinationen. Wenn Bild und Prompt übereinstimmen, bleibt nur eine mögliche Antwort.
+
+Und noch eine Absicherung: Schreiben Sie es in den Prompt — **„keine Leuchtenposition verschieben"**. Wenn eine Visualisierung falsch zurückkommt, liegt es in neun von zehn Fällen nicht daran, dass Sie zu wenig verlangt haben. Sie haben zu wenig verboten.
+
+## Technik 2: Drei Wege, auf der LDR-Canvas zu annotieren
+
+Positionsmarkierungen klären, **wo** die Leuchten sitzen. Um zu sagen, **wie sie aussehen sollen** oder **welche Technik anzuwenden ist**, nutzen Sie die LDR-Canvas. Drei Züge:
+
+**Zug 1 — reine Bildreferenz.** Sie haben eine Nachtaufnahme gefunden, die Ihnen gefällt, eine bestimmte Leuchte, eine Lichttechnik? Screenshot machen, auf die Canvas ziehen und eine Linie zu der Stelle im Tagfoto ziehen, an die sie gehört. Drei bis vier Referenzen gleichzeitig sind die praktische Grenze; das Modell rendert in ihrem Sinne.
+
+**Zug 2 — Bild plus Text.** Screenshot einfügen, den Teil einrahmen, den Sie tatsächlich wollen, und eine Zeile Text ergänzen. Das Modell liest die Worte, betrachtet den Ausschnitt und wendet ihn dort an, wohin Sie gezeigt haben.
+
+**Zug 3 — direkt annotieren.** Rahmen Sie Gebäude, Freiraum oder Skulptur im Tagfoto ein und schreiben Sie dazu: welche Leuchte, welche Richtung, welche Farbtemperatur, welche Wirkung.
+
+<figure>
+  <img
+    src="/blog/ldr-canvas-annotation.jpg"
+    alt="Tagfoto mit roten Rahmen um Gebäudekrone und Fassade und handschriftlichen Notizen: Innenleuchten in der Krone, Wandfluter an der Fassade nach oben, 4000K, vertikale Lichtlinien, die an der Turmfassade nach unten auslaufen"
+  />
+  <figcaption>Direkte Annotation: Zone einrahmen, Leuchte, Richtung, Farbtemperatur und Wirkung benennen — so, wie man eine Zeichnung für das technische Büro mit Korrekturen versieht. Das Modell ist das technische Büro.</figcaption>
+</figure>
+
+Alle drei laufen auf denselben Satz hinaus: Geben Sie dem Modell eine Referenz. Je konkreter die Referenz, desto weniger Spielraum bleibt zum Abschweifen.
+
+## Technik 3: Bei 90 aufhören und den Workflow ändern
+
+Die ehrliche Wahrheit auf Workflow-Ebene: **Eine einzelne KI-Generierung endet bei 80 bis 90 von 100 Punkten.**
+
+| Vorgehen | Wohin es führt |
+|---|---|
+| Nur Prompt (sauber geschrieben — siehe [den vierteiligen Aufbau](/de/blog/night-rendering-prompt-template)) | 60 |
+| + Kontrolltechniken (markierte Positionen, Canvas-Annotation) | 80–90 |
+| + Farbkanal-Karte, Freistellen, Montage in Photoshop | abgabefertig |
+
+**Kämpfen Sie nicht um die letzten zehn Punkte.** Erzeugen Sie mehrere Fassungen, nehmen Sie aus jeder den besten Bereich, wählen Sie diese Bereiche mit der Farbkanal-Karte von LDR per Klick aus und montieren Sie in Photoshop. Eine 90-Punkte-Visualisierung plus zehn Minuten Photoshop schlägt zwanzig KI-Korrekturrunden — schneller und weit präziser.
+
+Das ist zugleich die ehrliche Antwort auf die Frage, ob KI das Rendern ersetzen kann. **Sie ersetzt rund 90 Prozent der Arbeit. Die letzten 10 Prozent bleiben menschliches Urteil und eine menschliche Hand. Fachleute ringen nicht mit dem Modell. Sie ändern den Workflow.**
+
+Und wenn Sie weder Positionen markieren noch Prompts schreiben möchten, gibt es einen dritten Weg: Tagfoto hochladen und den Chat Agent das Lichtkonzept schreiben lassen, bevor gerendert wird — das ist [die andere Hälfte dieser Reihe](/de/blog/night-rendering-without-writing-prompts).
+
+## Häufige Fragen
+
+**Warum werden andere KI-Werkzeuge ebenfalls unschärfer?**
+Gleicher Mechanismus. Aktuelle generative Modelle können nicht „nur eine Stelle anfassen"; jede Bearbeitung ist eine vollständige Neuberechnung. Was sich zwischen den Werkzeugen unterscheidet, ist, ob sie Ihnen Anker geben — Positionsmarkierungen, Referenzbilder, Annotationen, Ausschlusskriterien — damit das, was stehen bleiben soll, auch stehen bleibt.
+
+**Wie detailliert sollten die Positionsmarkierungen sein?**
+Positionen, keine Wirkungen. Ein Punkt für ein Downlight, eine Linie für eine Lichtlinie, ein kleines Quadrat für einen Bodeneinbaustrahler. Die Markierungen sagen dem Modell, woher das Licht kommt; Prompt und Referenzen entscheiden, wie es aussieht.
+
+**Wie viele Referenzbilder passen auf die Canvas?**
+Drei bis vier. Darüber hinaus konkurrieren die Referenzen miteinander und das Ergebnis wird matschig. Eine Referenz je klar abgegrenzter Zone ist das verlässlichste Muster.
+
+**Was ist die Farbkanal-Karte?**
+Neben der Nachtvisualisierung gibt LDR ein zweites Bild aus, in dem jedes Material und jede Zone in einer flächigen Farbe angelegt ist. In Photoshop wählt der Zauberstab damit einen ganzen Bereich mit einem Klick aus — ohne manuelles Maskieren. Es ist das entscheidende Werkzeug, um mehrere Generierungen zu einem abgabefertigen Bild zu montieren.
+
+**Muss ich vorher lernen, Prompts zu schreiben?**
+Nein. Positionsmarkierungen und Canvas sind visuell; die einzige nötige Prompt-Zeile lautet „keine Leuchtenposition verschieben". Wenn Sie zusätzlich fachliche Prompts schreiben wollen, lesen Sie den Beitrag zum vierteiligen Aufbau.
+
+## Probieren Sie es an Ihrem eigenen Projekt
+
+Öffnen Sie [LDR](https://app.ldr-design.com) und holen Sie sich 5 kostenlose Credits (plus eine kostenlose Generierung pro Tag — **Credits verfallen nie**). Nehmen Sie eines Ihrer eigenen Tagfotos. Generieren Sie einmal ohne jede Markierung, markieren Sie dann die Leuchtenpositionen und generieren Sie erneut. Legen Sie beide nebeneinander und schauen Sie, wo das Licht landet.
