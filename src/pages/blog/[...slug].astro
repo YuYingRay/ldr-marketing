@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from "astro:content";
 import PageLayout from "@/layouts/PageLayout.astro";
+import { dateLocale } from "@/i18n/utils";
+import { getBlogPostLangs } from "@/i18n/blogLangs";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -15,11 +17,18 @@ const { Content } = await render(post);
 
 const { title, description, pubDate, author, image } = post.data;
 
-const formattedDate = pubDate.toLocaleDateString("en-US", {
+const formattedDate = pubDate.toLocaleDateString(dateLocale("en"), {
   year: "numeric",
   month: "long",
   day: "numeric",
 });
+
+/**
+ * 只声明**这一篇**真实有译文的语言。路由级推导（i18n/routes.ts）在这里必然过宽：
+ * 一个 [...slug] 文件对应全部文章，只要建了 src/pages/ja/blog/，
+ * 它就会说所有文章都有日语版 —— 包括只写了 en/zh 的那几篇。见 i18n/blogLangs.ts。
+ */
+const availableLangs = await getBlogPostLangs(post.id);
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -45,6 +54,7 @@ const jsonLd = {
   description={description}
   ogImage={image?.url}
   jsonLd={jsonLd}
+  availableLangs={availableLangs}
 >
   {/* 44rem 而不是 3xl(48rem)：配 prose-lg 的 18px 字号，英文约 74 字符/行、
       中文约 37 字/行，都落在舒适区。48rem + 16px 时英文每行逼近 95 字符，

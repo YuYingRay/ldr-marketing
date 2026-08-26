@@ -13,15 +13,17 @@ import { appLink } from "../lib/appUrl";
 
 interface Props {
   lang?: Lang;
+  /** 本页真实存在的语言版本；动态路由页必须传。见 PageLayout.astro 的说明。 */
+  availableLangs?: Lang[];
 }
 
-const { lang = "en" } = Astro.props;
+const { lang = "en", availableLangs } = Astro.props;
 const t = useTranslations(lang);
 
 const navLinks = [
   { label: t("nav.useCases"), href: getLocalizedPath("/use-cases", lang) },
   { label: t("nav.pricing"), href: getLocalizedPath("/pricing", lang) },
-  // 博客只在有译文的语言里出现（日/德暂无文章）
+  // 博客只在建了 src/pages/<lang>/blog/ 的语言里出现
   ...(hasBlog(lang)
     ? [{ label: t("nav.blog"), href: getLocalizedPath("/blog", lang) }]
     : []),
@@ -35,15 +37,20 @@ const navLinks = [
  *   hreflang 只能声明真实存在的页面（见 Head.astro），
  *   而语言菜单如果把缺失的语言直接藏掉，用户在法律页会发现切换器忽然少了几项。
  * 所以菜单始终列出全部语言，本页没有对应版本时退回该语言首页 —— 降级但不 404。
+ *
+ * 判据与 hreflang 同源：页面传了 availableLangs 就以它为准（博客文章逐篇不同，
+ * 路由级推导会把只有 en/zh 的旧文章误判成有日语版，点了就 404）；
+ * 静态页没传，退回 routes.ts 的路由级推导。
  */
 const currentPath = stripLangPrefix(Astro.url.pathname);
+const existsIn = (l: Lang) =>
+  availableLangs ? availableLangs.includes(l) : routeExistsIn(currentPath, l);
+
 const langOptions = getOtherLangs(lang).map((l) => ({
   code: l,
   label: languages[l],
   // 同名页面在各语言下 slug 一致，所以存在时整条路径换前缀即可
-  href: routeExistsIn(currentPath, l)
-    ? getLocalizedPath(currentPath, l)
-    : getLocalizedPath("/", l),
+  href: existsIn(l) ? getLocalizedPath(currentPath, l) : getLocalizedPath("/", l),
 }));
 ---
 

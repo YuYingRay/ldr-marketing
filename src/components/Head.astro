@@ -15,6 +15,8 @@ interface Props {
   canonicalUrl?: string;
   jsonLd?: object;
   lang?: Lang;
+  /** 页面自报的语言版本清单。见下方 hreflang 注释：动态路由必须自己报。 */
+  availableLangs?: Lang[];
 }
 
 const {
@@ -24,6 +26,7 @@ const {
   canonicalUrl,
   jsonLd,
   lang = "en",
+  availableLangs: declaredLangs,
 } = Astro.props;
 
 const t = useTranslations(lang);
@@ -48,13 +51,18 @@ const isDefaultOgImage = ogImage === "/og-image-v1.png";
  * hreflang。只声明**确实存在**的语言版本 —— 给不存在的 URL 发 alternate
  * 会让 Google 抓到 404 并作废整组互链声明。
  *
- * 哪些语言存在由 i18n/routes.ts 从 src/pages 的实际文件推导：博客只有 en/zh，
- * 法律页只有 en，其余页面五语齐全。这里不做任何路径特判 ——
+ * 默认判据是 i18n/routes.ts 从 src/pages 的实际文件推导：法律页只有 en，
+ * 其余页面五语齐全。这里不做任何路径特判 ——
  * 特判过一次（只判了 /blog），结果漏掉法律页，导致它们声明了 4 个 404 的 alternate。
+ *
+ * 例外是 [...slug] 这类动态路由：一个路由文件对应几十篇文章，
+ * 存在性是逐篇的，路由级的答案必然过宽（会把只有 en/zh 的旧文章
+ * 也声明成有日语版）。这种页面**自己**通过 availableLangs 报清单，
+ * 博客文章页的来源是 i18n/blogLangs.ts。
  */
 const origin = Astro.site ?? Astro.url.origin;
 const pathWithoutLang = stripLangPrefix(Astro.url.pathname);
-const availableLangs = getLangsForRoute(pathWithoutLang);
+const availableLangs = declaredLangs ?? getLangsForRoute(pathWithoutLang);
 
 // 当前页自己必须在结果里。不满足说明路由匹配逻辑没覆盖这种路径形态，
 // 此时生成的 hreflang 一定是错的 —— 与其静默上线，不如让构建失败。

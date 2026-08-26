@@ -11,9 +11,19 @@ interface Props {
   canonicalUrl?: string;
   jsonLd?: object;
   lang?: Lang;
+  /** 动态路由页自报的语言版本清单，透传给 Head 生成 hreflang。见 Head.astro。 */
+  availableLangs?: Lang[];
 }
 
-const { title, description, ogImage, canonicalUrl, jsonLd, lang = "en" } = Astro.props;
+const {
+  title,
+  description,
+  ogImage,
+  canonicalUrl,
+  jsonLd,
+  lang = "en",
+  availableLangs,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -32,6 +42,7 @@ const { title, description, ogImage, canonicalUrl, jsonLd, lang = "en" } = Astro
       canonicalUrl={canonicalUrl}
       jsonLd={jsonLd}
       lang={lang}
+      availableLangs={availableLangs}
     />
   </head>
   <body class="min-h-screen flex flex-col bg-background text-foreground antialiased">

@@ -12,9 +12,24 @@ interface Props {
   canonicalUrl?: string;
   jsonLd?: object;
   lang?: Lang;
+  /**
+   * 本页真实存在的语言版本。只有动态路由页需要传（博客文章页从
+   * i18n/blogLangs.ts 逐篇取），静态页留空由 i18n/routes.ts 推导。
+   * 两个消费者：Head 的 hreflang、Nav 的语言切换器 —— 必须同源，
+   * 否则会出现「hreflang 不声明日语，但菜单里点日语跳 404」。
+   */
+  availableLangs?: Lang[];
 }
 
-const { title, description, ogImage, canonicalUrl, jsonLd, lang = "en" } = Astro.props;
+const {
+  title,
+  description,
+  ogImage,
+  canonicalUrl,
+  jsonLd,
+  lang = "en",
+  availableLangs,
+} = Astro.props;
 ---
 
 <BaseLayout
@@ -24,9 +39,10 @@ const { title, description, ogImage, canonicalUrl, jsonLd, lang = "en" } = Astro
   canonicalUrl={canonicalUrl}
   jsonLd={jsonLd}
   lang={lang}
+  availableLangs={availableLangs}
 >
   <AnnouncementBar lang={lang} />
-  <Nav lang={lang} />
+  <Nav lang={lang} availableLangs={availableLangs} />
   <main class="flex-1">
     <slot />
   </main>

@@ -2,7 +2,8 @@
 import { getCollection, render } from "astro:content";
 import PageLayout from "@/layouts/PageLayout.astro";
 import type { Lang } from "@/i18n/ui";
-import { useTranslations } from "@/i18n/utils";
+import { useTranslations, dateLocale } from "@/i18n/utils";
+import { getBlogPostLangs } from "@/i18n/blogLangs";
 
 const lang: Lang = "zh";
 const t = useTranslations(lang);
@@ -25,11 +26,18 @@ const { Content } = await render(post);
 
 const { title, description, pubDate, author, image } = post.data;
 
-const formattedDate = pubDate.toLocaleDateString("zh-CN", {
+const formattedDate = pubDate.toLocaleDateString(dateLocale(lang), {
   year: "numeric",
   month: "long",
   day: "numeric",
 });
+
+/**
+ * 只声明**这一篇**真实有译文的语言。路由级推导（i18n/routes.ts）在这里必然过宽：
+ * 一个 [...slug] 文件对应全部文章，只要建了 src/pages/ja/blog/，
+ * 它就会说所有文章都有日语版 —— 包括只写了 en/zh 的那几篇。见 i18n/blogLangs.ts。
+ */
+const availableLangs = await getBlogPostLangs(post.id);
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -56,6 +64,7 @@ const jsonLd = {
   ogImage={image?.url}
   jsonLd={jsonLd}
   lang={lang}
+  availableLangs={availableLangs}
 >
   {/* 宽度与字号的取舍见英文版同一处注释 */}
   <article class="max-w-[44rem] mx-auto px-4 pt-20 pb-24">
