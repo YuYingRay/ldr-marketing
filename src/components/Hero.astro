@@ -91,8 +91,17 @@ const heroSubject = showcase ? showcaseAlt(showcase, lang) : "";
             </svg>
           </div>
         </div>
-        <span class="absolute top-3 start-3 text-xs text-white/80 bg-black/50 px-2 py-1 rounded-full z-10">{t("hero.day")}</span>
-        <span class="absolute top-3 end-3 text-xs text-white/80 bg-black/50 px-2 py-1 rounded-full z-10">{t("hero.night")}</span>
+        {/*
+          这两个角标必须用**物理**的 left/right，不能换成 start/end 的逻辑属性。
+          它们标注的不是"UI 的两侧"，而是这张对比图被分隔线切开的两个**物理半边**：
+          白天图铺满整幅，夜景图由 clip-path: inset(0 0 0 N%) 从物理左侧裁切，
+          分隔线用 style="left: N%"，拖动脚本算的是 clientX - rect.left ——
+          整套机制都是物理坐标，在 RTL 下不镜像。
+          角标一旦跟着镜像，阿拉伯语页面上「昼」就会贴到夜景那半边、「夜」贴到白天那半边。
+          （这个 bug 真出现过一次：改 RTL 时把这两处一并换成了 start/end。）
+        */}
+        <span class="absolute top-3 left-3 text-xs text-white/80 bg-black/50 px-2 py-1 rounded-full z-10">{t("hero.day")}</span>
+        <span class="absolute top-3 right-3 text-xs text-white/80 bg-black/50 px-2 py-1 rounded-full z-10">{t("hero.night")}</span>
       </div>
     </div>
   ) : (
