@@ -1,0 +1,155 @@
+---
+title: "Gece Render Prompt'u Nasıl Yazılır"
+description: "Çoğu kişi prompt yazmaz, dilek tutar. Bir aydınlatma tasarımcısının dört parçalı yapısı ve iki gerçek projeden eksiksiz şablon."
+pubDate: "2026-08-18"
+author: "LDR Team"
+image:
+  url: "/blog/ldr-night1.jpg"
+  alt: "Bir ofis kulesi ve podyum yapısının gece aydınlatma görselleştirmesi; bu yazıdaki şablonla LDR tarafından gündüz görselinden üretildi"
+tags: ["Eğitim", "Prompt", "Yapay zekâ render", "Aydınlatma tasarımı"]
+draft: false
+---
+
+İnsanlar bir yapay zekâdan gece görselleştirmesi istediğinde çoğu prompt yazmaz — **dilek tutar**. "Aydınlatma lüks olsun." "High-tech gece havası." "Atmosferik." Modelin "lüks"ün ne demek olduğuna dair hiçbir fikri yoktur.
+
+Tek bir duvarı ele alalım. Acemi şöyle yazar: *duvar yıkayıcı duvarı aydınlatıyor*. Aydınlatma tasarımcısı ise şöyle: *harpuşta hizasına monte duvar yıkayıcı, aşağı yönlü, 3000K, yumuşak ve düzgün geçişli*. Aradaki fark söz dağarcığı değil. Dört karar: **armatür nereye monte edilmiş, hangi yöne bakıyor, renk sıcaklığı kaç, ve ışık yüzeye ne yapıyor.**
+
+On yıldır aydınlatma tasarımı yapıyorum. Aşağıdaki, kullandığım yapının kopyalayabileceğiniz biçimde yazılmış hâli; sonunda da iki gerçek projeden eksiksiz iki prompt var.
+
+## Profesyonel bir prompt tam olarak dört parçadan oluşur
+
+**1. parça — rol cümlesi.** Modele bir kimlik verin ve görevi sabitleyin.
+
+> Ofis binası aydınlatma tasarımcısısın. Bu gündüz sahnesini gece aydınlatma sahnesine dönüştür (sahneyi değiştirme).
+
+"Sahneyi değiştirme" ifadesi yerini hak ediyor. O olmadan model, hazır oradayken binanızı yeniden tasarlamakta kendini özgür hisseder.
+
+**2. parça — bölge listesi.** Prompt'un gövdesi ve işin asıl yapıldığı yer burası. Aydınlatılan her bölge için bir satır ve her satır dört kararın hepsini taşır: **bölge + armatür + yönelim + renk sıcaklığı + ışık etkisi.**
+
+**3. parça — genel gereksinimler.** Atmosfer için bir satır, görüntü kalitesi için bir satır, gecenin saati için bir satır ("akşam 20.30" ile "gece yarısı" aynı görüntü değildir).
+
+**4. parça — yasaklar.** İstemediklerinizi açıkça yazın: patlama ve görünür sıcak nokta yok, binanın konturunu izleyen kontur aydınlatması yok. Bir gece görselleştirmesi yanlış geldiğinde, onda dokuz ihtimalle sorun az yazmış olmanız değildir. Az **yasaklamış** olmanızdır.
+
+Bilmeye değer bir şey daha: gündüz fotoğrafında cephede sert gölgeler varsa 3. parçaya "gölgeleri onar" ifadesini ekleyin.
+
+## Şablon 1: kule ve podyum
+
+Gerçek bir proje. Gündüz görseli olduğu gibi girdi; gece görseli, altında basılı prompt'tan çıktı.
+
+<figure>
+  <img
+    src="/blog/ldr-day1.jpg"
+    alt="Kızıl kahverengi ızgara cepheli ve bitkilendirilmiş teraslı bir ofis kulesinin gündüz görüntüsü, yanında beyaz bir alçak yapı"
+  />
+  <figcaption>Gündüz — kaynak görsel, olduğu gibi yüklendi.</figcaption>
+</figure>
+
+<figure>
+  <img
+    src="/blog/ldr-night1.jpg"
+    alt="Aynı görüşün gecesi: kule tacı ve terasların tavan altları sıcak aydınlatılmış, kat içleri değişken renk sıcaklıklarında parlıyor, önde araç ışık izleri"
+  />
+  <figcaption>Gece — aşağıdaki prompt ile üretildi. Aynı kamera, aynı sahne; değişen tek şey ışık.</figcaption>
+</figure>
+
+```
+Ofis binası aydınlatma tasarımcısısın. Bu gündüz sahnesini gece aydınlatma sahnesine dönüştür (sahneyi değiştirme):
+- Kule tacı: dört cephedeki dikdörtgen çerçeveler — denizlik hizasına monte yüksek çıkışlı armatürler cam çerçeve strüktürünü yıkasın, sıcak 3000K.
+- Kule tacı: taç içindeki ağaçlar — toprağa saplamalı spot armatürler ağaç taçlarını alttan aydınlatsın, sıcak 3000K.
+
+- Kule cephesi: camsız açık teraslar — yer altı gömme armatürler teras tavan altlarını eşit yıkasın, düşük aydınlık düzeyi, ince malzeme dokusu, sıcak 3000K.
+- Kule cephesi: teras bitkilendirmesi — saplamalı spotlar ağaç taçlarını alttan aydınlatsın, sıcak 3000K.
+- Kule cephesi: tavan altları ve bitkilendirme tonda ve renk sıcaklığında birlik içinde kalmalı — mimar bunları tek ve sürekli bir eleman olarak tasarladı.
+- Kule iç mekânları: düşük seviyeli ofis sızıntı ışığı, bazı katlar aydınlık bazıları karanlık, gerçekçi iç mekân parıltısı, cephe aydınlatmasından daha sönük, renk sıcaklığı 2200-4000K arasında rastgele.
+
+- Giriş ve zemin kat kolonları: giriş saçağında gömme downlight'lar ile işlevsel aydınlatma; yer altı gömme armatürler kolonları sıyırsın, sıcak 3000K.
+- Giriş ile 1. ve 2. kat iç mekânları: sıcak ve karşılayıcı ortam, yüksek parlaklık, 2700K.
+
+- Alçak yapı cephesi: soldaki alçak binanın çerçevesi — yer altı gömme duvar yıkayıcılar çerçevenin üst döşemesini alttan aydınlatsın, yüksek parlaklık, sıcak 2700K.
+- Alçak yapı cephesi: geniş doğal taş yüzeyler — direğe monte projektörler taşı eşit yıkasın, sıcak 3000K.
+- Alçak yapı girişi ve iç mekânları: sıcak iç mekân, yüksek parlaklık, 2700K.
+
+- Peyzaj: refüjlerdeki sokak ağaçları — sıcak yer altı gömme armatürler ağaç taçlarında, 3000K.
+- Yol: LED yol aydınlatması, eşit dağılım, görüntüdeki en parlak eleman, sıcak beyaz 4000K.
+- Trafik: uzun pozlamayla kırmızı ve beyaz araç ışık izleri, temiz ve canlı kent atmosferi.
+
+- Genel atmosfer: uyumlu, açık-koyu hiyerarşisi net, üst düzey gece fotoğrafçılığı kalitesinde.
+- Görüntü kalitesi: özgün çözünürlük korunsun, 8K düzeyinde detay, keskin malzeme dokusu.
+- Gökyüzü: akşam 20.30 simüle edilsin.
+- Patlama ve görünür sıcak nokta kesinlikle olmasın; binada kontur veya çevre çizgisi aydınlatması kesinlikle olmasın.
+```
+
+Bu prompt'ta öne çıkarmaya değer üç şey var, çünkü bir görselleştirmenin profesyonel okunup okunmamasını bunlar belirliyor.
+
+**Bina üç dikey bölüme ayrılmış — taç, cephe, podyum ve giriş — ve her bölüm içeriden dışarıya doğru tarif edilmiş:** çekirdek, sonra bitkilendirme, sonra giydirme cephe. Modele mekânsal bir mantık verirseniz mekânsal bir mantıkla aydınlatır. Rastgele sıralanmış bir liste verirseniz rastgele sıralanmış bir liste alırsınız.
+
+**İç mekân sızıntı ışığı 2200K ile 4000K arasında rastgeleleştirilmiş.** Tek düze renk sıcaklığı, bir görselleştirmeyi sahte göstermenin en kestirme yoludur. Gerçek bir ofis kulesinde akşam sekiz buçukta bazı katlar mesaiye kalmıştır, bazıları boştur, bazısında sıcak masa lambaları, bazısında soğuk tavan panelleri yanar. Gözün görüntüyü kabul etmesini sağlayan şey iç mekânlardaki bu düzensizliktir.
+
+**Parlaklık maksimize edilmiyor, sıralanıyor.** En parlak yol, sonra giriş, sonra cephe, en sönük de iç mekânlar. Prompt'taki her bölge parlak olmayı isterse görüntüde hiçbir şey parlak okunmaz. Karanlık bölgeler ziyan edilmiş alan değildir — kompozisyon oradan doğar.
+
+## Şablon 2: medya cephesi
+
+Farklı bir bina ve bilinçli olarak farklı bir yaklaşım.
+
+```
+Ofis binası aydınlatma tasarımcısısın. Bu gündüz sahnesini gece aydınlatma sahnesine dönüştür (sahneyi değiştirme):
+- Kule tacı: giydirme cephenin dikey alüminyum kanatları içinde lineer armatürler, cephe boyunca aşağı devam etsin, soğuk beyaz 4000K.
+- Kule tacı: çekirdek — duvar yıkayıcılar onu eşit biçimde alttan aydınlatsın, camın ardından net okunsun, sıcak 3000K.
+
+- Cephe: dikey kanatlar içindeki lineer armatürler bir medya cephesi oluştursun, içerik: siyah-beyaz-gri Çin mürekkep manzarası imgeleri, soğuk beyaz 4000K.
+- Cephe iç mekânları: düşük seviyeli ofis sızıntı ışığı, bazı katlar aydınlık bazıları karanlık, cephe aydınlatmasından mutlaka daha sönük kalsın, 2200-4000K rastgele.
+
+- Podyum cephesi: dikey kanatlar içinde lineer armatürler, içerik: sıcak, ışıldayan su etkisi, 3000K.
+- Podyum ticari iç mekânları: yumuşak ve eşit iç mekân parıltısı, cephedeki lineer armatürlerden daha sönük, sıcak 2200K.
+
+- Zemin kat girişi ve iç mekânları: sıcak ve karşılayıcı ortam, yüksek parlaklık, 2700K.
+
+- Peyzaj: sokak ağaçları sıcak yer altı armatürlerle alttan aydınlatılsın, 3000K; avlu çimlerinde bahçe armatürleri, ağaçlar 3000K ile alttan aydınlatılsın.
+- Yol: LED yol aydınlatması, eşit, en parlak eleman, sıcak beyaz 4000K.
+- Trafik: uzun pozlamayla kırmızı ve beyaz ışık izleri.
+
+- Genel atmosfer: uyumlu, açık-koyu hiyerarşisi net, üst düzey gece fotoğrafçılığı kalitesinde.
+- Görüntü kalitesi: özgün çözünürlük korunsun, 8K düzeyinde detay, keskin malzeme dokusu.
+- Gökyüzü: akşam 20.30 simüle edilsin.
+- Patlama ve görünür sıcak nokta kesinlikle olmasın; kontur veya çevre çizgisi aydınlatması kesinlikle olmasın.
+```
+
+Ayrıma dikkat edin: medya cephesi 4000K ile soğuk çalışıyor ve mürekkep manzarası içeriği taşıyor; podyum ise perakende atmosferi için 3000K ve 2200K ile sıcağa dönüyor. Bölgelere ayrılmış sıcak-soğuk karşıtlığı bir tasarım kararıdır. Görselin tamamına tek bir ton çekmek ise varsayılan ayardır — ve varsayılanlar varsayılan gibi görünür.
+
+**"8K" hakkında dürüst bir not.** Prompt içinde "8K" bir üslup anahtar sözcüğüdür: modeli ince detaya ve keskin dokuya doğru çeker. Bir çözünürlük ayarı değildir. Bugünkü yapay zekâ görsel üretimi, LDR dâhil, 4K çıktıda tavan yapar. Görünüşe katkısı olduğu için yazın; ama 8K bir dosya beklemeyin.
+
+## Ters prompt yöntemi
+
+Bunu öğrenmenin en hızlı yolu tersten çalıştırmaktır. Beğendiğiniz bir gece görselleştirmesi bulduğunuzda, yetkin herhangi bir yapay zekâya yükleyin ve şunu gönderin:
+
+```
+Bu gece görselleştirmesini analiz et. Her ışıyan bölge için şunları çıkar: bölge (armatürün monte edildiği yer), armatür tipi, yönelim, renk sıcaklığı, parlaklık sırası (en parlak / ikincil / sönük) ve ışık etkisi (eşit / geçişli / taraklı). Ayrıca şunları da ver: tek cümleyle genel atmosfer, gecenin saati ve görüntüdeki en karanlık üç alan.
+```
+
+Bunu on iyi görselde yapın; dört karar başvurduğunuz bir kontrol listesi olmaktan çıkar ve ışığa bakma biçiminiz hâline gelir.
+
+## Yapı kopyalanabilir. İçindeki muhakeme kopyalanamaz.
+
+İki şablonu da şu anda bir modele yapıştırabilirsiniz. Yapıştıramayacağınız şey, her satırın neden öyle yazıldığının gerekçesidir.
+
+O bölge listesindeki her satır, birinin çoktan verdiği bir karardır: teras tavan altlarının downlight değil yer altı armatürü aldığı; iç mekânların cephenin altında kalması gerektiği, yoksa kulenin fener gibi okunacağı; kadrajdaki en parlak şeyin yol olduğu. Şablon 1, karşı kaldırımdan çekilmiş bir kule-podyum kompozisyonu için çalışır. Sizin binanız o bina değil ve kendi arsanızı yerine koyduğunuz anda o kararları yeniden kendiniz veriyorsunuz.
+
+LDR'nin iki modu için dürüst gerekçe de tam olarak budur. **Render modu**, her kararı kendiniz vermek istediğinizde: prompt'u siz yazarsınız, sistem katı yasakları elinde tutar; böylece ağızdan kaçan bir "biraz daha parlak olsun" modeli cephenizi konturlamaya ikna edemez. **Chat Agent modu** ise bunu yapmak istemediğinizde: gündüz fotoğrafını yükleyin, bölge listesini yapay zekâ kendisi yazsın, siz okuyun, onaylayın; görselleştirme yaklaşık bir dakika sonra elinizde olsun. İşte [bu ikilinin diğer yarısı](/tr/blog/night-rendering-without-writing-prompts).
+
+Her iki durumda da aynı dört karar. Tek soru şu: bunları kim veriyor.
+
+## Sık sorulan sorular
+
+**Bu şablon başka yapay zekâ araçlarında da işe yarar mı?** Yapı evrenseldir — yetkin herhangi bir görsel modeli "lüks olsun"a kıyasla "bölge-armatür-yönelim-renk sıcaklığı"na çok daha iyi yanıt verir. LDR'nin Render modunda iki şey farklıdır: yasakları modelin takdirine bırakmak yerine sistem uygular ve siz sıfırdan bir bina üretmek yerine kendi arsanızın fotoğrafını dönüştürürsünüz.
+
+**Dört parçalı yapı iç mekân ve peyzaj için de geçerli mi?** Evet. İskelet değişmez: rol cümlesini doğru disiplinle değiştirin, bölge listesini mekânsal sırayla yazın, yasakları koruyun. Peyzaj listeleri genelde daha uzun olur, çünkü bitkilendirme tür ve boy bazında tek tek yazılır.
+
+**Ne kadar ayrıntı yeterli?** Işıyan her bölge için bir satır, her satırda dört kararın tamamı, artı yasaklar. Bunun faydalı bir yan etkisi var: **Hakkında bir satır yazamadığınız her bölge, henüz tasarlamadığınız bir bölgedir.**
+
+Bu standartta yazılmış bir prompt sizi 100 üzerinden yaklaşık 60'a getirir. Ötesi daha fazla kelime meselesi değildir — gündüz fotoğrafı üzerinde armatür konumlarını işaretlemek ve canvas üzerinde not düşmek meselesidir. Bakınız: [Yapay zekâ düzeltmeleri neden bulanıklaşır](/tr/blog/why-ai-edits-get-blurrier).
+
+**Belirli bir dilde yazmam gerekir mi?** Hangi dilde düşünüyorsanız o dilde yazın. Anlamı taşıyan şey yapıdır, ifade biçimi değil.
+
+## Kendi projenizde deneyin
+
+[LDR](https://app.ldr-design.com)'yi açın, 5 ücretsiz kredinizi alın ve kendi gündüz görsellerinizden birini, kendi yazdığınız bir bölge listesiyle Render modundan geçirin. Sonra aynı görseli Chat Agent'tan geçirip karşılaştırın. Karşılaştırma, iki sonucun tek başına öğrettiğinden fazlasını öğretir.

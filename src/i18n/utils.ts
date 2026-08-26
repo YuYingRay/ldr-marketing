@@ -69,22 +69,20 @@ const HTML_LANG: Record<Lang, string> = {
   ja: "ja",
   ko: "ko",
   de: "de",
+  ar: "ar",
+  tr: "tr",
 };
 
 /**
- * `<html dir>`。当前七种语言里还没有从右往左书写的，这张表先立起来，
- * 是为了让版式层能提前变成方向感知的。
+ * `<html dir>`。阿拉伯语是从右往左书写的 —— 不设 dir 的后果不是"排版略歪"，
+ * 而是标点跑到句子另一端、列表符号和引用竖线全在错误的一侧、
+ * 逻辑属性（start-/end-、margin-inline）失去判断依据而按 LTR 解析。
  *
- * 不设 dir 的后果不是"排版略歪"：RTL 语言下标点会跑到句子另一端、
- * 列表符号和引用竖线全在错误的一侧，而逻辑属性（start-/end-、margin-inline）
- * 会失去判断依据按 LTR 解析。
- *
- * 这张表正是 start-/end- 这类逻辑类名生效的前提：Tailwind 生成的
+ * 这张表也是 start-/end-  这类逻辑类名生效的前提：Tailwind 生成的
  * `inset-inline-start` 由浏览器按 dir 解析，dir 不对就等于写死了 left。
  *
- * 加阿拉伯语（ar）、希伯来语（he）、波斯语（fa）、乌尔都语（ur）时，
- * 在这里写 "rtl" 即可，版式无需再改 —— 站点的布局用的是 flex gap
- * 与对称内边距，本身方向中立。
+ * 将来若加希伯来语（he）、波斯语（fa）、乌尔都语（ur），在这里加 "rtl" 即可，
+ * 版式无需再改 —— 站点的布局用的是 flex gap 与对称内边距，本身方向中立。
  */
 const TEXT_DIR: Record<Lang, "ltr" | "rtl"> = {
   en: "ltr",
@@ -92,6 +90,8 @@ const TEXT_DIR: Record<Lang, "ltr" | "rtl"> = {
   ja: "ltr",
   ko: "ltr",
   de: "ltr",
+  ar: "rtl",
+  tr: "ltr",
 };
 
 /** Open Graph 的 og:locale 需要 language_TERRITORY 格式，这里必须带地区码。 */
@@ -101,6 +101,9 @@ const OG_LOCALE: Record<Lang, string> = {
   ja: "ja_JP",
   ko: "ko_KR",
   de: "de_DE",
+  // 阿语覆盖多国，取海湾地区商业与设计行业的主枢纽 AE 作代表
+  ar: "ar_AE",
+  tr: "tr_TR",
 };
 
 /** toLocaleDateString 用的 BCP 47 标签（日期格式：de 是 "10. August 2026"，ja 是 "2026年8月10日"）。 */
@@ -110,6 +113,14 @@ const DATE_LOCALE: Record<Lang, string> = {
   ja: "ja-JP",
   ko: "ko-KR",
   de: "de-DE",
+  /**
+   * ar 加 `-u-nu-latn` 强制拉丁数字。不加的话 toLocaleDateString("ar")
+   * 会输出阿拉伯-印度数字（٢٠٢٦/٨/٢٦）—— 那在埃及等地常见，但海湾地区的
+   * 技术与商务文档普遍用拉丁数字，而且正文里的 "3000K"、"4K" 本来就是拉丁数字，
+   * 两种数字混排在同一页上很突兀。
+   */
+  ar: "ar-u-nu-latn",
+  tr: "tr-TR",
 };
 
 /**

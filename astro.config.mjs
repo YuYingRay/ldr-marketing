@@ -9,7 +9,7 @@ export default defineConfig({
   // 新增语言时这里和 src/i18n/ui.ts 的 languages 必须同步改
   i18n: {
     defaultLocale: "en",
-    locales: ["en", "zh", "ja", "ko", "de"],
+    locales: ["en", "zh", "ja", "ko", "de", "ar", "tr"],
     routing: { prefixDefaultLocale: false },
   },
   markdown: {
@@ -33,7 +33,7 @@ export default defineConfig({
       i18n: {
         defaultLocale: "en",
         // 值是写进 sitemap 的 hreflang，与 Head.astro 的声明保持一致
-        locales: { en: "en", zh: "zh-Hans", ja: "ja", ko: "ko", de: "de" },
+        locales: { en: "en", zh: "zh-Hans", ja: "ja", ko: "ko", de: "de", ar: "ar", tr: "tr" },
       },
     }),
   ],

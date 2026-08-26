@@ -1,0 +1,89 @@
+---
+title: "Prompt Yazmadan Gece Görselleştirme"
+description: "Genel yapay zekâ güzel görseller üretir, doğru olanları değil. LDR gündüz fotoğrafınızı okur, aydınlatma şemasını kendisi yazar, bir dakikada sonucu verir."
+pubDate: "2026-08-16"
+author: "LDR Team"
+image:
+  url: "/blog/ldr-night.jpg"
+  alt: "Bir alışveriş kompleksinin gündüz fotoğrafından LDR ile üretilmiş gece aydınlatma görselleştirmesi"
+tags: ["Chat Agent", "İş akışı", "Yapay zekâ render", "Aydınlatma tasarımı"]
+draft: false
+---
+
+Aydınlatma tasarımında ya da mimarlıkta çalışıyorsanız bu hesabı bilirsiniz. Tek bir gece görselleştirmesini dışarıya vermek yüzlerce dolar tutar ve revizyonlarla birlikte üç ila beş gün sürer. Kendiniz yapmak da belirgin biçimde ucuz değildir: acemi biri Photoshop'ta iki tam gün geçirir, deneyimli bir tasarımcı bile yarım gün. Proje daha kazanılmadan para görsellere gider — sektörün o kadar uzun süredir kabullendiği bir maliyet ki, artık pek kimse "bu neden böyle olmak zorunda?" diye sormuyor.
+
+## Genel amaçlı yapay zekâ gece sahnelerinde neden yanılır
+
+Akla ilk gelen refleks, genel bir görsel modeline başvurmaktır. Deneyen bilir: genel modeller **güzel** görseller üretir, **doğru** olanları değil. Binanın konturunu ışık bandıyla çizerler — gerçek uygulamada en amatörce hamle budur. Cephenin tamamını hiçbir hiyerarşi olmadan eşit parlaklıkta yıkarlar. Her yeri tek bir renk sıcaklığıyla boyarlar. Bu, meslekten olmayana etkileyici görünür; işin içindekine ise anında sahte. Çünkü bu modeller güzel bir fotoğrafın nasıl göründüğünü öğrendiler, aydınlatma tasarımının nasıl işlediğini değil.
+
+Gece görselleştirmesi bir "ışık ekleme" meselesi değildir. O bir **aydınlatma şemasıdır**: hangi armatür hangi yapı elemanına, hangi yöne dönük, hangi renk sıcaklığında, hangi parlaklık sırasıyla — ve aynı derecede önemlisi: neyin karanlık kalacağı. Bu bir tasarım kararıdır ve genel bir modelin böyle bir kararı yoktur.
+
+## Darboğaz prompt'tu, biz de onu kaldırdık
+
+İyi bir aydınlatma prompt'unun nasıl yazılacağını daha önce yazmıştık: Kelvin cinsinden renk sıcaklığı, armatür tipleri, hedef yüzeyler, parlaklık hiyerarşisi. O anlatılanlar hâlâ geçerli ve LDR'nin **Render modu** tam olarak böyle çalışıyor — her ayrıntıyı kendiniz denetlemek istediğinizde. Dört parçalı yapının tamamı ve iki gerçek projeden alınmış eksiksiz şablon [burada yazılı](/tr/blog/night-rendering-prompt-template).
+
+Ne var ki iyi bir prompt yazmak iki şeyi varsayar: zaten aydınlatma tasarımının söz dağarcığıyla düşünüyor olmanızı ve ekranda herhangi bir şey görmeden önce birkaç dakikanızı bir tarif kurmaya ayırmaya razı olmanızı. Bir görüşme öncesi hızlıca birkaç seçenek yoklamak isteyen tasarımcı için asıl engel bu ikincisidir.
+
+LDR'nin **Chat Agent**'ı bu adımı tümüyle kaldırıyor. Şemayı size tarif ettirmek yerine, şemayı **kendisi yazıyor** — sonra da onu görselleştiriyor.
+
+## LDR: bir yapay zekânın içine kurulmuş on yıllık aydınlatma tasarımı
+
+LDR ([ldr-design.com](https://app.ldr-design.com)), on yıllık gerçek proje deneyiminin ardından bir aydınlatma tasarımcısı tarafından geliştirildi. Sistemin içine gömülü olan genel bir estetik değil, mesleki pratiktir: onlarca ödüllü projeden süzülmüş armatür yerleşim örüntüleri, renk sıcaklığı gelenekleri, parlaklık hiyerarşisi — ve katı bir yasaklar listesi: kontur aydınlatması yok, patlamış cepheler yok, tek renk sıcaklığında düz yıkama yok.
+
+**Üç adım:**
+
+1. **Bir gündüz fotoğrafı yükleyin** — bina, peyzaj, ticari sokak ya da iç mekân. Yerinde çekilmiş fotoğraf da gündüz render'ı da olur.
+2. **Yapay zekâ görseli okur ve aydınlatma şemasını yazar** — bina tacını, cepheyi, girişi ve bitkilendirmeyi tanır; her biri için hangi armatürün hangi yöne, hangi renk sıcaklığında çalışacağına karar verir; ardından tüm elemanları görsel odaktan bilerek karanlık bırakılan bölgelere kadar bir parlaklık sırasına dizer.
+3. **Şemayı okuyup onaylarsınız** — yaklaşık bir dakika sonra gece görselleştirmesi hazırdır.
+
+Hiçbir aşamada prompt yazmazsınız.
+
+<figure>
+  <img
+    src="/blog/chat-agent-en.png"
+    alt="LDR Chat Agent giriş ekranı: gündüz fotoğrafını yükleyin, açıklama alanını boş bırakın — aydınlatma şemasını yapay zekâ kendisi yazsın"
+  />
+  <figcaption>
+    İsterseniz alan bir açıklama kabul ediyor. Ama boş bırakmak işin özü — Chat Agent modu bunun için var.
+  </figcaption>
+</figure>
+
+## Öncesi ve sonrası: aynı görüş, gündüz ve gece
+
+<figure>
+  <img
+    src="/blog/ldr-day.jpg"
+    alt="Beyaz delikli metal cepheye sahip büyük bir alışveriş kompleksinin gündüz görünümü — LDR'ye yüklenen kaynak görsel"
+  />
+  <figcaption>Gündüz — kaynak görsel, olduğu gibi yüklendi.</figcaption>
+</figure>
+
+<figure>
+  <img
+    src="/blog/ldr-night.jpg"
+    alt="Aynı görüşün LDR tarafından geceye çevrilmiş hâli: delikli cephe aydınlık bir doku olarak okunuyor, mağaza içleri karışık renk sıcaklıklarında parlıyor, arkadaki kuleler karanlık kalıyor"
+  />
+  <figcaption>
+    Gece — yukarıdaki görselden üretildi. Aynı kamera, aynı insanlar, aynı kompozisyon; değişen tek şey ışık.
+  </figcaption>
+</figure>
+
+Görselin ne kadar parlak olduğuna değil, ne yaptığına bakın. Delikli cephe kabuğu, projektörle yıkanmış bir duvar olarak değil, **ışıyan bir doku** olarak okunuyor. Mağaza içleri camın ardından birbirinden hafifçe farklı renk sıcaklıklarında parlıyor, çünkü gerçek binalar gece asla tek düze bir renkte parlamaz. En parlak noktalar giriş ve atriyum — içeri girişi böyle işaret edersiniz. Arkadaki kuleler karanlık kalıyor, göğün büyük bölümü de öyle: bu geri çekilme, genel bir modelin taklit etmekte en çok zorlandığı alışkanlıktır ve profesyonel aydınlatma işinin en açık göstergelerinden biridir. Bunların hiçbiri filtre değil.
+
+## Sık sorulan sorular
+
+**Hangi görseller destekleniyor?** Binaların, peyzajların, ticari sokakların, iç mekânların ve kültür-turizm yapılarının gündüz fotoğrafları. Gerçek fotoğraf da gündüz render'ı da olur.
+
+**Ne kadar sürüyor?** Chat Agent modunda yaklaşık bir dakika, çünkü herhangi bir şey görselleştirilmeden önce şema yazılıyor. Prompt'u kendiniz verdiğiniz Render modu görseli saniyeler içinde döndürür.
+
+**Ücretsiz deneyebilir miyim?** Kayıt olduğunuzda 5 kredi, ardından her gün bir ücretsiz üretim. Kredi kartı gerekmez.
+
+**Tam manuel kontrol istersem?** Render modunu kullanın ve prompt'u tek bir yapı elemanının renk sıcaklığına kadar kendiniz yazın. [Prompt şablonu yazısı](/tr/blog/night-rendering-prompt-template) size yapıyı ve kopyalanabilir iki gerçek proje prompt'unu veriyor. Her armatürün tam olarak nerede duracağını ve hangi renkte olacağını sabitlemek için [Yapay zekâ düzeltmeleri neden bulanıklaşır](/tr/blog/why-ai-edits-get-blurrier) yazısındaki konum işaretleme ve canvas tekniklerine bakın.
+
+**Midjourney'den farkı ne?** Genel modeller "güzel"i optimize eder. LDR ise aydınlatma tasarımının mantığını izler — parlaklık hiyerarşisi, bölgelere ayrılmış renk sıcaklığı, açıkça tanımlanmış yasaklar — böylece müşterinin önüne koyabileceğiniz bir şey çıkar.
+
+**Armatür seçimi yapacak kadar doğru mu?** Hayır ve bunun için tasarlanmadı. Bu bir kavram geliştirme ve iletişim aracı. Aydınlatma hesapları ve armatür seçimi hâlâ geleneksel render ve hesaplamanın alanı.
+
+## Tek bir görselle deneyin
+
+[LDR](https://app.ldr-design.com)'yi açın, 5 ücretsiz kredinizi alın ve elinizde ne varsa bir gündüz fotoğrafı yükleyin. Bir dakika sonra sonucu kendiniz değerlendirin.

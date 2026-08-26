@@ -27,6 +27,8 @@ const BLOG_COLLECTIONS = {
   ja: "blog-ja",
   ko: "blog-ko",
   de: "blog-de",
+  ar: "blog-ar",
+  tr: "blog-tr",
 } as const;
 
 // astro build 不做类型检查，Record<Lang, …> 挡不住漏配；漏了会静默少声明一种语言

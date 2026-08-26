@@ -29,4 +29,6 @@ export const collections = {
   "blog-ja": blogCollection("blog-ja"),
   "blog-ko": blogCollection("blog-ko"),
   "blog-de": blogCollection("blog-de"),
+  "blog-ar": blogCollection("blog-ar"),
+  "blog-tr": blogCollection("blog-tr"),
 };

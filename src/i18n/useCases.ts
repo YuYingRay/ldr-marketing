@@ -719,6 +719,258 @@ export const useCaseDetails: Record<
       ],
     },
   },
+  ar: {
+    "architectural-lighting": {
+      h1: "إظهار تصميم إضاءة العمارة",
+      metaTitle: "إظهار تصميم إضاءة العمارة — تصوّر بالذكاء الاصطناعي",
+      metaDesc:
+        "تصوَّر تصاميم إضاءة المباني قبل التركيب. حوّل الصور النهارية للمباني إلى إظهارات ليلية احترافية بالذكاء الاصطناعي.",
+      intro: [
+        "يواجه المعماريون ومصممو الإضاءة تحديًا متكررًا: العميل يحتاج أن يرى مخطط الإضاءة النهائي قبل تركيب أي وحدة إنارة. أما سير العمل التقليدي في الإظهار فيتطلب أيامًا من النمذجة ثلاثية الأبعاد، وتراخيص برامج مكلفة، وفنيي تصوّر محترفين — وكل ذلك قبل اتخاذ أي قرار تنفيذي.",
+        "يغيّر LDR هذه المعادلة. ارفع صورة نهارية للمبنى أو الموقع، وصف نيتك التصميمية — إضاءة صاعدة دافئة على الواجهة، وشرائط تأكيد بيضاء باردة على خط السقف، ومظلة مدخل بتوهج يشبه الفانوس — فينتج الذكاء الاصطناعي إظهارًا ليليًا واقعيًا خلال ثوانٍ. والنتيجة صورة جاهزة للعرض على العميل تنقل الفكرة التصميمية بوضوح، فتُسرّع الاعتماد وتقلّل التعديلات المكلفة في منتصف المشروع.",
+        "يستخدم LDR استشاريو إضاءة العمارة ومهندسو الواجهات ومقاولو التصميم والتنفيذ للتحقق من مواضع وحدات الإنارة، وتقييم خيارات درجة حرارة اللون، وعرض عدة سيناريوهات إضاءة جنبًا إلى جنب — دون الحاجة إلى نموذج ثلاثي الأبعاد.",
+      ],
+      applicationsHeading: "تطبيقات شائعة في إضاءة العمارة",
+      applications: [
+        {
+          term: "إضاءة الواجهات:",
+          desc: "عاين إضاءة الغسل والإضاءة المماسّة وسيناريوهات الألوان المتغيرة على واجهات المباني قبل اعتماد وحدات الإنارة.",
+        },
+        {
+          term: "المداخل ومساقط البهو:",
+          desc: "قيّم كيف تتفاعل إضاءة الممرات والأعمدة القصيرة والإضاءة السفلية للمظلة عند عتبة المبنى.",
+        },
+        {
+          term: "مشاريع المباني التراثية:",
+          desc: "اختبر مقاربات الإضاءة الصاعدة الحساسة على المباني المسجَّلة دون الالتزام بتركيبات متطفلة.",
+        },
+        {
+          term: "المشاركة في المسابقات:",
+          desc: "أنتج لوحات ليلية مقنعة بسرعة لمشاركات المسابقات التصميمية وطلبات التراخيص.",
+        },
+      ],
+    },
+    "landscape-lighting": {
+      h1: "إظهار تصميم إضاءة المواقع والحدائق",
+      metaTitle: "إظهار إضاءة المواقع — تصوّر ليلي بالذكاء الاصطناعي",
+      metaDesc:
+        "عاين تصاميم إضاءة المواقع بتحويل النهار إلى ليل بالذكاء الاصطناعي. شاهد كيف تبدو الحدائق والمتنزهات والفضاءات الخارجية مضاءة ليلًا.",
+      intro: [
+        "تُحوِّل إضاءة المواقع الفضاءات الخارجية بعد الغروب — لكن إيصال هذا التحول إلى العميل وإلى لجان التخطيط ظل دائمًا صعبًا. الصور النهارية للموقع تُظهر الوضع القائم، ولا شيء فيها يُظهر ما يحدث حين تغيب الشمس وتتولّى الإضاءة المصممة المشهد.",
+        "يسدّ LDR هذه الفجوة. ارفع صورة نهارية لحديقة أو متنزه أو فناء أو محيط سكني، وصف مخطط الإضاءة: أعمدة قصيرة للممرات بدرجة 2700K، وإضاءة صاعدة لتأكيد الأشجار المميزة، وعنصر مائي بإضاءة ناعمة. عندها ينتج الذكاء الاصطناعي مشهدًا ليليًا واقعيًا ينقل مزاج التصميم النهائي وأجواءه، فيرى العميل بوضوح ما الذي يتعاقد عليه.",
+        "يستخدم معماريو المواقع ومتخصصو إضاءة المسطحات الخضراء ومصممو الحدائق أداة LDR للتنقل السريع بين سيناريوهات الإضاءة، ومقارنة درجات اللون الدافئة والباردة، وبناء عروض مقنعة للعملاء — دون انتظار جلسات النماذج الميدانية أو الاستعانة باستوديوهات التصوّر.",
+      ],
+      applicationsHeading: "تطبيقات شائعة في إضاءة المواقع",
+      applications: [
+        {
+          term: "الحدائق السكنية:",
+          desc: "أرِ أصحاب المنازل كيف تبدو إضاءة التأكيد وإضاءة الممرات وإضاءة العناصر المميزة مجتمعةً في الليل.",
+        },
+        {
+          term: "المتنزهات والساحات العامة:",
+          desc: "تصوَّر كيف تتفاعل إضاءة المشاة والإضاءة الصاعدة للأشجار وإضاءة العناصر المميزة عبر الفضاءات المفتوحة الواسعة.",
+        },
+        {
+          term: "العناصر المائية والمسابح:",
+          desc: "عاين الإضاءة الغاطسة وإضاءة المحيط لتقييم تجسيد اللون والتحكم في التسرّب الضوئي قبل التنفيذ.",
+        },
+        {
+          term: "محيط منشآت الضيافة:",
+          desc: "أنتج صورًا ليلية لأفنية الفنادق وحدائق المنتجعات وشرفات المطاعم لدعم التسويق للمطاعم والمقاهي.",
+        },
+      ],
+    },
+    "urban-night-planning": {
+      h1: "التخطيط الليلي للمدن وتصوّر المشهد الليلي",
+      metaTitle: "أداة التخطيط الليلي للمدن وتصوّر المشهد الليلي",
+      metaDesc:
+        "خطّط لإضاءة المدينة الليلية بتصوّر مدعوم بالذكاء الاصطناعي. حوّل مشاهد المدينة من النهار إلى الليل لتقييم استراتيجيات الإضاءة قبل التنفيذ.",
+      intro: [
+        "تُشكّل المخططات الشمولية للإضاءة الحضرية طريقة اختبار ملايين الناس لمدينتهم بعد حلول الظلام. سلامة الشوارع، والهوية البصرية، وإدارة التلوث الضوئي، وكفاءة الطاقة — كلها تتوقف على ضبط استراتيجية الإضاءة، ومع ذلك تجعل أدوات التخطيط التقليدية إيصال الرؤية الليلية صعبًا أمام أصحاب المصلحة من غير المتخصصين.",
+        "يمنح LDR مخططي المدن ومصممي الإضاءة الحضرية والجهات البلدية طريقة سريعة لإنتاج تصورات ليلية واقعية من صور الشارع والصور الجوية المتاحة أصلًا. ارفع مشهدًا نهاريًا للمدينة، وصف المقاربة المقصودة — وحدات LED دافئة بمقياس المشاة، وإضاءة طرق وظيفية أبرد، وإضاءة تأكيد على المعالم المدنية — لتستلم مشهدًا ليليًا يعكس بدقة أجواء المخطط المقترح وتدرّجه.",
+        "تُستخدم هذه التصورات في دعم الاستشارات العامة، وعروض لجان التخطيط، وإحاطات المطوّرين، والمسابقات التصميمية الدولية. والقدرة على إظهار مشهد ليلي مقنع بسرعة — بدل التعاقد مع استوديو تصوّر متخصص — تختصر دورة التغذية الراجعة وتُبقي عمليات التخطيط متحركة.",
+      ],
+      applicationsHeading: "تطبيقات شائعة في التخطيط الليلي للمدن",
+      applications: [
+        {
+          term: "برامج تحديث إنارة الشوارع:",
+          desc: "قارن سيناريوهات التحوّل إلى LED بالوضع القائم على مصابيح الصوديوم لتبرير الإنفاق الرأسمالي أمام المجالس والهيئات.",
+        },
+        {
+          term: "إضاءة المعالم المدنية والجسور:",
+          desc: "تصوَّر إضاءة المعالم والجسور والمباني العامة ضمن استراتيجيات هوية المدينة.",
+        },
+        {
+          term: "تنشيط الأحياء متعددة الاستعمالات:",
+          desc: "أظهر كيف تصنع الإضاءة المنسّقة بين التجزئة والسكن والفضاء العام اقتصادًا ليليًا نابضًا بالحياة.",
+        },
+        {
+          term: "تقييم التلوث الضوئي وحماية السماء المظلمة:",
+          desc: "أنتج سيناريوهات ليلية منخفضة الشدة لتوضيح مقاربات الإضاءة المسؤولة في البيئات الحساسة.",
+        },
+      ],
+    },
+    "hospitality-lighting": {
+      h1: "إظهار تصميم إضاءة الضيافة",
+      metaTitle: "إظهار إضاءة الضيافة — الفنادق والمنتجعات والمطاعم",
+      metaDesc:
+        "تصوَّر تصاميم إضاءة الضيافة قبل التركيب. حوّل الصور النهارية للفنادق والمنتجعات والمطاعم إلى إظهارات ليلية بالذكاء الاصطناعي.",
+      intro: [
+        "في قطاع الضيافة، الإضاءة هي العلامة التجارية. مظلة مدخل الفندق بعد الغروب، والتوهج الدافئ لبار السطح، والأجواء المتدرّجة لشرفة المسبح — هذه اللحظات هي التي تقرر إن كان الضيف قد شعر بأنه وصل فعلًا، أم أنه سجّل الدخول فحسب. ومع ذلك يواجه مصممو إضاءة الفنادق والمنتجعات والمطاعم المشكلة نفسها التي يواجهها كل تخصص آخر: العميل يعتمد رؤية لا يستطيع رؤيتها بعد.",
+        "يسدّ LDR هذه الفجوة. ارفع صورة نهارية لواجهة فندق أو فناء مطعم أو سطح مسبح في منتجع، وصف المزاج المسائي — إضاءة تأكيد دافئة بدرجة 2700K على امتداد البار، وإضاءة صاعدة ناعمة تمسح جذوع النخيل، وتوهج مميز عند المدخل — فيعيد الذكاء الاصطناعي مشهدًا ليليًا واقعيًا خلال ثوانٍ. ويستخدم المصممون النتيجة للتحقق من مواضع وحدات الإنارة، ومقارنة درجات حرارة اللون جنبًا إلى جنب، وكسب موافقة العميل قبل تركيب أي وحدة.",
+        "يستخدم LDR استشاريو إضاءة الضيافة ومشغّلو الفنادق البوتيكية وفرق العلامات التجارية للمطاعم لمعاينة الأجواء، واختبار عدة سيناريوهات مسائية على صورة نهارية مرجعية واحدة، وتقديم لوحات قصصية ليلية متماسكة للملّاك والإدارة.",
+      ],
+      applicationsHeading: "تطبيقات شائعة في إضاءة الضيافة",
+      applications: [
+        {
+          term: "واجهة الفندق ومظلة المدخل:",
+          desc: "عاين تسلسل الوصول — توهج اللافتة، والإضاءة السفلية لمظلة المدخل، والإضاءة الصاعدة لممر خدمة ركن السيارات — لصناعة الانطباع المسائي الأول لدى الضيف.",
+        },
+        {
+          term: "أسطح المسابح والشرفات الخارجية:",
+          desc: "قيّم إضاءة المسبح الغاطسة وشرائط التأكيد في الكبائن والأعمدة القصيرة للممرات معًا، موازنًا بين الوظيفة والأجواء.",
+        },
+        {
+          term: "بارات الأسطح والمطاعم المكشوفة:",
+          desc: "اختبر الأسلاك المضيئة وإضاءة خلفية البار والإضاءة الدافئة المنخفضة للطاولات لضبط المزاج المسائي المميز.",
+        },
+        {
+          term: "تنسيق مواقع المنتجعات وممراتها:",
+          desc: "تصوَّر الإضاءة الصاعدة للأشجار والتوهج القمري في الحدائق وإضاءة اللافتات عبر مساحات المنتجع الشاسعة قبل اعتماد كيلومترات من خطوط الإنارة.",
+        },
+        {
+          term: "المطاعم البوتيكية وبارات النبيذ:",
+          desc: "أنتج عدة خيارات للمزاج — دافئ حميم، وتأكيد مسرحي، وبسيط منفتح — للفضاء نفسه، ثم اعرض الثلاثة النهائية على المشغّل.",
+        },
+      ],
+    },
+  },
+  tr: {
+    "architectural-lighting": {
+      h1: "Mimari Aydınlatma Tasarımı Görselleştirme",
+      metaTitle: "Mimari Aydınlatma Görselleştirme — Yapay Zekâ ile",
+      metaDesc:
+        "Mimari aydınlatma tasarımlarını montajdan önce görselleştirin. Gündüz bina fotoğraflarını yapay zekâ ile profesyonel gece görselleştirmelerine dönüştürün.",
+      intro: [
+        "Mimarlar ve aydınlatma tasarımcıları hep aynı zorlukla karşılaşır: müşteri, tek bir armatür takılmadan önce bitmiş aydınlatma şemasını görmek ister. Geleneksel render iş akışıysa günler süren 3B modelleme, pahalı yazılım lisansları ve deneyimli görselleştirme uzmanları gerektirir — hem de daha hiçbir uygulama kararı verilmeden.",
+        "LDR bu denklemi değiştiriyor. Binanın ya da alanın gündüz fotoğrafını yükleyin, tasarım niyetinizi anlatın — cephede sıcak yukarı aydınlatma, saçak hattı boyunca soğuk beyaz vurgu şeritleri, fener gibi parlayan bir giriş saçağı — ve yapay zekâ saniyeler içinde fotogerçekçi bir gece görselleştirmesi üretsin. Sonuç, tasarım fikrini net biçimde anlatan, müşteriye sunulmaya hazır bir görsel: onayı hızlandırır, proje ortasındaki pahalı revizyonları azaltır.",
+        "LDR'yi mimari aydınlatma danışmanları, cephe mühendisleri ve tasarla-yap müteahhitleri; armatür yerleşimini doğrulamak, renk sıcaklığı seçeneklerini değerlendirmek ve birden fazla aydınlatma senaryosunu yan yana sunmak için kullanıyor — hem de tek bir 3B model olmadan.",
+      ],
+      applicationsHeading: "Yaygın Mimari Aydınlatma Uygulamaları",
+      applications: [
+        {
+          term: "Cephe aydınlatması:",
+          desc: "Armatürleri belirlemeden önce yıkama aydınlatmasını, sıyırma etkilerini ve dinamik renk senaryolarını bina dışında önizleyin.",
+        },
+        {
+          term: "Giriş ve lobi yaklaşımları:",
+          desc: "Yürüyüş yolu aydınlatmasının, babaların ve saçak downlight'larının bina eşiğinde nasıl etkileştiğini değerlendirin.",
+        },
+        {
+          term: "Tarihi yapı projeleri:",
+          desc: "Tescilli yapılarda hassas yukarı aydınlatma yaklaşımlarını, müdahaleci bir montaja bağlanmadan test edin.",
+        },
+        {
+          term: "Yarışma teslimleri:",
+          desc: "Tasarım yarışması başvuruları ve imar başvuruları için etkileyici gece paftalarını hızla üretin.",
+        },
+      ],
+    },
+    "landscape-lighting": {
+      h1: "Peyzaj Aydınlatması Tasarımı Görselleştirme",
+      metaTitle: "Peyzaj Aydınlatması Görselleştirme — Yapay Zekâ ile Gece",
+      metaDesc:
+        "Peyzaj aydınlatma tasarımlarını yapay zekâ destekli gündüz-gece dönüşümüyle önizleyin. Bahçelerin, parkların ve dış mekânların gece nasıl göründüğünü görün.",
+      intro: [
+        "Peyzaj aydınlatması dış mekânları karanlıktan sonra bambaşka bir yere dönüştürür — ama bu dönüşümü müşterilere ve imar komisyonlarına anlatmak her zaman zor olmuştur. Gündüz çekilmiş alan fotoğrafları mevcut durumu gösterir; güneş battığında ve tasarlanan aydınlatma devreye girdiğinde ne olacağını hiçbiri göstermez.",
+        "LDR bu boşluğu kapatıyor. Bir bahçenin, parkın, avlunun ya da konut dış mekânının gündüz fotoğrafını yükleyin ve aydınlatma şemasını tarif edin: 2700K yürüyüş yolu babaları, örnek ağaçlarda vurgu amaçlı yukarı aydınlatma, yumuşak aydınlatılmış bir su öğesi. Yapay zekâ, bitmiş tasarımın ruhunu ve atmosferini yakalayan gerçekçi bir gece görüntüsü üretir; müşteri neyi ısmarladığını net biçimde görür.",
+        "Peyzaj mimarları, bitki aydınlatması uzmanları ve bahçe tasarımcıları LDR'yi aydınlatma senaryoları arasında hızla gezinmek, sıcak ve soğuk renk sıcaklıklarını karşılaştırmak ve ikna edici müşteri sunumları hazırlamak için kullanıyor — sahada maket denemesi beklemeden, görselleştirme stüdyosu tutmadan.",
+      ],
+      applicationsHeading: "Yaygın Peyzaj Aydınlatması Uygulamaları",
+      applications: [
+        {
+          term: "Konut bahçeleri:",
+          desc: "Ev sahiplerine vurgu aydınlatmasının, yol aydınlatmasının ve öğe aydınlatmasının gece bir arada nasıl duracağını gösterin.",
+        },
+        {
+          term: "Kamusal parklar ve meydanlar:",
+          desc: "Yaya aydınlatmasının, ağaç yukarı aydınlatmasının ve öğe aydınlatmasının geniş açık alanlarda nasıl etkileştiğini görselleştirin.",
+        },
+        {
+          term: "Su öğeleri ve havuzlar:",
+          desc: "Su altı ve çevre aydınlatmasını inşaattan önce önizleyerek renk gösterimini ve ışık taşmasını değerlendirin.",
+        },
+        {
+          term: "Konaklama dış mekânları:",
+          desc: "Otel avluları, tatil köyü bahçeleri ve restoran terasları için gece görselleri üreterek yiyecek-içecek pazarlamasını destekleyin.",
+        },
+      ],
+    },
+    "urban-night-planning": {
+      h1: "Kentsel Gece Planlaması ve Gece Görünümü Görselleştirme",
+      metaTitle: "Kentsel Gece Planlaması ve Gece Görünümü Aracı",
+      metaDesc:
+        "Kent aydınlatmasını yapay zekâ ile planlayın. Kent siluetlerini gündüzden geceye çevirip aydınlatma stratejisini uygulamadan önce değerlendirin.",
+      intro: [
+        "Kentsel aydınlatma ana planları, milyonlarca insanın şehri karanlıktan sonra nasıl deneyimlediğini belirler. Sokak güvenliği, görsel kimlik, ışık kirliliğinin yönetimi ve enerji verimliliği — hepsi aydınlatma stratejisinin doğru kurgulanmasına bağlıdır. Ne var ki geleneksel planlama araçları, gece vizyonunu teknik uzman olmayan paydaşlara anlatmayı zorlaştırır.",
+        "LDR; şehir plancılarına, kent aydınlatması tasarımcılarına ve belediyelere, eldeki sokak ve hava fotoğraflarından hızla fotogerçekçi gece görselleştirmeleri üretme imkânı verir. Gündüz çekilmiş bir kent görüntüsü yükleyin, hedeflenen aydınlatma yaklaşımını tarif edin — yaya ölçeğinde sıcak beyaz LED'ler, daha soğuk işlevsel yol aydınlatması, kamusal simge yapılarda vurgu aydınlatması — ve önerilen şemanın atmosferini ve hiyerarşisini doğru aktaran bir gece görüntüsü alın.",
+        "Bu görselleştirmeler kamuoyu istişaresinde, imar komisyonu sunumlarında, yatırımcı brifinglerinde ve uluslararası tasarım yarışmalarında kullanılıyor. İnandırıcı bir gece görüntüsünü hızla gösterebilmek — uzman bir görselleştirme stüdyosuna iş vermek yerine — geri bildirim döngüsünü kısaltıyor ve planlama süreçlerini akışta tutuyor.",
+      ],
+      applicationsHeading: "Yaygın Kentsel Gece Planlaması Uygulamaları",
+      applications: [
+        {
+          term: "Sokak aydınlatması yenileme programları:",
+          desc: "LED dönüşüm senaryolarını mevcut sodyum lambalı durumla karşılaştırarak meclislere ve kurullara yatırım gerekçesi sunun.",
+        },
+        {
+          term: "Simge yapı ve köprü aydınlatması:",
+          desc: "Anıtlarda, köprülerde ve kamu binalarında öğe aydınlatmasını kent kimliği stratejilerinin parçası olarak görselleştirin.",
+        },
+        {
+          term: "Karma kullanımlı bölgelerin canlandırılması:",
+          desc: "Perakende, konut ve kamusal alan arasında eşgüdümlü aydınlatmanın canlı bir gece ekonomisini nasıl kurabileceğini gösterin.",
+        },
+        {
+          term: "Karanlık gökyüzü ve ışık kirliliği değerlendirmesi:",
+          desc: "Hassas çevrelerde sorumlu aydınlatma yaklaşımlarını göstermek için düşük yoğunluklu gece senaryoları üretin.",
+        },
+      ],
+    },
+    "hospitality-lighting": {
+      h1: "Konaklama Aydınlatması Tasarımı Görselleştirme",
+      metaTitle: "Konaklama Aydınlatması — Otel, Resort, Restoran",
+      metaDesc:
+        "Konaklama aydınlatmasını montajdan önce görselleştirin. Otel, tatil köyü ve restoranların gündüz fotoğraflarını yapay zekâ ile akşam görüntülerine çevirin.",
+      intro: [
+        "Konaklamada aydınlatma, markanın kendisidir. Gün batımından sonra otelin araç giriş saçağı, çatı barının sıcak parıltısı, havuz başı terasının katmanlı atmosferi — konuğun kendini gerçekten varmış mı yoksa yalnızca giriş yapmış mı hissettiğine bu anlar karar verir. Yine de otel, tatil köyü ve restoran aydınlatması tasarlayanlar diğer tüm disiplinlerle aynı sorunu yaşar: müşteri, henüz göremediği bir vizyonu onaylamak zorundadır.",
+        "LDR bu boşluğu kapatıyor. Bir otel cephesinin, restoran avlusunun ya da tatil köyü havuz terasının gündüz fotoğrafını yükleyin, akşam atmosferini tarif edin — bar boyunca mum sıcaklığında 2700K vurgu aydınlatması, palmiye gövdelerini sıyıran yumuşak yukarı aydınlatma, girişte imza niteliğinde bir parıltı — ve yapay zekâ saniyeler içinde fotogerçekçi bir gece görüntüsü döndürsün. Tasarımcılar bu çıktıyı armatür yerleşimini doğrulamak, renk sıcaklıklarını yan yana karşılaştırmak ve tek bir armatür takılmadan müşteri onayını almak için kullanıyor.",
+        "LDR'yi konaklama aydınlatması danışmanları, butik otel işletmecileri ve restoran marka ekipleri; atmosferi önizlemek, tek bir gündüz referans fotoğrafı üzerinde birden fazla akşam senaryosunu denemek ve mal sahibine ve yönetime tutarlı gece storyboard'ları sunmak için kullanıyor.",
+      ],
+      applicationsHeading: "Yaygın Konaklama Aydınlatması Uygulamaları",
+      applications: [
+        {
+          term: "Otel cephesi ve araç giriş saçağı:",
+          desc: "Varış dizisini önizleyin — tabela parıltısı, giriş saçağı downlight'ları, vale yolu yukarı aydınlatması — konuğun ilk akşam izlenimini buradan kurun.",
+        },
+        {
+          term: "Havuz terasları ve dış mekânlar:",
+          desc: "Su altı havuz aydınlatmasını, kabin vurgu şeritlerini ve yol babalarını birlikte değerlendirerek işlev ile atmosferi dengeleyin.",
+        },
+        {
+          term: "Çatı barları ve açık hava yemek alanları:",
+          desc: "İmza akşam atmosferini tutturmak için ip ışıkları, bar arkası aydınlatmasını ve masalarda sıcak alçak seviye aydınlatmayı deneyin.",
+        },
+        {
+          term: "Tatil köyü peyzajı ve yürüyüş yolları:",
+          desc: "Kilometrelerce armatür hattı belirlemeden önce ağaç yukarı aydınlatmasını, bahçelerdeki ay ışığı etkisini ve tabela aydınlatmasını geniş arazide görselleştirin.",
+        },
+        {
+          term: "Butik restoranlar ve şarap barları:",
+          desc: "Aynı mekân için birden çok atmosfer seçeneği üretin — samimi sıcak, teatral vurgulu, ferah minimal — sonra son üçünü işletmeciye sunun.",
+        },
+      ],
+    },
+  },
 };
 
 /** 漏一种语言或漏一个场景都会让详情页在构建时崩在 undefined 上，这里提前报出缺哪一项 */

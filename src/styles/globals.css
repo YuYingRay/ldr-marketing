@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -68,6 +68,47 @@
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     font-family: "Inter", system-ui, sans-serif;
+  }
+
+  /*
+   * 阿拉伯文字体。Inter 没有阿拉伯字形 —— 不指定就会掉到系统字体，
+   * Windows 上是 Segoe UI、macOS 上是 Geeza Pro、Android 上是 Noto Naskh，
+   * 三个平台的字形骨架和字重完全不同，同一个页面在不同设备上像三个站。
+   *
+   * IBM Plex Sans Arabic 与 Inter 同属中性无衬线，字重轴也对得上，混排不打架。
+   *
+   * 放在全局 @import 里不会拖慢其他语言：Google Fonts 的 CSS 按 unicode-range
+   * 分片，浏览器只有在页面真的渲染阿拉伯字符时才会去下载字体文件，
+   * 非阿语页面只多解析约 1KB 的 CSS。
+   */
+  :lang(ar) body,
+  body:lang(ar) {
+    font-family: "IBM Plex Sans Arabic", "Inter", system-ui, sans-serif;
+  }
+
+  /*
+   * 阿拉伯文的字母有升部、降部和变音符号，按拉丁文的行高排会显得挤。
+   * 只抬一档，够用且不破坏既有的纵向节奏。
+   */
+  :lang(ar) {
+    line-height: 1.85;
+  }
+
+  /*
+   * 代码块里的阿拉伯文。等宽字体对阿拉伯这种连写文字是错的工具：它强行给每个字母
+   * 等宽推进，字母间被撑开、连笔断掉，读起来明显比正文吃力；而 ui-monospace /
+   * Menlo / SFMono 在多数 Windows 机器上根本不存在，回退链路落到哪个字体不可控。
+   *
+   * 试过把阿拉伯字体接在等宽栈**后面**指望逐字符回退接住它 —— 不可靠：
+   * Windows 的 Courier New 和通用 monospace 关键字都带阿拉伯字形，会先把它截胡，
+   * 实测渲染毫无变化。所以这里直接把阿拉伯字体排第一。
+   *
+   * 代价是块内的 "3000K"、"LED" 也变成比例字距而非等宽。这是有意的取舍：
+   * 本站阿语代码块装的是自然语言提示词而不是源码，等宽本来就不是它该有的形态。
+   * 若将来阿语文章里要贴真代码，再按需收窄这条规则的作用域。
+   */
+  :lang(ar) :is(pre, code) {
+    font-family: "IBM Plex Sans Arabic", ui-monospace, Consolas, monospace;
   }
 
   /*

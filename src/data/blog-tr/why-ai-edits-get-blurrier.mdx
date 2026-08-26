@@ -1,0 +1,112 @@
+---
+title: "Yapay Zekâ Düzeltmeleri Neden Bulanıklaşır"
+description: "Tek bir armatürü değiştirmesini isteyin, bütün bina değişsin. Her düzeltme baştan bir üretimdir. Nedeni ve buna karşı üç teknik."
+pubDate: "2026-08-22"
+author: "LDR Team"
+image:
+  url: "/blog/ldr-control-night.jpg"
+  alt: "Gündüz fotoğrafında işaretlenen armatür konumlarından üretilmiş iç mekân gece görselleştirmesi; her downlight çizildiği yere düşmüş"
+tags: ["Eğitim", "Yapay zekâ render", "Aydınlatma tasarımı", "Kontrol"]
+draft: false
+---
+
+O hissi bilirsiniz. Yapay zekânın ürettiği gece görseli yüzde 90 doğrudur. Bir nokta canınızı sıkar. Değişiklik istersiniz — ve bina çarpılır, malzemeler kayar, görsel öncekinden daha yumuşak döner. Üçüncü revizyonda artık sizin göreseliniz değildir.
+
+Aracı yanlış kullandığınızdan değil. Aşağıda gerçekte ne olduğu ve kontrolü geri almanın üç yolu var.
+
+## Gerçek şu: yapay zekâda "düzenleme" bir düzenleme değildir
+
+Pek çok yapay zekâ görsel aracı "tam gösterdiğiniz yeri düzenleyin" diye tanıtılıyor. Dürüst hâli şu: **her değişiklik istediğinizde model görselin tamamını yeniden üretir.** Siz tek bir armatürü ayarladığınızı sanırsınız; oysa bütün kare yeniden boyanmaktadır.
+
+Bu yüzden her revizyon özgün gündüz fotoğrafınızdan biraz daha uzaklaşır. İlk üretimi atlatan pencere kayıtları, taş dokusu ve saçak çizgileri ikincide ve üçüncüde hizasını kaybeder. Her düzeltmede biraz daha bulanıklaşmak, bu kuşak modellerin çalışma biçimidir. Sizin hatanız değil, tek bir sağlayıcının da hatası değil — LDR de arka planda yeniden üretiyor. Fark, **aracın size bir şeyleri yerine çakma imkânı verip vermediğinde.**
+
+Peki nasıl kontrol edersiniz? Tek cümleyle: **modele bir referans verin.** Görselin üzerinde zaten çizili olan şeyi model kolay kolay oynatmaz.
+
+## Teknik 1: render'dan önce armatür konumlarını gündüz fotoğrafına işaretleyin
+
+Tavandaki downlight'lar, cephe boyunca yer altı armatürleri, korkuluk aydınlatması, bahçedeki babalar — konumlarını önce gündüz görseline çizin. Nereye çizerseniz ışık orada belirir.
+
+<figure>
+  <img
+    src="/blog/ldr-control-ceiling-day.jpg"
+    alt="Gündüz fotoğrafının tavan detayı: açık renk asma tavan ve kaset, henüz armatür konumu işaretlenmemiş"
+  />
+  <figcaption>① Gündüz tavanı, dokunulmamış hâliyle.</figcaption>
+</figure>
+
+<figure>
+  <img
+    src="/blog/ldr-control-ceiling-marked.jpg"
+    alt="Aynı tavanda her downlight konumuna küçük birer nokta çizilmiş"
+  />
+  <figcaption>② Her downlight bir noktayla işaretlendi. Yalnızca konumlar — etkiler değil.</figcaption>
+</figure>
+
+<figure>
+  <img
+    src="/blog/ldr-control-night.jpg"
+    alt="İşaretlenen konumlardan üretilen gece görseli: ışık havuzları ve kaset aydınlatması işaretlerle bire bir örtüşüyor, mobilyalar ve malzemeler değişmemiş"
+  />
+  <figcaption>③ Sonuç: işaretlenen her konumda bir ışık havuzu; mobilyalar, malzemeler ve mekân geometrisi ise yerli yerinde.</figcaption>
+</figure>
+
+Bir adım ötesi: **rengi de doğru çizin.** Göl mavisi bir lineer armatür istiyorsanız gündüz fotoğrafına göl mavisi bir çizgi çekin — beyaz değil. Görsel "beyaz" derken prompt "mavi" derse model tahmin etmek zorunda kalır; halüsinasyonlar da o tahminden doğar. Görsel ile prompt aynı şeyi söylediğinde geriye tek bir olası yanıt kalır.
+
+Bir güvenlik önlemi daha: prompt'a da yazın — **"hiçbir armatür konumunu kaydırma"**. Bir görselleştirme yanlış döndüğünde, onda dokuz ihtimalle sorun az istemiş olmanız değil; az yasaklamış olmanızdır.
+
+## Teknik 2: LDR canvas'ında not düşmenin üç yolu
+
+Konum işaretleri ışıkların **nerede** olduğunu çözer. **Nasıl görünmeleri gerektiğini** ya da **hangi tekniğin kullanılacağını** söylemek için LDR canvas'ını kullanın. Üç hamle:
+
+**Hamle 1 — salt görsel referans.** Beğendiğiniz bir gece sahnesi, belirli bir armatür ya da bir aydınlatma tekniği mi buldunuz? Ekran görüntüsünü alın, canvas'a bırakın ve gündüz fotoğrafında ait olduğu noktaya bir çizgi çekin. Aynı anda üç-dört referans pratik sınırdır; model onların suretinde üretir.
+
+**Hamle 2 — görsel artı metin.** Ekran görüntüsünü getirin, gerçekten istediğiniz kısmı kutu içine alın ve bir satır metin ekleyin. Model yazıyı okur, kırpılan alana bakar ve gösterdiğiniz yere uygular.
+
+**Hamle 3 — doğrudan not düşme.** Gündüz fotoğrafında binayı, peyzajı ya da heykeli kutu içine alın ve yazın: hangi armatür, hangi yön, hangi renk sıcaklığı, hangi etki.
+
+<figure>
+  <img
+    src="/blog/ldr-canvas-annotation.jpg"
+    alt="Gündüz fotoğrafında kule tacı ve cephe kırmızı kutularla işaretlenmiş, el yazısı notlar var: taçta iç parıltı, cephede yukarı yönlü duvar yıkayıcılar 4000K, kule cephesinde aşağı doğru sönümlenen dikey lineer armatürler"
+  />
+  <figcaption>Doğrudan not düşme: bölgeyi kutuya alın; armatürü, yönü, renk sıcaklığını ve etkiyi yazın — bir tasarımcının teknik ressama pafta üzerinde not düşmesi gibi. Burada teknik ressam modeldir.</figcaption>
+</figure>
+
+Üçü de aynı cümleye çıkar: modele bir referans verin. Referans ne kadar belirginse modelin savrulacak alanı o kadar daralır.
+
+## Teknik 3: 90'da durun ve iş akışını değiştirin
+
+İş akışı düzeyinde dürüst gerçek: **tek bir yapay zekâ üretimi 100 üzerinden 80-90'da tavan yapar.**
+
+| Yaklaşım | Sizi nereye getirir |
+|---|---|
+| Yalnızca prompt (düzgün yazılmış — bkz. [dört parçalı yapı](/tr/blog/night-rendering-prompt-template)) | 60 |
+| + kontrol teknikleri (işaretli konumlar, canvas notları) | 80–90 |
+| + kanal diyagramı, kesip çıkarma, Photoshop montajı | teslime hazır |
+
+**Son on puan için savaşmayın.** Birkaç versiyon üretin, her birinden en iyi bölgeyi alın, LDR'nin kanal diyagramıyla o bölgeleri tek tıkla seçin ve Photoshop'ta birleştirin. 90 puanlık bir görsel artı on dakika Photoshop, yirmi tur yapay zekâ revizyonunu geçer — hem daha hızlı hem çok daha isabetli.
+
+"Yapay zekâ render'ın yerini alabilir mi?" sorusunun dürüst yanıtı da budur. Emeğin yaklaşık yüzde 90'ının yerini alır. Son yüzde 10 hâlâ insan muhakemesi ve insan elidir. **Profesyoneller modelle güreşmez. İş akışını değiştirir.**
+
+Ve konum işaretlemek ya da prompt yazmak hiç istemiyorsanız üçüncü bir yol var: gündüz fotoğrafını yükleyin ve render'dan önce aydınlatma şemasını Chat Agent yazsın — işte [bu serinin diğer yarısı](/tr/blog/night-rendering-without-writing-prompts).
+
+## Sık sorulan sorular
+
+**Diğer yapay zekâ araçları da neden bulanıklaşıyor?**
+Aynı mekanizma. Bugünkü üretken modeller "yalnızca tek bir noktaya dokunamaz"; her düzenleme baştan bir örnekleme demektir. Araçlar arasında değişen şey, yerinde kalması gereken kısımların gerçekten yerinde kalması için size çıpa verip vermedikleridir — konum işaretleri, referans görseller, notlar, yasaklar.
+
+**Konum işaretleri ne kadar ayrıntılı olmalı?**
+Konumlar, etkiler değil. Downlight için bir nokta, lineer armatür için bir çizgi, yer altı armatürü için küçük bir kare. İşaretler modele ışığın nereden geldiğini söyler; nasıl göründüğüne prompt ve referanslar karar verir.
+
+**Canvas'a kaç referans görsel koyabilirim?**
+Üç ya da dört. Fazlası olduğunda referanslar birbiriyle yarışmaya başlar ve sonuç bulanır. Net biçimde tanımlanmış her bölge için bir referans, en güvenilir örüntüdür.
+
+**Kanal diyagramı nedir?**
+LDR, gece görselinin yanında her malzemenin ya da bölgenin düz bir renkle dolduğu ikinci bir görsel üretir. Photoshop'ta sihirli değnek, bütün bir bölgeyi tek tıkla seçer — elle maskeleme gerekmez. Birden çok üretimi tek bir teslim görseline birleştirmenin anahtar aracı budur.
+
+**Önce prompt yazmayı öğrenmem gerekir mi?**
+Hayır. Konum işaretleri ve canvas görsel araçlardır; ihtiyacınız olan tek prompt satırı "hiçbir armatür konumunu kaydırma"dır. Profesyonel prompt da yazmak isterseniz dört parçalı yapı yazısını okuyun.
+
+## Kendi projenizde deneyin
+
+[LDR](https://app.ldr-design.com)'yi açın ve 5 ücretsiz kredinizi alın (ardından her gün bir ücretsiz üretim daha — **krediler asla yanmaz**). Kendi gündüz fotoğraflarınızdan birini seçin. Önce hiçbir şey işaretlemeden üretin, sonra armatür konumlarını işaretleyip yeniden üretin. İkisini yan yana koyup ışığın nereye düştüğüne bakın.
