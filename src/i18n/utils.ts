@@ -71,6 +71,29 @@ const HTML_LANG: Record<Lang, string> = {
   de: "de",
 };
 
+/**
+ * `<html dir>`。当前七种语言里还没有从右往左书写的，这张表先立起来，
+ * 是为了让版式层能提前变成方向感知的。
+ *
+ * 不设 dir 的后果不是"排版略歪"：RTL 语言下标点会跑到句子另一端、
+ * 列表符号和引用竖线全在错误的一侧，而逻辑属性（start-/end-、margin-inline）
+ * 会失去判断依据按 LTR 解析。
+ *
+ * 这张表正是 start-/end- 这类逻辑类名生效的前提：Tailwind 生成的
+ * `inset-inline-start` 由浏览器按 dir 解析，dir 不对就等于写死了 left。
+ *
+ * 加阿拉伯语（ar）、希伯来语（he）、波斯语（fa）、乌尔都语（ur）时，
+ * 在这里写 "rtl" 即可，版式无需再改 —— 站点的布局用的是 flex gap
+ * 与对称内边距，本身方向中立。
+ */
+const TEXT_DIR: Record<Lang, "ltr" | "rtl"> = {
+  en: "ltr",
+  zh: "ltr",
+  ja: "ltr",
+  ko: "ltr",
+  de: "ltr",
+};
+
 /** Open Graph 的 og:locale 需要 language_TERRITORY 格式，这里必须带地区码。 */
 const OG_LOCALE: Record<Lang, string> = {
   en: "en_US",
@@ -97,11 +120,17 @@ const DATE_LOCALE: Record<Lang, string> = {
  */
 assertTranslationsComplete();
 assertCoversAllLangs("HTML_LANG", HTML_LANG);
+assertCoversAllLangs("TEXT_DIR", TEXT_DIR);
 assertCoversAllLangs("OG_LOCALE", OG_LOCALE);
 assertCoversAllLangs("DATE_LOCALE", DATE_LOCALE);
 
 export function htmlLang(lang: Lang): string {
   return HTML_LANG[lang];
+}
+
+/** `<html dir>` 的值。见上方 TEXT_DIR 的说明。 */
+export function textDir(lang: Lang): "ltr" | "rtl" {
+  return TEXT_DIR[lang];
 }
 
 export function ogLocale(lang: Lang): string {

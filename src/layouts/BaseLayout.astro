@@ -2,7 +2,7 @@
 import Head from "../components/Head.astro";
 import "../styles/globals.css";
 import type { Lang } from "../i18n/ui";
-import { htmlLang } from "../i18n/utils";
+import { htmlLang, textDir } from "../i18n/utils";
 
 interface Props {
   title: string;
@@ -27,7 +27,7 @@ const {
 ---
 
 <!doctype html>
-<html lang={htmlLang(lang)} class="dark">
+<html lang={htmlLang(lang)} dir={textDir(lang)} class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
