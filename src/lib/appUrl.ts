@@ -56,6 +56,12 @@ export function appLink(
 ): string {
   const url = new URL(path, APP_ORIGIN);
 
+  // 语言交接（2026-08-26 多语言第一期）：两个域的 localStorage 互不相通，产品站靠 ?lng=
+  // 接住用户在营销站选的语言（产品站 i18n 检测顺序 querystring → localStorage → navigator，
+  // 命中即写入 localStorage，之后不再依赖 URL）。产品站尚未开放的语言会回落英文，无副作用。
+  // 注意：上面 UTM 段落里"产品站不读参数"的说法自此不再成立 —— 它读 lng，仍不读 utm_*。
+  url.searchParams.set("lng", lang);
+
   if (UTM_ENABLED) {
     url.searchParams.set("utm_source", "marketing");
     url.searchParams.set("utm_medium", "referral");
