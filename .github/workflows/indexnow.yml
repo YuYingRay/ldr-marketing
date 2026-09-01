@@ -1,0 +1,22 @@
+# IndexNow 自动提交:push main → 等 Vercel 部署换版 → 把线上 sitemap 全量 URL 提交给 Bing 等引擎。
+# 无 secrets(IndexNow key 本身是公开的);失败不影响部署(独立 workflow)。
+# 手动触发:Actions 页面 Run workflow(workflow_dispatch)。
+name: IndexNow
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Vercel 构建+换版通常 1-2 分钟;脚本自身还会校验 key 文件已在线上,没上线会以退出码 1 失败(可手动重跑)
+      - name: Wait for Vercel deploy
+        run: sleep 180
+      - name: Submit sitemap URLs to IndexNow
+        run: node scripts/indexnow-submit.mjs
