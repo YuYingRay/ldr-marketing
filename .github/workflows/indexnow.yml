@@ -11,8 +11,13 @@ jobs:
   submit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      # 2026-09-07 v4 → v7:v4 跑在已弃用的 Node 20 上,当时被 runner 强制转 Node 24 兜底,
+      # 兜底撤掉后会**静默**失效(push 与部署照常,只是不再通知搜索引擎)。
+      # 跨版核对过:checkout v7 的 fork PR 限制只作用于 pull_request_target/workflow_run;
+      # setup-node v5 起会在 package.json 有 packageManager 字段时自动开缓存 —— 本仓库没有该
+      # 字段,且本 job 不装依赖,不受影响。node-version 保持 22(脚本的运行时,与上面无关)。
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
       # Vercel 构建+换版通常 1-2 分钟;脚本自身还会校验 key 文件已在线上,没上线会以退出码 1 失败(可手动重跑)
