@@ -223,7 +223,7 @@ export const ui = {
     "meta.home.title": "AI Lighting Design Rendering — Day to Night in Seconds",
     "meta.home.desc": "Transform daytime photos into professional nightscape visualizations with AI. Upload a photo, describe your lighting vision, get publication-ready renders instantly.",
     "meta.pricing.title": "Pricing — LDR Lighting Design Rendering",
-    "meta.pricing.desc": "Simple pricing for AI-powered nightscape rendering. Start free with 1 render per day, buy a one-time pack from $9, or subscribe from $99/month for 4K output with no watermark.",
+    "meta.pricing.desc": "AI nightscape rendering pricing: start free, buy a one-time pack per project, or subscribe for 4K, no watermark. For architects and lighting designers.",
     "meta.blog.title": "Blog — Lighting Design Tips & AI Rendering Guides",
     "meta.blog.desc": "Practical guides, tutorials, and tips on AI-powered lighting design rendering, nightscape visualization, and day-to-night photo transformation.",
     "meta.useCases.title": "Use Cases — AI Lighting Design Rendering",
@@ -424,13 +424,13 @@ export const ui = {
 
     // -- Meta --
     "meta.home.title": "AI 灯光设计渲染 — 秒级白天转夜景",
-    "meta.home.desc": "用 AI 将白天照片转化为专业夜景效果图。上传照片，描述灯光设计意图，即刻获得可发布级渲染图。",
+    "meta.home.desc": "用 AI 把白天照片转成专业夜景效果图：上传现场照片，用文字描述灯光设计意图，几十秒内就能得到可直接交付甲方的夜景渲染图，无需三维建模，也不必外包可视化。",
     "meta.pricing.title": "价格 — LDR 灯光设计渲染",
-    "meta.pricing.desc": "AI 夜景渲染简单定价。免费每天 1 次渲染，一次性包 $9 起，月度订阅 $99 起，4K 无水印。",
+    "meta.pricing.desc": "LDR 提供按需购买与订阅两种付费方式：临时接单个项目可以一次性购买，长期高频出图更适合订阅，面向建筑师、灯光设计顾问与设计施工一体化团队使用。",
     "meta.blog.title": "博客 — 灯光设计技巧与 AI 渲染指南",
-    "meta.blog.desc": "AI 灯光设计渲染、夜景可视化和白天转夜景的实用指南、教程和技巧。",
+    "meta.blog.desc": "灯光设计渲染教程与技巧合集：AI 夜景可视化的操作指南、白天转夜景的工作流拆解、提示词写法，以及建筑师与灯光设计师在真实项目中的出图经验总结。",
     "meta.useCases.title": "应用场景 — AI 灯光设计渲染",
-    "meta.useCases.desc": "了解建筑师、灯光设计师和城市规划师如何使用 LDR 在建筑、景观、城市和酒店项目中可视化夜景渲染。",
+    "meta.useCases.desc": "了解建筑师、灯光设计师与城市规划师如何用 LDR 制作夜景效果图，覆盖建筑照明、景观照明、城市夜景规划与酒店照明四类项目场景，每类附真实案例。",
   },
 
   /**
@@ -634,13 +634,13 @@ export const ui = {
 
     // -- Meta --
     "meta.home.title": "AI 照明デザインレンダリング — 昼から夜へ数秒で",
-    "meta.home.desc": "AI で昼間の写真をプロ品質の夜景パースに。写真をアップロードして照明イメージを伝えるだけで、提案書に使えるレンダリングがすぐ手に入ります。",
+    "meta.home.desc": "昼間の写真をアップロードして照明の意図を伝えるだけで、AI がプロ品質の夜景パースを生成。3D モデルなしで提案書にそのまま使える昼夜変換レンダリングが手に入ります。",
     "meta.pricing.title": "料金 — LDR 照明デザインレンダリング",
-    "meta.pricing.desc": "AI 夜景レンダリングの明快な料金。毎日 1 回無料、買い切りパックは $9 から、月額プランは $99 から（4K・ウォーターマークなし）。",
+    "meta.pricing.desc": "料金は買い切りパックと月額プランの二本立て。単発の案件は買い切り、継続して出図するなら月額プランが向いています。建築家・照明デザイナー・設計施工会社向け。",
     "meta.blog.title": "ブログ — 照明デザインと AI レンダリングのガイド",
-    "meta.blog.desc": "AI 照明デザインレンダリング、夜景可視化、昼夜変換についての実践ガイド・チュートリアル・ノウハウ。",
+    "meta.blog.desc": "照明デザインレンダリングのチュートリアルと実践ノウハウ。AI による夜景可視化の手順、昼夜変換ワークフローの比較、建築家と照明デザイナーの作図のコツをまとめました。",
     "meta.useCases.title": "活用シーン — AI 照明デザインレンダリング",
-    "meta.useCases.desc": "建築家・照明デザイナー・都市計画者が、建築／ランドスケープ／都市／ホスピタリティの各案件で LDR をどう使っているかをご紹介します。",
+    "meta.useCases.desc": "建築家・照明デザイナー・都市計画者が LDR をどう使っているか、建築照明・ランドスケープ照明・都市夜景計画・ホスピタリティ照明の四分野の活用シーンで紹介します。",
   },
 
   /**
@@ -851,13 +851,13 @@ export const ui = {
 
     // -- Meta --
     "meta.home.title": "AI 조명디자인 렌더링 — 낮에서 밤까지 몇 초 만에",
-    "meta.home.desc": "AI로 낮 사진을 전문가급 야경 렌더링으로 바꿉니다. 사진을 올리고 조명 콘셉트를 설명하면 발표용 이미지가 바로 완성됩니다.",
+    "meta.home.desc": "낮 사진을 올리고 조명 콘셉트를 설명하면 AI가 전문가급 야경 렌더링으로 바꿉니다. 3D 모델링 없이 발표와 보고에 바로 쓰는 낮밤 변환 이미지를 얻습니다.",
     "meta.pricing.title": "요금제 — LDR 조명디자인 렌더링",
-    "meta.pricing.desc": "AI 야경 렌더링의 간단한 요금제. 매일 1회 무료, 1회 결제 패키지는 $9부터, 월 구독은 $99부터(4K·워터마크 없음).",
+    "meta.pricing.desc": "1회 결제 패키지와 정기 구독 두 가지로 이용합니다. 단발성 프로젝트인지 상시 작업인지에 따라 고르면 되며, 건축가와 조명디자이너, 설계시공 팀에 적합합니다.",
     "meta.blog.title": "블로그 — 조명디자인과 AI 렌더링 실무 가이드",
-    "meta.blog.desc": "AI 조명디자인 렌더링, 야경 시각화, 낮밤 변환에 대한 실무 가이드와 튜토리얼.",
+    "meta.blog.desc": "조명디자인 렌더링 튜토리얼과 실무 팁 모음. AI 야경 시각화 방법, 낮밤 변환 워크플로 비교, 건축가와 조명디자이너의 이미지 작업 노하우를 함께 다룹니다.",
     "meta.useCases.title": "활용 사례 — AI 조명디자인 렌더링",
-    "meta.useCases.desc": "건축가, 조명디자이너, 도시계획가가 건축·조경·도시·호스피탈리티 프로젝트에서 LDR로 야경 렌더링을 만드는 방법을 소개합니다.",
+    "meta.useCases.desc": "건축가와 조명디자이너, 도시계획가가 LDR로 야경 렌더링을 만드는 방법. 건축조명과 조경조명, 야간경관 계획, 호스피탈리티 조명 네 분야 활용 사례를 소개합니다.",
   },
 
   /**
@@ -1068,7 +1068,7 @@ export const ui = {
     "meta.home.title": "KI-Rendering für die Lichtplanung – vom Tag zur Nacht in Sekunden",
     "meta.home.desc": "Verwandeln Sie Tagesfotos mit KI in professionelle Nachtvisualisierungen. Foto hochladen, Lichtkonzept beschreiben, publikationsreifes Rendering erhalten.",
     "meta.pricing.title": "Preise – LDR Rendering für die Lichtplanung",
-    "meta.pricing.desc": "Transparente Preise für KI-Nachtrenderings. Kostenlos starten mit 1 Rendering pro Tag, Einmalpakete ab 9 $ oder Abo ab 99 $/Monat für 4K ohne Wasserzeichen.",
+    "meta.pricing.desc": "KI-Nachtvisualisierung: kostenlos starten, ein Projektpaket einmalig kaufen oder für 4K ohne Wasserzeichen abonnieren. Für Architekten und Lichtplaner.",
     "meta.blog.title": "Blog – Lichtplanung und KI-Rendering in der Praxis",
     "meta.blog.desc": "Praxisleitfäden, Tutorials und Tipps zu KI-gestütztem Rendering für die Lichtplanung, Nachtvisualisierung und Tag-Nacht-Umwandlung.",
     "meta.useCases.title": "Anwendungen – KI-Rendering für die Lichtplanung",
@@ -1268,7 +1268,7 @@ export const ui = {
     "meta.home.title": "إظهار الإضاءة بالذكاء الاصطناعي — من النهار إلى الليل",
     "meta.home.desc": "حوّل الصور النهارية إلى تصورات ليلية احترافية بالذكاء الاصطناعي. ارفع صورة، وصف رؤيتك للإضاءة، واحصل على إظهار جاهز للنشر خلال ثوانٍ.",
     "meta.pricing.title": "الأسعار — LDR للإظهار الليلي لتصميم الإضاءة",
-    "meta.pricing.desc": "أسعار واضحة للإظهار الليلي بالذكاء الاصطناعي. ابدأ مجانًا بإظهار يومي، أو باقة لمرة واحدة من 9 دولارات، أو اشتراك من 99 دولارًا لإخراج 4K بلا علامة مائية.",
+    "meta.pricing.desc": "أسعار بسيطة للإظهار الليلي بالذكاء الاصطناعي. ابدأ مجانًا، اشترِ باقة مشروع لمرة واحدة، أو اشترك لإخراج 4K بلا علامة مائية. للمعماريين ومصممي الإضاءة.",
     "meta.blog.title": "المدونة — أدلة تصميم الإضاءة والإظهار بالذكاء الاصطناعي",
     "meta.blog.desc": "أدلة عملية ودروس ونصائح في الإظهار الليلي بالذكاء الاصطناعي، وتصور تصميم الإضاءة، وتحويل الصور من النهار إلى الليل.",
     "meta.useCases.title": "مجالات الاستخدام — إظهار تصميم الإضاءة بالذكاء الاصطناعي",
@@ -1468,7 +1468,7 @@ export const ui = {
     "meta.home.title": "Yapay Zekâ Aydınlatma Görselleştirme — Gündüzden Geceye",
     "meta.home.desc": "Gündüz fotoğraflarını yapay zekâ ile profesyonel gece görsellerine dönüştürün. Fotoğrafı yükleyin, aydınlatma fikrinizi anlatın, sonucu anında alın.",
     "meta.pricing.title": "Fiyatlandırma — LDR Aydınlatma Görselleştirme",
-    "meta.pricing.desc": "Yapay zekâ ile gece render'da şeffaf fiyatlar. Günde 1 görselle ücretsiz başlayın, 9 dolardan paket alın ya da filigransız 4K için aylık 99 dolardan abone olun.",
+    "meta.pricing.desc": "Gece görselleştirme fiyatı: ücretsiz başlayın, proje başına tek seferlik ödeyin veya filigransız 4K için abone olun. Mimarlar ve aydınlatma tasarımcıları için.",
     "meta.blog.title": "Blog — Aydınlatma Tasarımı ve Yapay Zekâ Render Rehberleri",
     "meta.blog.desc": "Yapay zekâ destekli aydınlatma render'ı, gece görselleştirme ve gündüzden geceye dönüşüm üzerine uygulamalı rehberler, dersler ve ipuçları.",
     "meta.useCases.title": "Kullanım Alanları — Aydınlatma Görselleştirme",
