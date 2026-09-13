@@ -20,6 +20,7 @@
 - 营销站 → 产品站链接带 `?lng=<lang>`（`appUrl.ts`）。
 - **验证必须看构建产物**：`npm run build` 后 grep `dist/**/*.html`，只 grep 源码会漏掉硬编码。
 - 有 `ar` 页面，但产品站 `?lng=ar` 会回落英文（RTL 另立期）。
+- `vercel.json` 只含 `trailingSlash: true`，是 canonical/sitemap/hreflang 带尾斜杠的服务端配套：无斜杠请求 308 到带斜杠；内链（`getLocalizedPath`）仍产出无斜杠，靠 308 兜底；带扩展名文件（`sitemap-*.xml` / `robots.txt` / IndexNow key `.txt`）不受影响；**不要**把 `astro.config.mjs` 的 `trailingSlash` 设成 `"always"`，内链无斜杠会让 `astro dev` 直接 404。
 
 ## 协作约定
 
