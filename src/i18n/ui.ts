@@ -93,7 +93,7 @@ export const ui = {
     "cta.heading": "Ready to Transform Your Lighting Designs?",
     "cta.subtitle": "Join designers and architects using AI to visualize nightscape lighting.",
     "cta.button": "Get Started Free",
-    "cta.note": "No credit card required • 1 free render daily",
+    "cta.note": "No credit card required • 5 free credits, then 1 free render daily",
 
     // -- Pricing --
     "pricing.heading": "Simple, Transparent Pricing",
@@ -128,7 +128,7 @@ export const ui = {
     // Plans
     "pricing.free.tagline": "Try before you buy",
     "pricing.free.f1": "5 credits on signup",
-    "pricing.free.f2": "1 free generation per day",
+    "pricing.free.f2": "1 free generation per day once your credits run out",
     "pricing.free.f3": "1K resolution with watermark",
     "pricing.free.f4": "All features available (Canvas + Chat)",
     "pricing.free.cta": "Get Started",
@@ -174,7 +174,7 @@ export const ui = {
     // -- Pricing FAQ --
     "faq.heading": "Frequently Asked Questions",
     "faq.q1": "Can I try LDR for free?",
-    "faq.a1": "Yes. Every account gets 5 credits on signup plus 1 free render per day at 1K resolution. No credit card required.",
+    "faq.a1": "Yes. Every account gets 5 credits on signup; once they are used up, you still get 1 free render per day at 1K resolution. No credit card required.",
     "faq.q2": "What’s the difference between a Pack and a Subscription?",
     "faq.a2": "Packs (Mini, Small, Standard, Large) are one-time purchases with a fixed bundle of credits that never expire. Use them when you have a specific project in mind. Subscriptions (Pro, Max) renew monthly with fresh credits each cycle — best if you have steady ongoing work. You can mix and match: subscribe and still buy a pack when a big project arrives.",
     "faq.q3": "What resolution are the renders?",
@@ -298,7 +298,7 @@ export const ui = {
     "cta.heading": "准备好改变您的灯光设计了吗？",
     "cta.subtitle": "加入正在使用 AI 可视化夜景灯光的设计师和建筑师行列。",
     "cta.button": "免费开始",
-    "cta.note": "无需信用卡 · 每日 1 次免费渲染",
+    "cta.note": "无需信用卡 · 注册送 5 积分，用完后每日 1 次免费渲染",
 
     // -- Pricing --
     "pricing.heading": "简单透明的价格",
@@ -334,7 +334,7 @@ export const ui = {
     // Plans
     "pricing.free.tagline": "先试后买",
     "pricing.free.f1": "注册送 5 积分",
-    "pricing.free.f2": "每天 1 次免费生成",
+    "pricing.free.f2": "积分用完后，每天仍可免费生成 1 次",
     "pricing.free.f3": "1K 分辨率，带水印",
     "pricing.free.f4": "所有功能可用（画布 + Chat）",
     "pricing.free.cta": "免费开始",
@@ -380,7 +380,7 @@ export const ui = {
     // -- Pricing FAQ --
     "faq.heading": "常见问题",
     "faq.q1": "可以免费试用 LDR 吗？",
-    "faq.a1": "可以。每个账号注册时获得 5 积分，另外每天 1 次免费 1K 渲染。无需信用卡。",
+    "faq.a1": "可以。每个账号注册时获得 5 积分；积分用完后，每天仍有 1 次免费 1K 渲染。无需信用卡。",
     "faq.q2": "项目包和订阅有什么区别？",
     "faq.a2": "项目包（Mini、Small、Standard、Large）是一次性购买，包含固定积分，且积分永久有效、不会过期。适合有明确项目需求。订阅（Pro、Max）每月自动续费并刷新积分 — 适合持续性工作。两者可以混合使用。",
     "faq.q3": "渲染分辨率是多少？",
@@ -510,7 +510,7 @@ export const ui = {
     "cta.heading": "照明デザインの伝え方を変えませんか？",
     "cta.subtitle": "AI で夜景照明を可視化する設計者・建築家の仲間入りを。",
     "cta.button": "無料で始める",
-    "cta.note": "クレジットカード不要 · 毎日 1 回無料レンダリング",
+    "cta.note": "クレジットカード不要 · 登録時に 5 クレジット、使い切った後は毎日 1 回無料レンダリング",
 
     // -- Pricing --
     "pricing.heading": "シンプルで明快な料金",
@@ -544,7 +544,7 @@ export const ui = {
     // Plans
     "pricing.free.tagline": "まずは試してから",
     "pricing.free.f1": "登録時に 5 クレジット付与",
-    "pricing.free.f2": "毎日 1 回無料で生成",
+    "pricing.free.f2": "クレジットを使い切った後も毎日 1 回無料で生成",
     "pricing.free.f3": "1K 解像度・ウォーターマークあり",
     "pricing.free.f4": "全機能を利用可能（キャンバス + チャット）",
     "pricing.free.cta": "無料で始める",
@@ -590,7 +590,7 @@ export const ui = {
     // -- Pricing FAQ --
     "faq.heading": "よくあるご質問",
     "faq.q1": "LDR は無料で試せますか？",
-    "faq.a1": "はい。アカウント登録時に 5 クレジットを付与し、さらに毎日 1 回、1K 解像度で無料生成できます。クレジットカードの登録は不要です。",
+    "faq.a1": "はい。アカウント登録時に 5 クレジットを付与します。使い切った後も、毎日 1 回、1K 解像度で無料生成できます。クレジットカードの登録は不要です。",
     "faq.q2": "プロジェクトパックと月額プランの違いは？",
     "faq.a2": "プロジェクトパック（Mini・Small・Standard・Large）は買い切りで、決まった数のクレジットが無期限で使えます。具体的な案件が決まっているときに向いています。月額プラン（Pro・Max）は毎月自動更新され、サイクルごとにクレジットが補充されます。継続的に案件がある場合はこちらが有利です。併用も可能で、月額プランを契約したうえで大型案件のときだけパックを追加購入できます。",
     "faq.q3": "レンダリングの解像度は？",
@@ -727,7 +727,7 @@ export const ui = {
     "cta.heading": "조명디자인을 보여주는 방식을 바꿔보세요",
     "cta.subtitle": "AI로 야간 조명을 시각화하는 디자이너와 건축가들과 함께하세요.",
     "cta.button": "무료로 시작하기",
-    "cta.note": "신용카드 불필요 · 매일 1회 무료 렌더링",
+    "cta.note": "신용카드 불필요 · 가입 시 5크레딧, 모두 쓴 뒤에는 매일 1회 무료 렌더링",
 
     // -- Pricing --
     "pricing.heading": "간단하고 투명한 요금제",
@@ -761,7 +761,7 @@ export const ui = {
     // Plans
     "pricing.free.tagline": "먼저 써보고 결정하세요",
     "pricing.free.f1": "가입 시 5크레딧 지급",
-    "pricing.free.f2": "매일 1회 무료 생성",
+    "pricing.free.f2": "크레딧을 모두 쓴 뒤에도 매일 1회 무료 생성",
     "pricing.free.f3": "1K 해상도, 워터마크 포함",
     "pricing.free.f4": "모든 기능 사용 가능(캔버스 + 챗)",
     "pricing.free.cta": "무료로 시작하기",
@@ -807,7 +807,7 @@ export const ui = {
     // -- Pricing FAQ --
     "faq.heading": "자주 묻는 질문",
     "faq.q1": "LDR을 무료로 사용해볼 수 있나요?",
-    "faq.a1": "네. 가입하면 5크레딧이 지급되고, 매일 1회 1K 해상도로 무료 생성할 수 있습니다. 신용카드 등록은 필요하지 않습니다.",
+    "faq.a1": "네. 가입하면 5크레딧이 지급되고, 모두 쓴 뒤에도 매일 1회 1K 해상도로 무료 생성할 수 있습니다. 신용카드 등록은 필요하지 않습니다.",
     "faq.q2": "프로젝트 패키지와 구독은 어떻게 다른가요?",
     "faq.a2": "프로젝트 패키지(Mini, Small, Standard, Large)는 1회 결제로 정해진 크레딧을 받는 방식이며 크레딧은 소멸되지 않습니다. 진행할 프로젝트가 정해져 있을 때 적합합니다. 구독(Pro, Max)은 매월 갱신되며 주기마다 크레딧이 새로 지급되므로, 작업이 꾸준히 있을 때 유리합니다. 두 가지를 함께 쓸 수도 있어 구독 중에 큰 프로젝트가 생기면 패키지를 추가로 구매하면 됩니다.",
     "faq.q3": "렌더링 해상도는 어떻게 되나요?",
@@ -942,7 +942,7 @@ export const ui = {
     "cta.heading": "Bereit, Ihr Lichtkonzept sichtbar zu machen?",
     "cta.subtitle": "Schließen Sie sich den Planerinnen und Planern an, die Nachtbeleuchtung mit KI visualisieren.",
     "cta.button": "Kostenlos starten",
-    "cta.note": "Keine Kreditkarte erforderlich · 1 kostenloses Rendering pro Tag",
+    "cta.note": "Keine Kreditkarte erforderlich · 5 Credits gratis, danach 1 kostenloses Rendering pro Tag",
 
     // -- Pricing --
     "pricing.heading": "Klare, transparente Preise",
@@ -976,7 +976,7 @@ export const ui = {
     // Plans
     "pricing.free.tagline": "Erst testen, dann entscheiden",
     "pricing.free.f1": "5 Credits bei der Anmeldung",
-    "pricing.free.f2": "1 kostenlose Generierung pro Tag",
+    "pricing.free.f2": "1 kostenlose Generierung pro Tag, sobald die Credits aufgebraucht sind",
     "pricing.free.f3": "1K-Auflösung mit Wasserzeichen",
     "pricing.free.f4": "Alle Funktionen nutzbar (Canvas + Chat)",
     "pricing.free.cta": "Jetzt starten",
@@ -1022,7 +1022,7 @@ export const ui = {
     // -- Pricing FAQ --
     "faq.heading": "Häufige Fragen",
     "faq.q1": "Kann ich LDR kostenlos testen?",
-    "faq.a1": "Ja. Jedes Konto erhält bei der Anmeldung 5 Credits und zusätzlich täglich ein kostenloses Rendering in 1K-Auflösung. Eine Kreditkarte ist dafür nicht erforderlich.",
+    "faq.a1": "Ja. Jedes Konto erhält bei der Anmeldung 5 Credits; sind diese aufgebraucht, steht weiterhin täglich ein kostenloses Rendering in 1K-Auflösung zur Verfügung. Eine Kreditkarte ist dafür nicht erforderlich.",
     "faq.q2": "Worin unterscheiden sich Projektpaket und Abonnement?",
     "faq.a2": "Projektpakete (Mini, Small, Standard, Large) sind Einmalkäufe mit einem festen Credit-Kontingent, das nie verfällt – die richtige Wahl, wenn ein konkretes Projekt ansteht. Abonnements (Pro, Max) verlängern sich monatlich und stellen in jedem Zyklus frische Credits bereit – sinnvoll bei kontinuierlicher Auslastung. Beides lässt sich kombinieren: Sie können abonnieren und für ein großes Projekt zusätzlich ein Paket kaufen.",
     "faq.q3": "In welcher Auflösung wird gerendert?",
@@ -1141,7 +1141,7 @@ export const ui = {
     "cta.heading": "جاهز لتحويل تصاميم الإضاءة لديك؟",
     "cta.subtitle": "انضم إلى المصممين والمعماريين الذين يستخدمون الذكاء الاصطناعي لتصوّر الإضاءة الليلية.",
     "cta.button": "ابدأ مجانًا",
-    "cta.note": "بدون بطاقة ائتمان • إظهار مجاني واحد يوميًا",
+    "cta.note": "بدون بطاقة ائتمان • 5 أرصدة عند التسجيل، وبعد نفادها إظهار مجاني واحد يوميًا",
 
     // -- Pricing --
     "pricing.heading": "أسعار بسيطة وواضحة",
@@ -1176,7 +1176,7 @@ export const ui = {
     // Plans
     "pricing.free.tagline": "جرّب قبل الشراء",
     "pricing.free.f1": "5 أرصدة عند التسجيل",
-    "pricing.free.f2": "إظهار مجاني واحد يوميًا",
+    "pricing.free.f2": "إظهار مجاني واحد يوميًا بعد نفاد الرصيد",
     "pricing.free.f3": "دقة 1K مع علامة مائية",
     "pricing.free.f4": "كل الميزات متاحة (Canvas + Chat)",
     "pricing.free.cta": "ابدأ الآن",
@@ -1222,7 +1222,7 @@ export const ui = {
     // -- Pricing FAQ --
     "faq.heading": "الأسئلة الشائعة",
     "faq.q1": "هل يمكنني تجربة LDR مجانًا؟",
-    "faq.a1": "نعم. كل حساب يحصل على 5 أرصدة عند التسجيل، بالإضافة إلى إظهار مجاني واحد يوميًا بدقة 1K. لا حاجة إلى بطاقة ائتمان.",
+    "faq.a1": "نعم. كل حساب يحصل على 5 أرصدة عند التسجيل، وبعد نفادها يبقى لك إظهار مجاني واحد يوميًا بدقة 1K. لا حاجة إلى بطاقة ائتمان.",
     "faq.q2": "ما الفرق بين الباقة والاشتراك؟",
     "faq.a2": "الباقات (Mini وSmall وStandard وLarge) عمليات شراء لمرة واحدة برصيد ثابت لا ينتهي، وتناسبك عندما يكون لديك مشروع محدد. أما الاشتراكات (Pro وMax) فتتجدد شهريًا برصيد جديد كل دورة، وهي الأنسب إن كان لديك عمل مستمر. ويمكنك الجمع بينهما: اشترك، ثم اشترِ باقة إضافية عند وصول مشروع كبير.",
     "faq.q3": "ما دقة الصور الناتجة؟",
@@ -1342,7 +1342,7 @@ export const ui = {
     "cta.heading": "Aydınlatma Tasarımlarınızı Dönüştürmeye Hazır mısınız?",
     "cta.subtitle": "Gece aydınlatmasını görselleştirmek için yapay zekâ kullanan tasarımcılara ve mimarlara katılın.",
     "cta.button": "Ücretsiz Başlayın",
-    "cta.note": "Kredi kartı gerekmez • Her gün 1 ücretsiz görselleştirme",
+    "cta.note": "Kredi kartı gerekmez • Kayıtta 5 kredi, bittikten sonra her gün 1 ücretsiz görselleştirme",
 
     // -- Pricing --
     "pricing.heading": "Basit ve Şeffaf Fiyatlandırma",
@@ -1376,7 +1376,7 @@ export const ui = {
     // Plans
     "pricing.free.tagline": "Satın almadan önce deneyin",
     "pricing.free.f1": "Kayıtta 5 kredi",
-    "pricing.free.f2": "Her gün 1 ücretsiz üretim",
+    "pricing.free.f2": "Krediler bittikten sonra her gün 1 ücretsiz üretim",
     "pricing.free.f3": "Filigranlı 1K çözünürlük",
     "pricing.free.f4": "Tüm özellikler açık (Canvas + Chat)",
     "pricing.free.cta": "Başlayın",
@@ -1422,7 +1422,7 @@ export const ui = {
     // -- Pricing FAQ --
     "faq.heading": "Sıkça Sorulan Sorular",
     "faq.q1": "LDR'yi ücretsiz deneyebilir miyim?",
-    "faq.a1": "Evet. Her hesap kayıtta 5 kredi ve ardından her gün 1K çözünürlükte 1 ücretsiz görselleştirme alır. Kredi kartı gerekmez.",
+    "faq.a1": "Evet. Her hesap kayıtta 5 kredi alır; krediler bittikten sonra da her gün 1K çözünürlükte 1 ücretsiz görselleştirme almaya devam edersiniz. Kredi kartı gerekmez.",
     "faq.q2": "Paket ile abonelik arasındaki fark nedir?",
     "faq.a2": "Paketler (Mini, Small, Standard, Large) sabit sayıda ve süresiz krediyle tek seferlik satın alımlardır; belirli bir projeniz varsa bunları tercih edin. Abonelikler (Pro, Max) her ay yenilenir ve her dönem taze kredi verir — düzenli, süregelen işiniz varsa en uygunu budur. İkisini birlikte de kullanabilirsiniz: abone olun, büyük bir proje geldiğinde ayrıca paket alın.",
     "faq.q3": "Görsellerin çözünürlüğü nedir?",
