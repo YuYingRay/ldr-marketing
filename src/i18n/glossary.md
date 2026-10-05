@@ -74,6 +74,7 @@
 | credits | Credits | 积分 | クレジット | 크레딧 | Credits | Kredi | رصيد | ui.ts；app zh pricing.json 混用英文「credits」，统一为「积分」 |
 | credits_never_expire | Credits never expire | 积分永久有效 | クレジットは無期限有効 | 크레딧 소멸 없음 | Credits verfallen nie | Krediler süresiz | الرصيد لا ينتهي | ui.ts；对外承诺条款，措辞不可弱化 |
 | daily_free_render | Daily free render | 每日 1 次免费渲染 | 毎日 1 回無料レンダリング | 매일 1회 무료 렌더링 | 1 kostenloses Rendering pro Tag | Her gün 1 ücretsiz görselleştirme | إظهار مجاني واحد يوميًا | ui.ts（cta.note）；见文末 render/generation 不一致 |
+| per_device_daily_free | One free render per device per day | 每台设备每天 1 次免费 | 1 デバイスにつき 1 日 1 回の無料レンダリング | 기기당 하루 1회 무료 렌더링 | 1 Gratis-Rendering pro Gerät und Tag | Cihaz başına günde 1 ücretsiz görselleştirme | إظهار مجاني واحد لكل جهاز يوميًا | proposed（app common.json paywall.deviceFreeUsed，2026-10-05）；"设备"指同一浏览器（localStorage 随机编号），不是硬件；de 沿用 app 现有「Gratis-Rendering」，与上条 daily_free_render 的「kostenloses Rendering」并存，待 owner 统一 |
 | signup_credits | Signup credits | 注册送积分 | 登録時クレジット付与 | 가입 시 크레딧 지급 | Credits bei der Anmeldung | Kayıtta kredi | أرصدة عند التسجيل | ui.ts（pricing.free.f1 变体） |
 | project_pack | Project pack | 项目包 | プロジェクトパック | 프로젝트 패키지 | Projektpaket | Proje paketi | باقة مشروع | ui.ts（pricing.packSection） |
 | subscription | Subscription | 订阅 | 月額プラン | 구독 | Abonnement | Abonelik | اشتراك | ui.ts；ja 站内一律译作「月額プラン」（非サブスクリプション），沿用 |

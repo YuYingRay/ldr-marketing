@@ -1,7 +1,7 @@
 ---
 import PageLayout from "@/layouts/PageLayout.astro";
 
-const lastUpdated = "Last updated: August 13, 2026";
+const lastUpdated = "Last updated: October 5, 2026";
 
 const intro = `This Privacy Policy describes how LDR ("we", "us") collects, uses, shares, and protects personal information when you use the Service. We are committed to protecting your privacy and handling your data in a transparent and lawful manner.`;
 
@@ -22,7 +22,9 @@ const sections = [
   },
   {
     heading: "Fraud Prevention Data",
-    body: `To prevent abuse such as duplicate accounts, we record the IP address used at sign-up. Sign-up attempt logs are kept for 90 days; the sign-up IP linked to your account is retained while the account exists.`,
+    body: `To prevent abuse such as duplicate accounts, we record the IP address used at sign-up. Sign-up attempt logs are kept for 90 days; the sign-up IP linked to your account is retained while the account exists.
+
+To limit the daily free generation per device and to prevent abuse, the app also creates a random device identifier, stores it in your browser's local storage, and sends it along with image-generation requests. When a free generation is used, we record that identifier together with your account, the related generation and the time of use for 90 days. The identifier is kept in the local storage of the LDR app site (app.ldr-design.com), not of this marketing website; you can remove it at any time by clearing the stored data of app.ldr-design.com in your browser.`,
   },
   {
     heading: "2. How We Use Your Information",
