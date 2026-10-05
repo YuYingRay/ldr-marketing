@@ -17,6 +17,8 @@ const navLinks = [
   ...(hasBlog(lang)
     ? [{ label: t("footer.blog"), href: getLocalizedPath("/blog", lang) }]
     : []),
+  // external 目前只用于产品站链接：rel 只给 noopener（2026-10-05 去掉 noreferrer，保留来源域名给产品站首触归因）。
+  // 将来若加第三方外链，别复用这个标记，单独给它 noopener noreferrer。
   { label: t("footer.app"), href: appLink("/", lang, "footer"), external: true },
 ];
 
@@ -52,7 +54,7 @@ const legalLinks = [
               <a
                 href={link.href}
                 target={link.external ? "_blank" : undefined}
-                rel={link.external ? "noopener noreferrer" : undefined}
+                rel={link.external ? "noopener" : undefined}
                 class="hover:text-foreground transition-colors"
               >
                 {link.label}
